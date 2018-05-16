@@ -1,0 +1,48 @@
+---
+# defaults file for allspark
+
+allspark_root_domain: allspark.localhost
+allspark_root_directory: /tmp/allspark
+allspark_admin_user: admin
+
+allspark_ldap:
+  enabled: false
+  organization: Allspark
+  image: osixia/openldap:1.2.0
+  management_image: osixia/phpldapadmin:0.7.1
+
+
+allspark_monitoring:
+  enabled: true
+
+allspark_traefik:
+  image: traefik:latest
+
+allspark_portainer:
+  image: portainer/portainer:latest
+
+allspark_rocketchat:
+  image: rocket.chat:latest
+  database_image: mongo:latest
+
+allspark_prometheus:
+  image: prom/prometheus:v2.1.0
+
+allspark_grafana:
+  image: grafana/grafana:latest
+
+allspark_node_exporter:
+  image: prom/node-exporter
+
+allspark_cadvisor:
+  image: google/cadvisor:latest
+
+allspark_gitlab:
+  enabled: false
+  image: gitlab/gitlab-ce:latest
+  runner_image: gitlab/gitlab-runner:latest
+
+### Release configuration
+# Should not be here
+allspark_release_tmp_directory: /tmp/allspark/release
+allspark_release_destination: /tmp/allspark.tar.gz

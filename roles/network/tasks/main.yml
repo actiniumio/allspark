@@ -1,0 +1,30 @@
+- name: Docker network creation
+  docker_network:
+    name: "allspark"
+
+- name: Create traefik config folder
+  file:
+    state: directory
+    path: "{{ allspark_root_directory }}/config/traefik"
+
+- name: Prepare Traefik configuration
+  template:
+    src: templates/traefik.toml.j2
+    dest: "{{ allspark_root_directory }}/config/traefik/traefik.toml"
+
+- name: Setup ingress manager
+  docker_container:
+    name: traefik
+    image: "{{ allspark_traefik.image }}"
+    volumes:
+      - "{{ allspark_root_directory }}/config/traefik/traefik.toml:/etc/traefik/traefik.toml"
+      - "/var/run/docker.sock:/var/run/docker.sock"
+    ports:
+      - "80:80"
+    networks:
+      - name: allspark
+    labels:
+      "traefik.backend": "traefik"
+      "traefik.port": "8080"
+      "traefik.frontend.rule": "Host:ingress.{{ allspark_root_domain }}"
+      "traefik.enable": "true"

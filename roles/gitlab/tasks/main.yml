@@ -1,0 +1,44 @@
+- name: Test shared runner token existence
+  local_action: stat path="{{ allspark_root_directory}}/data/secrets/gitlab_runner_registration_token.txt"
+  register: gitlab_runner_registration_token_file
+
+- name: Generate runner token
+  shell: "echo $(< /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c26) > {{ allspark_root_directory}}/data/secrets/gitlab_runner_registration_token.txt"
+  when: not gitlab_runner_registration_token_file.stat.exists
+
+# - name: Register variable
+#   shell: "cat {{ allspark_root_directory}}/data/secrets/gitlab_runner_registration_token.txt"
+#   register: gitlab_runner_registration_token
+#   changed_when: False
+
+- name: Generate Gitlab config
+  template:
+    src: templates/gitlab.rb.j2
+    dest: "{{ allspark_root_directory }}/config"
+
+- name: Create Gitlab volumes
+  docker_volume:
+    name: "allspark_{{ item }}"
+  with_items:
+    - gitlab_data
+    - gitlab_config
+
+- name: Setup Gitlab
+  docker_container:
+    name: gitlab
+    image: "{{ allspark_gitlab.image }}"
+    hostname: "gitlab.{{ allspark_root_domain }}"
+    volumes:
+      - "allspark_gitlab_data:/var/opt/gitlab"
+      - "allspark_gitlab_config:/etc/gitlab"
+      - "{{ allspark_root_directory }}/config/gitlab.rb:/etc/gitlab/gitlab.rb"
+      - "{{ allspark_root_directory }}/data/secrets/gitlab_runner_registration_token.txt:/run/secrets/gitlab_runner_registration_token.txt"
+      - "{{ allspark_root_directory }}/data/secrets/admin_password.txt:/run/secrets/admin_password.txt"
+    restart_policy: always
+    networks:
+      - name: allspark
+    labels:
+      "traefik.backend": "gitlab"
+      "traefik.port": "80"
+      "traefik.frontend.rule": "Host:gitlab.{{ allspark_root_domain }}"
+      "traefik.enable": "true"

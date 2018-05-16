@@ -1,0 +1,49 @@
+- name: Package an Allspark release
+  hosts: localhost
+  connection: local
+  gather_facts: no
+  vars:
+    docker_images:
+    - jenkins/jenkins
+    - centos:7
+    - "{{ allspark_traefik.image }}"
+    - "{{ allspark_portainer.image }}"
+    - "{{ allspark_rocketchat.image }}"
+    - "{{ allspark_rocketchat.database_image }}"
+    - "{{ allspark_prometheus.image }}"
+    - "{{ allspark_grafana.image }}"
+    - "{{ allspark_node_exporter.image }}"
+    - "{{ allspark_cadvisor.image }}"
+    - "{{ allspark_gitlab.image }}"
+    - "{{ allspark_gitlab.runner_image }}"
+    - "{{ allspark_ldap.image }}"
+    - "{{ allspark_ldap.management_image }}"
+
+  tasks:
+  - name: Loading default variables
+    include_vars:
+      dir: defaults
+
+  - name: Creating release directory
+    file:
+      state: directory
+      path: "{{ allspark_release_tmp_directory }}/{{ item }}"
+    with_items:
+      - images
+      - dependencies
+
+  - name: Exporting Docker images
+    docker_image:
+      state: present
+      archive_path: "{{ allspark_release_tmp_directory}}/images/{{ item | b64encode }}.tar"
+      name: "{{ item }}"
+    with_items: "{{ docker_images }}"
+
+  - name: Archive RedHat system dependencies for installer
+    script: "files/download_yum_packages.sh {{ allspark_release_tmp_directory }}/dependencies"
+
+  - name: Compress release into destination file
+    archive:
+      dest: "{{ allspark_release_destination }}"
+      path: "{{ allspark_release_tmp_directory }}"
+      remove: True

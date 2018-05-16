@@ -1,0 +1,44 @@
+# Load offline release
+- name: Load dependencies for an Allspark release
+  hosts: localhost
+  connection: local
+  gather_facts: no
+  vars:
+    docker_images:
+    - centos:7
+    - jenkins/jenkins
+    - "{{ allspark_traefik.image }}"
+    - "{{ allspark_portainer.image }}"
+    - "{{ allspark_rocketchat.image }}"
+    - "{{ allspark_rocketchat.database_image }}"
+    - "{{ allspark_prometheus.image }}"
+    - "{{ allspark_grafana.image }}"
+    - "{{ allspark_node_exporter.image }}"
+    - "{{ allspark_cadvisor.image }}"
+    - "{{ allspark_gitlab.image }}"
+    - "{{ allspark_gitlab.runner_image }}"
+    - "{{ allspark_ldap.image }}"
+    - "{{ allspark_ldap.management_image }}"
+
+  tasks:
+  - name: Loading default variables
+    include_vars:
+      dir: defaults
+
+  - name: Creating release directory
+    file:
+      state: directory
+      path: "{{ allspark_release_tmp_directory }}"
+
+  - name: Extract release assets
+    unarchive:
+      src: "{{ allspark_release_destination }}"
+      dest: "{{ allspark_release_tmp_directory }}"
+
+
+  - name: Importing Docker images
+    docker_image:
+      state: present
+      load_path: "{{ allspark_release_tmp_directory}}/release/images/{{ item | b64encode }}.tar"
+      name: "{{ item }}"
+    with_items: "{{ docker_images }}"

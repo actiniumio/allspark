@@ -1,0 +1,91 @@
+- name: Setup CAdvisor for containers monitoring
+  docker_container:
+    name: cadvisor
+    image: "{{ allspark_cadvisor.image }}"
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:rw
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+    networks:
+      - name: allspark
+    restart_policy: always
+
+- name: Setup node exporter
+  docker_container:
+    name: node-exporter
+    image: "{{ allspark_node_exporter.image }}"
+    volumes:
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /:/rootfs:ro
+    command:
+      - '--path.procfs=/host/proc'
+      - '--path.sysfs=/host/sys'
+      - --collector.filesystem.ignored-mount-points
+      - "^/(sys|proc|dev|host|etc|rootfs/var/lib/docker/containers|rootfs/var/lib/docker/overlay2|rootfs/run/docker/netns|rootfs/var/lib/docker/aufs|rootfs/var/lib/docker/devicemapper|rootfs/var/lib/docker/plugins|rootfs/run/user)($$|/)"
+    networks:
+      - name: allspark
+    restart_policy: always
+
+- name: Create Prometheus config folder
+  file:
+    state: directory
+    path: "{{ allspark_root_directory }}/config/prometheus"
+
+
+- name: Generate Prometheus configuration
+  template:
+    src: templates/prometheus.yml.j2
+    dest: "{{ allspark_root_directory }}/config/prometheus/prometheus.yml"
+
+- name: Create Prometheus volume
+  docker_volume:
+    name: "allspark_prometheus_data"
+
+- name: Setup Prometheus metrics collector
+  docker_container:
+    name: prometheus
+    image: "{{ allspark_prometheus.image }}"
+    volumes:
+      - "{{ allspark_root_directory }}/config/prometheus/:/etc/prometheus/"
+      - allspark_prometheus_data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/usr/share/prometheus/console_libraries'
+      - '--web.console.templates=/usr/share/prometheus/consoles'
+    networks:
+      - name: allspark
+    restart_policy: always
+    labels:
+      "traefik.backend": "prometheus"
+      "traefik.frontend.rule": "Host:metrics.{{ allspark_root_domain }}"
+      "traefik.enable": "true"
+
+- name: Send grafana config
+  copy:
+    src: files/grafana
+    dest: "{{ allspark_root_directory }}/config"
+
+- name: Ensuring grafana init script is executable
+  file: dest="{{ allspark_root_directory }}/config/grafana/init.sh" mode=a+x
+
+- name: Setup Grafana for vizualization
+  docker_container:
+    name: grafana
+    image: "{{ allspark_grafana.image }}"
+    volumes:
+      - allspark_grafana_data:/var/lib/grafana
+      - "{{ allspark_root_directory }}/config/grafana/provisioning/:/etc/grafana/provisioning/"
+      - "{{ allspark_root_directory }}/data/secrets/admin_password.txt:/run/secrets/grafana_admin_password.txt"
+      - "{{ allspark_root_directory }}/config/grafana/init.sh:/etc/grafana/allspark_init.sh"
+    env_file: "{{ allspark_root_directory }}/config/grafana/config.monitoring"
+    entrypoint: /etc/grafana/allspark_init.sh
+    restart_policy: always
+    networks:
+      - name: allspark
+    labels:
+      "traefik.backend": "grafana"
+      "traefik.frontend.rule": "Host:monitoring.{{ allspark_root_domain }}"
+      "traefik.enable": "true"

@@ -1,0 +1,16 @@
+- name: allspark data directory creation
+  file:
+    state: directory
+    path: "{{ allspark_root_directory }}/{{item}}"
+  with_items:
+    - config
+    - data
+    - data/secrets
+
+- name: Test admin password existence
+  local_action: stat path="{{ allspark_root_directory}}/data/secrets/admin_password.txt"
+  register: admin_password_file
+
+- name: Generate random admin password
+  shell: "echo $(< /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c26) > {{ allspark_root_directory}}/data/secrets/admin_password.txt"
+  when: not admin_password_file.stat.exists
