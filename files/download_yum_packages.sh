@@ -10,6 +10,8 @@ curl "https://bootstrap.pypa.io/get-pip.py" -o "get-pip.py"
 python get-pip.py
 rm get-pip.py
 
+yum install -y epel-release
+
 pushd /packages
 mkdir -p pip rpm
 pushd rpm
@@ -17,6 +19,7 @@ pushd rpm
 curl -O https://download.docker.com/linux/centos/7/x86_64/stable/Packages/docker-ce-18.03.1.ce-1.el7.centos.x86_64.rpm
 yumdownloader --resolve \
   python-kerberos \
+  python-pip \
   gcc \
   ansible \
   docker
