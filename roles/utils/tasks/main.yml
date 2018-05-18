@@ -9,7 +9,7 @@
     volumes:
       - "allspark_portainer_data:/data"
       - "/var/run/docker.sock:/var/run/docker.sock"
-    command: --no-auth --host unix:///var/run/docker.sock
+    command: --no-auth --no-analytics --host unix:///var/run/docker.sock
     networks:
       - name: allspark
     labels:
@@ -29,6 +29,7 @@
       - name: allspark
     volumes:
       - "allspark_rocketchat_data:/data/db"
+  when: allspark_rocketchat.enabled
 
 - name: Setup RocketChat service
   docker_container:
@@ -43,3 +44,4 @@
       "traefik.backend": "rocketchat"
       "traefik.frontend.rule": "Host:chat.{{ allspark_root_domain }}"
       "traefik.enable": "true"
+  when: allspark_rocketchat.enabled

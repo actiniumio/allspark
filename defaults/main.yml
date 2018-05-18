@@ -22,6 +22,7 @@ allspark_portainer:
   image: portainer/portainer:latest
 
 allspark_rocketchat:
+  enabled: true
   image: rocket.chat:latest
   database_image: mongo:latest
 
