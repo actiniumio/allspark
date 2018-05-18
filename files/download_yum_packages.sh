@@ -28,7 +28,7 @@ yumdownloader --resolve \
   ansible \
   docker-ce
 
-# Command to install dependencies : `rpm -Uvh --replacefiles *.rpm`
+# Command to install dependencies : "rpm -Uvh --replacefiles *.rpm"
 
 popd
 pushd pip
