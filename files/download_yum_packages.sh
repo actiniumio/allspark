@@ -10,7 +10,11 @@ curl "https://bootstrap.pypa.io/get-pip.py" -o "get-pip.py"
 python get-pip.py
 rm get-pip.py
 
-yum install -y epel-release
+yum install -y epel-release yum-utils
+
+yum-config-manager \
+    --add-repo \
+    https://download.docker.com/linux/centos/docker-ce.repo
 
 pushd /packages
 mkdir -p pip rpm
@@ -22,7 +26,9 @@ yumdownloader --resolve \
   python-pip \
   gcc \
   ansible \
-  docker
+  docker-ce
+
+# Command to install dependencies : `rpm -Uvh --replacefiles *.rpm`
 
 popd
 pushd pip
