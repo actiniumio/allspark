@@ -1,15 +1,17 @@
 - name: Test shared runner token existence
   local_action: stat path="{{ allspark_root_directory}}/data/secrets/gitlab_runner_registration_token.txt"
   register: gitlab_runner_registration_token_file
+  when: allspark_gitlab.enabled
 
 - name: Generate runner token
   shell: "echo $(< /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c26) > {{ allspark_root_directory}}/data/secrets/gitlab_runner_registration_token.txt"
-  when: not gitlab_runner_registration_token_file.stat.exists
+  when: allspark_gitlab.enabled and not gitlab_runner_registration_token_file.stat.exists
 
 - name: Generate Gitlab config
   template:
     src: templates/gitlab.rb.j2
     dest: "{{ allspark_root_directory }}/config/gitlab.rb"
+  when: allspark_gitlab.enabled
 
 - name: Create Gitlab volumes
   docker_volume:
@@ -17,10 +19,12 @@
   with_items:
     - gitlab_data
     - gitlab_config
+  when: allspark_gitlab.enabled
 
 - name: Setup Gitlab
   docker_container:
     name: gitlab
+    state: "{{ allspark_gitlab.enabled and 'started' or 'absent'}}"
     image: "{{ allspark_gitlab.image }}"
     hostname: "gitlab.{{ allspark_root_domain }}"
     volumes:

@@ -2,11 +2,13 @@
 - name: Creating Jenkins volume
   docker_volume:
     name: "allspark_jenkins"
+  when: allspark_jenkins.enabled
 
 - name: Starting Jenkins master
   docker_container:
     name: jenkins
     image: "{{ allspark_jenkins.image }}"
+    state: "{{ allspark_jenkins.enabled and 'started' or 'absent'}}"
     networks:
       - name: allspark
     env:

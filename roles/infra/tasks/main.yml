@@ -9,7 +9,6 @@
 - name: Setup unified auth mechanism
   include_role:
     name: ldap
-  when: allspark_ldap.enabled
 
 - name: Setup Allspark utilities
   include_role:

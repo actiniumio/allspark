@@ -11,12 +11,14 @@
   with_items:
     - ldap_data
     - ldap_config
+  when: allspark_ldap.enabled
 
 - name: Starting LDAP server
   docker_container:
     name: ldap_backend
     hostname: ldap_backend
     image: "{{ allspark_ldap.image }}"
+    state: "{{ allspark_ldap.enabled and 'started' or 'absent'}}"
     networks:
       - name: allspark
     env:
@@ -32,6 +34,7 @@
   docker_container:
     name: ldap_management
     image: "{{ allspark_ldap.management_image }}"
+    state: "{{ allspark_ldap.enabled and 'started' or 'absent'}}"
     networks:
       - name: allspark
     env:

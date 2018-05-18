@@ -2,6 +2,7 @@
   docker_container:
     name: cadvisor
     image: "{{ allspark_cadvisor.image }}"
+    state: "{{ allspark_monitoring.enabled and 'started' or 'absent' }}"
     volumes:
       - /:/rootfs:ro
       - /var/run:/var/run:rw
@@ -15,6 +16,7 @@
   docker_container:
     name: node-exporter
     image: "{{ allspark_node_exporter.image }}"
+    state: "{{ allspark_monitoring.enabled and 'started' or 'absent' }}"
     volumes:
       - /proc:/host/proc:ro
       - /sys:/host/sys:ro
@@ -32,21 +34,24 @@
   file:
     state: directory
     path: "{{ allspark_root_directory }}/config/prometheus"
-
+  when: allspark_monitoring.enabled
 
 - name: Generate Prometheus configuration
   template:
     src: templates/prometheus.yml.j2
     dest: "{{ allspark_root_directory }}/config/prometheus/prometheus.yml"
+  when: allspark_monitoring.enabled
 
 - name: Create Prometheus volume
   docker_volume:
     name: "allspark_prometheus_data"
+  when: allspark_monitoring.enabled
 
 - name: Setup Prometheus metrics collector
   docker_container:
     name: prometheus
     image: "{{ allspark_prometheus.image }}"
+    state: "{{ allspark_monitoring.enabled and 'started' or 'absent' }}"
     volumes:
       - "{{ allspark_root_directory }}/config/prometheus/:/etc/prometheus/"
       - allspark_prometheus_data:/prometheus
@@ -63,6 +68,9 @@
       "traefik.frontend.rule": "Host:metrics.{{ allspark_root_domain }}"
       "traefik.enable": "true"
 
+# TODO: Skip this when grafana is disabled
+# Not possible to just skip the task as some files are needed for the container
+# setup task (even with state: absent)
 - name: Send grafana config
   copy:
     src: files/grafana
@@ -70,11 +78,13 @@
 
 - name: Ensuring grafana init script is executable
   file: dest="{{ allspark_root_directory }}/config/grafana/init.sh" mode=a+x
+  when: allspark_monitoring.enabled
 
 - name: Setup Grafana for vizualization
   docker_container:
     name: grafana
     image: "{{ allspark_grafana.image }}"
+    state: "{{ allspark_monitoring.enabled and 'started' or 'absent' }}"
     volumes:
       - allspark_grafana_data:/var/lib/grafana
       - "{{ allspark_root_directory }}/config/grafana/provisioning/:/etc/grafana/provisioning/"

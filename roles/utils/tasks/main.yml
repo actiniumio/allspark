@@ -1,9 +1,6 @@
 - name: Docker volumes creation
   docker_volume:
-    name: "allspark_{{ item }}"
-  with_items:
-    - portainer_data
-    - rocketchat_avatars
+    name: "allspark_portainer_data"
 
 - name: Setup Portainer as infra service
   docker_container:
@@ -23,23 +20,28 @@
 
 - name: Docker volumes creation
   docker_volume:
-    name: "allspark_rocketchat_data"
+    name: "allspark_{{ item }}"
+  with_items:
+    - rocketchat_data
+    - rocketchat_avatars
+  when: allspark_rocketchat.enabled
 
 - name: Setup MongoDB chat service database
   docker_container:
     name: rocketchat_database
     image: "{{ allspark_rocketchat.database_image }}"
+    state: "{{ allspark_rocketchat.enabled and 'started' or 'absent'}}"
     networks:
       - name: allspark
     volumes:
       - "allspark_rocketchat_data:/data/db"
     restart_policy: always
-  when: allspark_rocketchat.enabled
 
 - name: Setup RocketChat service
   docker_container:
     name: rocketchat
     image: "{{ allspark_rocketchat.image }}"
+    state: "{{ allspark_rocketchat.enabled and 'started' or 'absent'}}"
     env:
       MONGO_URL: mongodb://rocketchat_database/rocketchat
       ROOT_URL: "http://chat.{{ allspark_root_domain }}"
@@ -52,4 +54,3 @@
       "traefik.frontend.rule": "Host:chat.{{ allspark_root_domain }}"
       "traefik.enable": "true"
     restart_policy: always
-  when: allspark_rocketchat.enabled
