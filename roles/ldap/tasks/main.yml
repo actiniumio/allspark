@@ -26,6 +26,7 @@
     volumes:
       - allspark_ldap_data:/var/lib/ldap
       - allspark_ldap_config:/etc/ldap
+    restart_policy: always
 
 - name: Starting LDAP web management dashboard
   docker_container:
@@ -40,3 +41,4 @@
       "traefik.backend": "ldap_management"
       "traefik.frontend.rule": "Host:users.{{ allspark_root_domain }}"
       "traefik.enable": "true"
+    restart_policy: always

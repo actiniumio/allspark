@@ -20,3 +20,4 @@
       "traefik.backend": "jenkins"
       "traefik.frontend.rule": "Host:jenkins.{{ allspark_root_domain }}"
       "traefik.enable": "true"
+    restart_policy: always

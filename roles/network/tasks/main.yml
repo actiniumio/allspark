@@ -28,3 +28,4 @@
       "traefik.port": "8080"
       "traefik.frontend.rule": "Host:ingress.{{ allspark_root_domain }}"
       "traefik.enable": "true"
+    restart_policy: always
