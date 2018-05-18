@@ -18,3 +18,8 @@
     include_role:
       name: gitlab
     when: allspark_gitlab.enabled
+
+  - name: Setup Jenkins
+    include_role:
+      name: jenkins
+    when: allspark_jenkins.enabled

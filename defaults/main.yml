@@ -39,8 +39,13 @@ allspark_cadvisor:
 
 allspark_gitlab:
   enabled: false
+  with_runner: false
   image: gitlab/gitlab-ce:latest
   runner_image: gitlab/gitlab-runner:latest
+
+allspark_jenkins:
+  enabled: false
+  image: jenkins/jenkins
 
 ### Release configuration
 # Should not be here
