@@ -1,6 +1,9 @@
 - name: Docker volumes creation
   docker_volume:
-    name: "allspark_portainer_data"
+    name: "allspark_{{ item }}"
+  with_items:
+    - portainer_data
+    - rocketchat_avatars
 
 - name: Setup Portainer as infra service
   docker_container:
@@ -38,6 +41,8 @@
     env:
       MONGO_URL: mongodb://rocketchat_database/rocketchat
       ROOT_URL: "http://chat.{{ allspark_root_domain }}"
+    volumes:
+      - "allspark_rocketchat_avatars:/app/uploads"
     networks:
       - name: allspark
     labels:
