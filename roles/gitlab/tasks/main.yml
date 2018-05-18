@@ -6,15 +6,10 @@
   shell: "echo $(< /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c26) > {{ allspark_root_directory}}/data/secrets/gitlab_runner_registration_token.txt"
   when: not gitlab_runner_registration_token_file.stat.exists
 
-# - name: Register variable
-#   shell: "cat {{ allspark_root_directory}}/data/secrets/gitlab_runner_registration_token.txt"
-#   register: gitlab_runner_registration_token
-#   changed_when: False
-
 - name: Generate Gitlab config
   template:
     src: templates/gitlab.rb.j2
-    dest: "{{ allspark_root_directory }}/config"
+    dest: "{{ allspark_root_directory }}/config/gitlab.rb"
 
 - name: Create Gitlab volumes
   docker_volume:
