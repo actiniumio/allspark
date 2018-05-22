@@ -1,5 +1,5 @@
 
-# Created by https://www.gitignore.io/api/vim,data,linux,emacs,python,ansible
+# Created by https://www.gitignore.io/api/vim,data,linux,emacs,python,ansible,erlang
 
 ### Ansible ###
 *.retry
@@ -208,5 +208,16 @@ Session.vim
 # auto-generated tag files
 tags
 
+### Erlang ###
+.eunit
+deps
+*.o
+*.beam
+*.plt
+erl_crash.dump
+ebin/*.beam
+rel/example_project
+.concrete/DEV_MODE
+.rebar
 
-# End of https://www.gitignore.io/api/vim,data,linux,emacs,python,ansible
+# End of https://www.gitignore.io/api/vim,data,linux,emacs,python,ansible,erlang
