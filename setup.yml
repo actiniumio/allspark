@@ -7,6 +7,7 @@
     docker_images:
     - centos:7
     - jenkins/jenkins
+    - blacklabelops/volumerize
     - "{{ allspark_traefik.image }}"
     - "{{ allspark_portainer.image }}"
     - "{{ allspark_rocketchat.image }}"
@@ -35,10 +36,27 @@
       src: "{{ allspark_release_destination }}"
       dest: "{{ allspark_release_tmp_directory }}"
 
-
   - name: Importing Docker images
     docker_image:
       state: present
-      load_path: "{{ allspark_release_tmp_directory}}/release/images/{{ item | b64encode }}.tar"
+      load_path: "{{ allspark_release_tmp_directory}}/images/{{ item | b64encode }}.tar"
       name: "{{ item }}"
     with_items: "{{ docker_images }}"
+
+  - name: Creating Jenkins plugins volume
+    docker_volume:
+      name: "allspark_jenkins_plugins"
+    when: allspark_jenkins.enabled and allspark_jenkins.import_plugins
+
+  - name: Importing Jenkins volume
+    docker_container:
+      name: volume_importer
+      image: blacklabelops/volumerize
+      volumes:
+        - allspark_jenkins_plugins:/source
+        - "{{ allspark_release_tmp_directory }}/dependencies/jenkins_plugins:/backup"
+      env:
+        VOLUMERIZE_SOURCE: /source
+        VOLUMERIZE_TARGET: file:///backup
+      command: restore
+    when: allspark_jenkins.enabled and allspark_jenkins.import_plugins
