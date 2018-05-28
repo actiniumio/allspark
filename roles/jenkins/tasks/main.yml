@@ -1,8 +1,13 @@
 ---
+
 - name: Creating Jenkins volume
   docker_volume:
-    name: "allspark_jenkins"
+    name: "allspark_{{ item }}"
+  with_items:
+    - jenkins_home
+    - jenkins_plugins
   when: allspark_jenkins.enabled
+
 
 - name: Starting Jenkins master
   docker_container:
@@ -14,12 +19,14 @@
     env:
       JAVA_OPTS: "-Djenkins.install.runSetupWizard=false"
     volumes:
-      - jenkins_data:/var/jenkins_home
+      - allspark_jenkins_home:/var/jenkins_home
       - "{{ allspark_root_directory }}/config/jenkins_security.groovy:/usr/share/jenkins/ref/init.groovy.d/security.groovy"
+      - "allspark_jenkins_plugins:/usr/share/jenkins/ref/plugins"
       - "{{ allspark_root_directory}}/data/secrets/admin_password.txt:/run/secrets/jenkins-pass"
       - "{{ allspark_root_directory}}/data/secrets/admin_user.txt:/run/secrets/jenkins-user"
     labels:
       "traefik.backend": "jenkins"
+      "traefik.port": "8080"
       "traefik.frontend.rule": "Host:jenkins.{{ allspark_root_domain }}"
       "traefik.enable": "true"
     restart_policy: always

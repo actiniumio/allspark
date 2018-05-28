@@ -6,6 +6,7 @@
     docker_images:
     - jenkins/jenkins
     - centos:7
+    - blacklabelops/volumerize
     - "{{ allspark_traefik.image }}"
     - "{{ allspark_portainer.image }}"
     - "{{ allspark_rocketchat.image }}"
@@ -32,6 +33,17 @@
       - images
       - dependencies
 
+  - name: Archive RedHat system dependencies for installer
+    script: "files/download_yum_packages.sh {{ allspark_release_tmp_directory }}/dependencies"
+
+  - name: Archive Jenkins plugins
+    shell: "files/download_jenkins_plugins.sh"
+    environment:
+      VOLUME_NAME: allspark_jenkins_plugins
+      TARGET: "{{ allspark_release_tmp_directory}}/dependencies/jenkins_plugins"
+      REQUIREMENTS_FILE: "{{ playbook_dir }}/files/jenkins_plugins.txt"
+    when: allspark_jenkins.enabled
+
   - name: Exporting Docker images
     docker_image:
       state: present
@@ -39,11 +51,21 @@
       name: "{{ item }}"
     with_items: "{{ docker_images }}"
 
-  - name: Archive RedHat system dependencies for installer
-    script: "files/download_yum_packages.sh {{ allspark_release_tmp_directory }}/dependencies"
 
+  # - name: Compress release into destination file
+  #   archive:
+  #     path: "{{ allspark_release_tmp_directory }}/*"
+  #     dest: "{{ allspark_release_destination }}"
+  #     remove: True
+
+  # Using shell instead of unarchive because pigz (multicore compression)
+  # is not yet supported by the archive module
   - name: Compress release into destination file
-    archive:
-      dest: "{{ allspark_release_destination }}"
+    shell: "tar -c --use-compress-program=pigz -f {{ allspark_release_destination }} {{ allspark_release_tmp_directory }}/*"
+    args:
+      warn: False
+
+  - name: Clean up release directory
+    file:
       path: "{{ allspark_release_tmp_directory }}"
-      remove: True
+      state: absent

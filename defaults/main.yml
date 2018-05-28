@@ -47,6 +47,8 @@ allspark_gitlab:
 allspark_jenkins:
   enabled: false
   image: jenkins/jenkins
+  # Toggle default plugin import from release.
+  import_plugins: true
 
 ### Release configuration
 # Should not be here
