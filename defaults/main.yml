@@ -43,6 +43,7 @@ allspark_gitlab:
   with_runner: false
   image: gitlab/gitlab-ce:latest
   runner_image: gitlab/gitlab-runner:latest
+  lfs_enabled: true
 
 allspark_jenkins:
   enabled: false
