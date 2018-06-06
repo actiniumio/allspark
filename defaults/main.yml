@@ -2,7 +2,7 @@
 # defaults file for allspark
 
 allspark_root_domain: allspark.localhost
-allspark_root_directory: /tmp/allspark
+allspark_root_directory: /opt/allspark
 allspark_admin_user: admin
 
 allspark_ldap:
@@ -53,5 +53,5 @@ allspark_jenkins:
 
 ### Release configuration
 # Should not be here
-allspark_release_tmp_directory: /tmp/allspark/release
-allspark_release_destination: /tmp/allspark.tar.gz
+allspark_release_tmp_directory: /opt/allspark/release
+allspark_release_destination: /opt/allspark.tar.gz

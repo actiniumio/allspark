@@ -61,7 +61,7 @@
   # Using shell instead of unarchive because pigz (multicore compression)
   # is not yet supported by the archive module
   - name: Compress release into destination file
-    shell: "tar -c --use-compress-program=pigz -f {{ allspark_release_destination }} {{ allspark_release_tmp_directory }}/*"
+    shell: "tar -c --use-compress-program=pigz -f {{ allspark_release_destination }} -C {{ allspark_release_tmp_directory }} ."
     args:
       warn: False
 
