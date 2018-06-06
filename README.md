@@ -1,6 +1,6 @@
 # Allspark installer
 
-This installer use ansible to setup Allspark on a Centos 7 environment.
+This installer use ansible to setup Allspark on linux environment using Docker.
 It deploy the solution using Docker 18.04
 
 ## Playbooks
@@ -55,5 +55,5 @@ at `ingress.YOUR_ROOT_DOMAIN`.
 
 # Requirements
 
-- CentOS 7
+- Linux using Docker
 - 12Gb of ram
