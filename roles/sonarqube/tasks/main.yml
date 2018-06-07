@@ -1,0 +1,23 @@
+---
+
+- name: Creating Sonarqube volume
+  docker_volume:
+    name: "allspark_{{ item }}"
+  with_items:
+    - sonarqube_data
+  when: allspark_sonarqube.enabled
+
+- name: Starting Sonarqube master
+  docker_container:
+    name: sonarqube
+    image: "{{ allspark_sonarqube.image }}"
+    state: "{{ allspark_sonarqube.enabled and 'started' or 'absent'}}"
+    networks:
+      - name: allspark
+    volumes:
+      - allspark_sonarqube_data:/opt/sonarqube/data
+    labels:
+      "traefik.backend": "sonarqube"
+      "traefik.frontend.rule": "Host:sonarqube.{{ allspark_root_domain }}"
+      "traefik.enable": "true"
+    restart_policy: always

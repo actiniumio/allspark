@@ -11,7 +11,6 @@ allspark_ldap:
   image: osixia/openldap:1.2.0
   management_image: osixia/phpldapadmin:0.7.1
 
-
 allspark_monitoring:
   enabled: true
 
@@ -50,6 +49,10 @@ allspark_jenkins:
   image: jenkins/jenkins
   # Toggle default plugin import from release.
   import_plugins: true
+
+allspark_sonarqube:
+  enabled: true
+  image: sonarqube:latest
 
 ### Release configuration
 # Should not be here
