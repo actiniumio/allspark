@@ -51,6 +51,10 @@ allspark_jenkins:
   # Toggle default plugin import from release.
   import_plugins: true
 
+allspark_sonarqube:
+  enabled: true
+  image: sonarqube:latest
+
 ### Release configuration
 # Should not be here
 allspark_release_tmp_directory: /opt/allspark/release
