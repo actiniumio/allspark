@@ -1,8 +1,6 @@
 # Load offline release
 - name: Load dependencies for an Allspark release
-  hosts: localhost
-  connection: local
-  gather_facts: no
+  hosts: all
   vars:
     docker_images:
     - centos:7

@@ -1,9 +1,5 @@
 - name: Run using a project directory
-  hosts: localhost
-  connection: local
-  gather_facts: no
-  vars_files:
-    - defaults/main.yml
+  hosts: all
   tasks:
   - name: Setup software infrastructure
     include_role:
