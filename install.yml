@@ -1,6 +1,10 @@
 - name: Run using a project directory
   hosts: all
   tasks:
+  - name: Setup system dependencies
+    include_role:
+      name: system
+
   - name: Setup software infrastructure
     include_role:
       name: infra

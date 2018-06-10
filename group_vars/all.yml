@@ -5,6 +5,8 @@ allspark_root_domain: allspark.localhost
 allspark_root_directory: /opt/allspark
 allspark_admin_user: admin
 
+allspark_docker_version: "17.03.2"
+
 allspark_ldap:
   enabled: false
   organization: Allspark
