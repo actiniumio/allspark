@@ -1,5 +1,5 @@
 - name: Test shared runner token existence
-  local_action: stat path="{{ allspark_root_directory}}/data/secrets/gitlab_runner_registration_token.txt"
+  stat: path="{{ allspark_root_directory}}/data/secrets/gitlab_runner_registration_token.txt"
   register: gitlab_runner_registration_token_file
   when: allspark_gitlab.enabled
 
