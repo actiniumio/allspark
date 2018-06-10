@@ -21,3 +21,4 @@
 - name: Pip - docker-py
   pip:
     name: docker-py
+  become: true
