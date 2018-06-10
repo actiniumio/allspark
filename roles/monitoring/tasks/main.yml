@@ -3,11 +3,16 @@
     name: cadvisor
     image: "{{ allspark_cadvisor.image }}"
     state: "{{ allspark_monitoring.enabled and 'started' or 'absent' }}"
-    volumes:
-      - /:/rootfs:ro
-      - /var/run:/var/run:rw
-      - /sys:/sys:ro
-      - /var/lib/docker/:/var/lib/docker:ro
+    volumes: >-
+      [
+        {%- if not (ansible_distribution == 'CentOS' or ansible_distribution == 'RedHat') -%}
+        {# Disabled because of this issue : https://github.com/google/cadvisor/issues/1890 #}
+        "/sys:/sys:ro",
+        {%- endif -%}
+        "/var/lib/docker/:/var/lib/docker:ro",
+        "/var/run:/var/run:rw",
+        "/:/rootfs:ro"
+      ]
     networks:
       - name: allspark
     restart_policy: always
