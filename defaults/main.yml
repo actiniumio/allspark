@@ -52,7 +52,7 @@ allspark_jenkins:
   import_plugins: true
 
 allspark_sonarqube:
-  enabled: true
+  enabled: false
   image: sonarqube:latest
 
 ### Release configuration
