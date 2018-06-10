@@ -49,9 +49,9 @@ external_url 'http://gitlab.{{ allspark_root_domain }}'
 # gitlab_rails['time_zone'] = 'UTC'
 
 ### Email Settings
-gitlab_rails['gitlab_email_enabled'] = true
-gitlab_rails['gitlab_email_from'] = 'gitlab@{{ allspark_root_domain }}'
-gitlab_rails['gitlab_email_display_name'] = 'GitLab'
+# gitlab_rails['gitlab_email_enabled'] = false
+# gitlab_rails['gitlab_email_from'] = 'gitlab@{{ allspark_root_domain }}'
+# gitlab_rails['gitlab_email_display_name'] = 'GitLab'
 # gitlab_rails['gitlab_email_reply_to'] = 'noreply@example.com'
 # gitlab_rails['gitlab_email_subject_suffix'] = ''
 
@@ -119,7 +119,7 @@ gitlab_rails['monitoring_whitelist'] = ['0.0.0.0/32']
 ###! Allow users to comment on issues and merge requests by replying to
 ###! notification emails.
 ###! Docs: https://docs.gitlab.com/ce/administration/reply_by_email.html
-gitlab_rails['incoming_email_enabled'] = true
+gitlab_rails['incoming_email_enabled'] = false
 
 #### Incoming Email Address
 ####! The email address including the `%{key}` placeholder that will be replaced
