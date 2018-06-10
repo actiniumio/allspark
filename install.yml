@@ -20,3 +20,7 @@
   - name: Setup Jenkins
     include_role:
       name: jenkins
+
+  - name: Setup Sonarqube
+    include_role:
+      name: sonarqube
