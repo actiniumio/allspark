@@ -1,0 +1,114 @@
+- name: yum - EPEL repository enabled ?
+  stat: path={{ allspark_epel_repo_file }}
+  register: repo
+
+- block:
+  - name: import EPEL GPG key
+    rpm_key:
+      key: "{{ allspark_epel_gpg_url }}"
+      state: present
+    become: true
+
+  - name: install EPEL repository
+    yum:
+      name: "{{ allspark_epel_repo_url }}"
+      state: present
+    become: true
+  when: not repo.stat.exists
+
+- name: Install yum utils
+  yum:
+    name: yum-utils
+    state: latest
+  become: true
+
+- name: Install device-mapper-persistent-data
+  yum:
+    name: device-mapper-persistent-data
+    state: latest
+  become: true
+
+- name: Install lvm2
+  yum:
+    name: lvm2
+    state: latest
+  become: true
+
+- name: Add Docker repo
+  get_url:
+    url: https://download.docker.com/linux/centos/docker-ce.repo
+    dest: /etc/yum.repos.d/docer-ce.repo
+  become: yes
+
+- name: Ensure old versions of Docker are not installed. | RedHat
+  package:
+    name: '{{ item }}'
+    state: absent
+  with_items:
+    - docker
+    - docker-common
+    - docker-engine
+    - docker-selinux
+  when: ansible_os_family == 'RedHat'
+  become: true
+
+- name: test pip install
+  shell: which pip
+  failed_when: false
+  changed_when: false
+  register: pip_install
+
+- name: Install pip
+  shell: "curl https://bootstrap.pypa.io/get-pip.py | python -"
+  become: true
+  when: pip_install.rc != 0
+
+- name: test docker install
+  shell: which docker
+  changed_when: false
+  failed_when: false
+  register: docker_install
+
+
+- name: Install Docker
+  shell: >
+    yum install -y
+    --setopt=obsoletes=0
+    docker-ce-{{ allspark_docker_version }}.ce-1.el7.centos.x86_64
+    docker-ce-selinux-{{ allspark_docker_version }}.ce-1.el7.centos.noarch
+  become: true
+  when: docker_install.rc != 0
+
+- name: Start Docker service
+  service:
+    name: docker
+    state: started
+    enabled: yes
+  become: true
+
+- name: Add user to docker group
+  user:
+    name: "{{ ansible_user }}"
+    groups: docker
+    append: true
+  become: true
+  register: user_task
+
+# - name: Reset ssh connection
+#   meta: reset_connection
+#   when: user_task is changed
+#   failed_when: false
+
+# Below is an ugly hack, because of an issue with
+# `meta: reset_connection`:
+## ERROR! Cannot reset connection
+## b'Control socket connect(/home/$USER/.ansible/cp/276d6f8b70): No such file or directory\r\n'
+#
+# So we use this trick to force ansible to reconnect
+- name: Remove cp dir to force ssh reconnection.
+  file:
+    path: ~/.ansible/cp
+    state: absent
+  delegate_to: localhost
+  changed_when: false
+  when: user_task is changed

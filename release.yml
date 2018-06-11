@@ -1,7 +1,5 @@
 - name: Package an Allspark release
-  hosts: localhost
-  connection: local
-  gather_facts: no
+  hosts: all
   vars:
     docker_images:
     - jenkins/jenkins
@@ -21,10 +19,6 @@
     - "{{ allspark_ldap.management_image }}"
 
   tasks:
-  - name: Loading default variables
-    include_vars:
-      dir: defaults
-
   - name: Creating release directory
     file:
       state: directory

@@ -1,0 +1,24 @@
+- name: System packages - CentOS|RedHat
+  include: rhel7.yml
+  when: ansible_distribution == 'CentOS' or ansible_distribution == 'RedHat'
+
+- name: Docker - Ensuring daemon is started
+  systemd: state=started name=docker
+  become: true
+
+- name: FS - Ensuring Allspark directory
+  file:
+    path: "{{ allspark_root_directory }}"
+    state: "directory"
+  become: true
+
+- name: FS - Ensuring Allspark directory owner
+  file:
+    path: "{{ allspark_root_directory }}"
+    owner: "{{ ansible_user }}"
+  become: true
+
+- name: Pip - docker-py
+  pip:
+    name: docker-py
+  become: true

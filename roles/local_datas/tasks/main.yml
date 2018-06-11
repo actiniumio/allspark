@@ -8,7 +8,7 @@
     - data/secrets
 
 - name: Test admin user existence
-  local_action: stat path="{{ allspark_root_directory}}/data/secrets/admin_user.txt"
+  stat: path="{{ allspark_root_directory}}/data/secrets/admin_user.txt"
   register: admin_username_file
 
 - name: Generate admin username
@@ -16,7 +16,7 @@
   when: not admin_username_file.stat.exists
 
 - name: Test admin password existence
-  local_action: stat path="{{ allspark_root_directory}}/data/secrets/admin_password.txt"
+  stat: path="{{ allspark_root_directory}}/data/secrets/admin_password.txt"
   register: admin_password_file
 
 - name: Generate random admin password
