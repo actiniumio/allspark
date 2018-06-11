@@ -49,9 +49,9 @@ external_url 'http://gitlab.{{ allspark_root_domain }}'
 # gitlab_rails['time_zone'] = 'UTC'
 
 ### Email Settings
-gitlab_rails['gitlab_email_enabled'] = true
-gitlab_rails['gitlab_email_from'] = 'gitlab@{{ allspark_root_domain }}'
-gitlab_rails['gitlab_email_display_name'] = 'GitLab'
+# gitlab_rails['gitlab_email_enabled'] = false
+# gitlab_rails['gitlab_email_from'] = 'gitlab@{{ allspark_root_domain }}'
+# gitlab_rails['gitlab_email_display_name'] = 'GitLab'
 # gitlab_rails['gitlab_email_reply_to'] = 'noreply@example.com'
 # gitlab_rails['gitlab_email_subject_suffix'] = ''
 
@@ -119,7 +119,7 @@ gitlab_rails['monitoring_whitelist'] = ['0.0.0.0/32']
 ###! Allow users to comment on issues and merge requests by replying to
 ###! notification emails.
 ###! Docs: https://docs.gitlab.com/ce/administration/reply_by_email.html
-gitlab_rails['incoming_email_enabled'] = true
+gitlab_rails['incoming_email_enabled'] = false
 
 #### Incoming Email Address
 ####! The email address including the `%{key}` placeholder that will be replaced
@@ -388,8 +388,8 @@ gitlab_rails['lfs_storage_path'] = "/var/opt/gitlab/gitlab-rails/shared/lfs-obje
 #### Change the initial default admin password and shared runner registraion tokens.
 ####! **Only applicable on initial setup, changing these settings after
 ####!   is created and seeded won't yield any change.**
-gitlab_rails['initial_root_password'] = File.read("/run/secrets/admin_password.txt")
-gitlab_rails['initial_shared_runners_registration_token'] = File.read("/run/secrets/gitlab_runner_registration_token.txt")
+gitlab_rails['initial_root_password'] = File.read("/run/secrets/admin_password.txt").strip
+gitlab_rails['initial_shared_runners_registration_token'] = File.read("/run/secrets/gitlab_runner_registration_token.txt").strip
 
 #### Enable or disable automatic database migrations
 gitlab_rails['auto_migrate'] = true
@@ -405,9 +405,9 @@ gitlab_rails['auto_migrate'] = true
 # gitlab_rails['db_encoding'] = "unicode"
 # # gitlab_rails['db_collation'] = nil
 # gitlab_rails['db_database'] = "allspark_gitlab"
-# # gitlab_rails['db_pool'] = 10
+# gitlab_rails['db_pool'] = 10
 # gitlab_rails['db_username'] = "gitlab"
-# gitlab_rails['db_password'] = File.read("/run/secrets/gitlab_database_password.txt")
+# gitlab_rails['db_password'] = "gitlab"
 # gitlab_rails['db_host'] = "gitlab_database"
 # gitlab_rails['db_port'] = 5432
 # gitlab_rails['db_socket'] = nil
@@ -1098,7 +1098,7 @@ gitlab_pages['enable'] = true
 
 ##! Environments that do not support bind-mounting should set this parameter to
 ##! true. This is incompatible with the artifacts server
-# gitlab_pages['inplace_chroot'] = false
+gitlab_pages['inplace_chroot'] = true
 
 ##! Prometheus metrics for Pages docs: https://gitlab.com/gitlab-org/gitlab-pages/#enable-prometheus-metrics
 # gitlab_pages['metrics_address'] = ":9235"
