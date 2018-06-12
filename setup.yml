@@ -8,6 +8,7 @@
     - blacklabelops/volumerize
     - "{{ allspark_traefik.image }}"
     - "{{ allspark_portainer.image }}"
+    - "{{ allspark_sonarqube.image }}"
     - "{{ allspark_rocketchat.image }}"
     - "{{ allspark_rocketchat.database_image }}"
     - "{{ allspark_prometheus.image }}"
