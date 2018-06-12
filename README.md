@@ -49,6 +49,7 @@ at `ingress.YOUR_ROOT_DOMAIN`.
 | Prometheus    | Metrics scraping / store          |
 | CAdvisor      | Container metrics                 |
 | Node exporter | System metrics                    |
+| Sonarqube     | Continuous Inspection             |
 | Traefik       | Dynamic reverse proxy             |
 
 
