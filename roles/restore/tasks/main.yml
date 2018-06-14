@@ -1,0 +1,29 @@
+---
+
+- name: Creating restore volume
+  docker_volume:
+    name: "allspark_{{ item }}"
+  with_items:
+    - restore_volume
+    - restore_database
+  when: allspark_restore.enabled
+
+- name: Starting Restore
+  docker_container:
+    name: restore
+    image: "{{ allspark_restore.image }}"
+    state: "{{ allspark_restore.enabled and 'started' or 'absent'}}"
+    networks:
+      - name: allspark
+    volumes:
+      - 
+    env:
+      - "VOLUMERIZE_SOURCE=/source" 
+      - "VOLUMERIZE_TARGET=file:///backup"
+      - "VOLUMERIZE_JOBBER_TIME=0 0 3 * * *"
+    labels:
+      "traefik.backend": "restore"
+      "traefik.frontend.rule": "Host:restore.{{ allspark_root_domain }}"
+      "traefik.enable": "true"
+    restart_policy: always
+
