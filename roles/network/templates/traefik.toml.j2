@@ -47,6 +47,19 @@ logLevel = "INFO"
 # Default: ["http"]
 #
 # defaultEntryPoints = ["http", "https"]
+defaultEntryPoints = ["https","http"]
+
+[entryPoints]
+  [entryPoints.http]
+  address = ":80"
+    [entryPoints.http.redirect]
+    entryPoint = "https"
+  [entryPoints.https]
+  address = ":443"
+  [entryPoints.https.tls]
+    [[entryPoints.https.tls.certificates]]
+      certFile = "/certs/traefik.crt"
+      keyFile = "/certs/traefik.key"
 
 
 ################################################################

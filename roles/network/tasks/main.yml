@@ -18,9 +18,12 @@
     image: "{{ allspark_traefik.image }}"
     volumes:
       - "{{ allspark_root_directory }}/config/traefik/traefik.toml:/etc/traefik/traefik.toml"
+      - "{{ allspark_root_directory }}/data/traefik/certs/traefik.crt:/certs/traefik.crt"
+      - "{{ allspark_root_directory }}/data/traefik/certs/traefik.key:/certs/traefik.key"
       - "/var/run/docker.sock:/var/run/docker.sock"
     ports:
       - "80:80"
+      - "443:443"
     networks:
       - name: allspark
     labels:
