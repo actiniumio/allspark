@@ -8,7 +8,7 @@
     path: "{{ allspark_root_directory }}/data/secrets/traefik/certs"
 
 - name: create self-signed SSL cert
-  command: openssl req -new -nodes -x509 -subj "/C=FR/ST=Haute-Garonne/L=Toulouse/O=CRE/CN={{ allspark_root_directory }}" -days 3650 -keyout "{{ allspark_root_directory }}/data/secrets/traefik/certs/traefik.key" -out "{{ allspark_root_directory }}/data/secrets/traefik/certs/traefik.crt"
+  command: openssl req -new -nodes -x509 -subj "/C=FR/ST=Haute-Garonne/L=Toulouse/O=CRE/CN={{ allspark_root_domain }}" -days 3650 -keyout "{{ allspark_root_directory }}/data/secrets/traefik/certs/traefik.key" -out "{{ allspark_root_directory }}/data/secrets/traefik/certs/traefik.crt"
   args:
     creates: "{{ allspark_root_directory }}/data/secrets/traefik/certs/traefik.crt"
 
