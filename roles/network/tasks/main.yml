@@ -7,9 +7,14 @@
     state: directory
     path: "{{ allspark_root_directory }}/config/traefik"
 
+#- name: Prepare Traefik configuration
+#  template:
+#    src: templates/traefik.toml.j2
+#    dest: "{{ allspark_root_directory }}/config/traefik/traefik.toml"
+
 - name: Prepare Traefik configuration
   template:
-    src: templates/traefik.toml.j2
+    src: templates/traefik.toml-v2.j2
     dest: "{{ allspark_root_directory }}/config/traefik/traefik.toml"
 
 - name: Setup ingress manager
@@ -20,6 +25,7 @@
       - "{{ allspark_root_directory }}/config/traefik/traefik.toml:/etc/traefik/traefik.toml"
       - "{{ allspark_root_directory }}/data/traefik/certs/traefik.crt:/certs/traefik.crt"
       - "{{ allspark_root_directory }}/data/traefik/certs/traefik.key:/certs/traefik.key"
+      - "/opt/traefik/acme.json:/acme.json"
       - "/var/run/docker.sock:/var/run/docker.sock"
     ports:
       - "80:80"
