@@ -2,6 +2,16 @@
   docker_network:
     name: "allspark"
 
+- name: Create traefik data certs folder
+  file:
+    state: directory
+    path: "{{ allspark_root_directory }}/data/secrets/traefik/certs"
+
+- name: create self-signed SSL cert
+  command: openssl req -new -nodes -x509 -subj "/C=FR/ST=Haute-Garonne/L=Toulouse/O=CRE/CN={{ allspark_root_directory }}" -days 3650 -keyout "{{ allspark_root_directory }}/data/secrets/traefik/certs/traefik.key" -out "{{ allspark_root_directory }}/data/secrets/traefik/certs/traefik.crt" arg1
+  args:
+    creates: "{{ allspark_root_directory }}/data/secrets/traefik/certs/traefik.crt"
+
 - name: Create traefik config folder
   file:
     state: directory
@@ -18,8 +28,8 @@
     image: "{{ allspark_traefik.image }}"
     volumes:
       - "{{ allspark_root_directory }}/config/traefik/traefik.toml:/etc/traefik/traefik.toml"
-      - "{{ allspark_root_directory }}/data/traefik/certs/traefik.crt:/certs/traefik.crt"
-      - "{{ allspark_root_directory }}/data/traefik/certs/traefik.key:/certs/traefik.key"
+      - "{{ allspark_root_directory }}/data/secrets/traefik/certs/traefik.crt:/certs/traefik.crt"
+      - "{{ allspark_root_directory }}/data/secrets/traefik/certs/traefik.key:/certs/traefik.key"
       - "/var/run/docker.sock:/var/run/docker.sock"
     ports:
       - "80:80"

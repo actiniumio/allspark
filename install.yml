@@ -5,10 +5,6 @@
     include_role:
       name: system
 
-#  - name: Setup Certificats 
-#    include_role:
-#      name: certs
-
   - name: Setup software infrastructure
     include_role:
       name: infra
