@@ -7,10 +7,31 @@
     state: directory
     path: "{{ allspark_root_directory }}/data/secrets/traefik/certs"
 
+- name: create self-signed SSL key
+  shell: openssl genrsa -out "{{ allspark_root_directory }}/data/secrets/traefik/certs/traefik.key" 2048
+  args:
+    creates: "{{ allspark_root_directory }}/data/secrets/traefik/certs/traefik.key"
+
+- name: create self-signed SSL csr
+  shell: openssl req -new -nodes -subj "/C=FR/ST=Haute-Garonne/L=Toulouse/O=CRE/CN=*.allspark.localhost" -out "{{ allspark_root_directory }}/data/secrets/traefik/certs/traefik.csr"
+  args:
+    creates: "{{ allspark_root_directory }}/data/secrets/traefik/certs/traefik.csr"
+
 - name: create self-signed SSL cert
-  command: openssl req -new -nodes -x509 -subj "/C=FR/ST=Haute-Garonne/L=Toulouse/O=CRE/CN={{ allspark_root_domain }}" -days 3650 -keyout "{{ allspark_root_directory }}/data/secrets/traefik/certs/traefik.key" -out "{{ allspark_root_directory }}/data/secrets/traefik/certs/traefik.crt"
+  shell: openssl x509 -req -days 365 -in "{{ allspark_root_directory }}/data/secrets/traefik/certs/traefik.csr" -signkey "{{ allspark_root_directory }}/data/secrets/traefik/certs/traefik.key" -out "{{ allspark_root_directory }}/data/secrets/traefik/certs/traefik.cert"
+  args:
+    creates: "{{ allspark_root_directory }}/data/secrets/traefik/certs/traefik.cert"
+
+- name: create self-signed SSL info
+  shell: openssl x509 -noout -fingerprint -text < "{{ allspark_root_directory }}/data/secrets/traefik/certs/traefik.cert" > "{{ allspark_root_directory }}/data/secrets/traefik/certs/traefik.info"
+  args:
+    creates: "{{ allspark_root_directory }}/data/secrets/traefik/certs/traefik.info"
+
+- name: create self-signed SSL crt
+  shell: cat "{{ allspark_root_directory }}/data/secrets/traefik/certs/traefik.cert" "{{ allspark_root_directory }}/data/secrets/traefik/certs/traefik.key" > "{{ allspark_root_directory }}/data/secrets/traefik/certs/traefik.crt"
   args:
     creates: "{{ allspark_root_directory }}/data/secrets/traefik/certs/traefik.crt"
+
 
 - name: Create traefik config folder
   file:
