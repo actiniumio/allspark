@@ -4,7 +4,11 @@
 allspark_root_domain: allspark.localhost
 allspark_root_directory: /opt/allspark
 allspark_admin_user: admin
-
+allspark_country: FR
+allspark_state: Haute-Garonne
+allspark_location: Toulouse
+allspark_organisation: CRE
+allspark_common_name: "*.{{ allspark_root_domain }}"
 allspark_docker_version: "17.03.2"
 
 allspark_ldap:
@@ -18,6 +22,7 @@ allspark_monitoring:
   enabled: true
 
 allspark_traefik:
+  selfsigned: false
   image: traefik:latest
 
 allspark_portainer:

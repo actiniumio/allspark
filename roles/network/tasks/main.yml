@@ -6,32 +6,37 @@
   file:
     state: directory
     path: "{{ allspark_root_directory }}/data/secrets/traefik/certs"
+  when: allspark_traefik.selfsigned
 
 - name: create self-signed SSL key
   shell: openssl genrsa -out "{{ allspark_root_directory }}/data/secrets/traefik/certs/traefik.key" 2048
   args:
     creates: "{{ allspark_root_directory }}/data/secrets/traefik/certs/traefik.key"
+  when: allspark_traefik.selfsigned
 
 - name: create self-signed SSL csr
-  shell: openssl req -new -nodes -subj "/C=FR/ST=Haute-Garonne/L=Toulouse/O=CRE/CN=*.allspark.localhost" -out "{{ allspark_root_directory }}/data/secrets/traefik/certs/traefik.csr"
+  shell: openssl req -new -nodes -subj "/C="{{ allspark_country }}"/ST="{{ allspark_state }}"/L="{{ allspark_location }}"/O="{{ allspark_organisation }}"/CN="{{ allspark_common_name }}"" -out "{{ allspark_root_directory }}/data/secrets/traefik/certs/traefik.csr"
   args:
     creates: "{{ allspark_root_directory }}/data/secrets/traefik/certs/traefik.csr"
+  when: allspark_traefik.selfsigned
 
 - name: create self-signed SSL cert
   shell: openssl x509 -req -days 365 -in "{{ allspark_root_directory }}/data/secrets/traefik/certs/traefik.csr" -signkey "{{ allspark_root_directory }}/data/secrets/traefik/certs/traefik.key" -out "{{ allspark_root_directory }}/data/secrets/traefik/certs/traefik.cert"
   args:
     creates: "{{ allspark_root_directory }}/data/secrets/traefik/certs/traefik.cert"
+  when: allspark_traefik.selfsigned
 
 - name: create self-signed SSL info
   shell: openssl x509 -noout -fingerprint -text < "{{ allspark_root_directory }}/data/secrets/traefik/certs/traefik.cert" > "{{ allspark_root_directory }}/data/secrets/traefik/certs/traefik.info"
   args:
     creates: "{{ allspark_root_directory }}/data/secrets/traefik/certs/traefik.info"
+  when: allspark_traefik.selfsigned
 
 - name: create self-signed SSL crt
   shell: cat "{{ allspark_root_directory }}/data/secrets/traefik/certs/traefik.cert" "{{ allspark_root_directory }}/data/secrets/traefik/certs/traefik.key" > "{{ allspark_root_directory }}/data/secrets/traefik/certs/traefik.crt"
   args:
     creates: "{{ allspark_root_directory }}/data/secrets/traefik/certs/traefik.crt"
-
+  when: allspark_traefik.selfsigned
 
 - name: Create traefik config folder
   file:
@@ -49,12 +54,16 @@
     image: "{{ allspark_traefik.image }}"
     volumes:
       - "{{ allspark_root_directory }}/config/traefik/traefik.toml:/etc/traefik/traefik.toml"
+      {% if allspark_traefik.selfsigned %}
       - "{{ allspark_root_directory }}/data/secrets/traefik/certs/traefik.crt:/certs/traefik.crt"
       - "{{ allspark_root_directory }}/data/secrets/traefik/certs/traefik.key:/certs/traefik.key"
+      {% endif %}
       - "/var/run/docker.sock:/var/run/docker.sock"
     ports:
       - "80:80"
+      {% if 'allspark_traefik.selfsigned' %}
       - "443:443"
+      {% endif %}
     networks:
       - name: allspark
     labels:
