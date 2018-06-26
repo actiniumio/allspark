@@ -1,35 +1,45 @@
 ---
-- name: Container present
-  docker_container:
-    name: 
-    state: present
-    image: ubuntu:14.04
-    command: sleep infinity
 
-- name: Starting Backup 
-  docker_container:
-    name: backup
-    image: "{{ allspark_backup.image }}"
-    state: "{{ allspark_backup.enabled and 'started' or 'absent'}}"
-    networks:
-      - name: allspark
-    volumes:
-      - "/var/run/docker.sock:/var/run/docker.sock"
-      - "allspark_sonarqube_data:/source/sonarqube/data:ro"
-      - "allspark_gitlab_data:/source/gitlab:ro"
-      - "allspark_jenkins_home:/source/jenkins_home:ro"
-      - "allspark_grafana_data:/source/grafana:ro"
-      - "allspark_prometheus_data:/source/prometheus:ro"
-      - "allspark_rocketchat_data:/source/rocketchat/data/db:ro"
-      - "allspark_portainer_data:/source/portainer/data:ro"
-      - "{{ allspark_root_directory}}/backup:/backup"
-    env:
-      VOLUMERIZE_SOURCE: '/source'
-      VOLUMERIZE_TARGET: 'file:///backup'
-      VOLUMERIZE_CONTAINERS: 'grafana prometheus rocketchat rocketchat_database portainer jenkins sonarqube gitlab grafana'
-#     VOLUMERIZE_JOBBER_TIME : "0 0 12 * * *"
-    labels:
-      "traefik.backend": "backup"
-      "traefik.frontend.rule": "Host:backup.{{ allspark_root_domain }}"
-      "traefik.enable": "true"
-    restart_policy: always
+- name: Get docker volume list
+  shell: docker volume ls  | grep -i allspark | awk '{print $2}'
+  register: output
+
+- name: Verify Docker volumes
+  docker_volume:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - "{{ output.stdout_lines }}"
+
+- name: Set volume facts
+  set_fact: vls="{{ vls | default([]) | union([item]) }}"
+  with_items: 
+    - "{{ output.stdout_lines }}"
+
+- debug: var="{{ item }}"
+  with_items: 
+    - "{{ vls}}"
+
+#- name: Starting creating Backup container
+#  docker_container:
+#    name: backup
+#    image: "{{ allspark_backup.image }}"
+#    volumes:
+#      - "{{ item }}:/source/{{ item }}:ro" 
+#      - "/var/run/docker.sock:/var/run/docker.sock"
+#      - "{{ allspark_root_directory }}/backup:/backup"
+#    with_items:
+#      - "{{ vls }}"
+#    env:
+#      VOLUMERIZE_SOURCE: '/source'
+#      VOLUMERIZE_TARGET: 'file:///backup'
+#      VOLUMERIZE_CONTAINERS: 'grafana prometheus rocketchat rocketchat_database portainer jenkins sonarqube gitlab grafana'
+#      VOLUMERIZE_JOBBER_TIME : "0 0 12 * * *"
+#    state: "{{ allspark_backup.enabled and 'started' or 'absent'}}"
+#    networks:
+#      - name: allspark
+#    labels:
+#      "traefik.backend": "backup"
+#      "traefik.frontend.rule": "Host:backup.{{ allspark_root_domain }}"
+#      "traefik.enable": "true"
+#    restart_policy: always
