@@ -52,18 +52,22 @@
   docker_container:
     name: traefik
     image: "{{ allspark_traefik.image }}"
-    volumes:
-      - "{{ allspark_root_directory }}/config/traefik/traefik.toml:/etc/traefik/traefik.toml"
+    volumes: >-
+      [
+      "{{ allspark_root_directory }}/config/traefik/traefik.toml:/etc/traefik/traefik.toml",
+      "/var/run/docker.sock:/var/run/docker.sock",
+        {% if allspark_traefik.selfsigned %}
+        "{{ allspark_root_directory }}/data/secrets/traefik/certs/traefik.crt:/certs/traefik.crt",
+        "{{ allspark_root_directory }}/data/secrets/traefik/certs/traefik.key:/certs/traefik.key",
+        {% endif %}
+      ]
+    ports: >-
+      [
+      "80:80",
       {% if allspark_traefik.selfsigned %}
-      - "{{ allspark_root_directory }}/data/secrets/traefik/certs/traefik.crt:/certs/traefik.crt"
-      - "{{ allspark_root_directory }}/data/secrets/traefik/certs/traefik.key:/certs/traefik.key"
+      "443:443",
       {% endif %}
-      - "/var/run/docker.sock:/var/run/docker.sock"
-    ports:
-      - "80:80"
-      {% if 'allspark_traefik.selfsigned' %}
-      - "443:443"
-      {% endif %}
+      ]
     networks:
       - name: allspark
     labels:

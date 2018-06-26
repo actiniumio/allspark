@@ -47,6 +47,7 @@ logLevel = "INFO"
 # Default: ["http"]
 #
 # defaultEntryPoints = ["http", "https"]
+{% if allspark_traefik.selfsigned %}
 defaultEntryPoints = ["https","http"]
 
 [entryPoints]
@@ -60,7 +61,7 @@ defaultEntryPoints = ["https","http"]
     [[entryPoints.https.tls.certificates]]
       certFile = "/certs/traefik.crt"
       keyFile = "/certs/traefik.key"
-
+{% endif %}
 
 ################################################################
 # Docker configuration backend
