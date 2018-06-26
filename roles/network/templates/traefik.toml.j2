@@ -60,7 +60,7 @@ defaultEntryPoints = ["https","http"]
   [entryPoints.https.tls]
     [[entryPoints.https.tls.certificates]]
       certFile = "/certs/traefik.crt"
-      keyFile = "/certs/traefik.key"
+      keyFile = "/certs/traefik.pem"
 {% endif %}
 
 ################################################################
