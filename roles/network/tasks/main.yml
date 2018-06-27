@@ -13,15 +13,9 @@
     path: "{{ allspark_root_directory }}/data/secrets/traefik/certs/"
   when: allspark_traefik.selfsigned
 
-- name: Create traefik data private folder
-  file:
-    state: directory
-    path: "{{ allspark_root_directory }}/data/secrets/traefik/certs/private"
-  when: allspark_traefik.selfsigned
-
 - name: Generate an OpenSSL private key with an algorithm DSA with size 2048
   openssl_privatekey:
-    path: "{{ allspark_root_directory }}/data/secrets/traefik/certs/private/traefik.pem"
+    path: "{{ allspark_root_directory }}/data/secrets/traefik/certs/traefik.pem"
     type: RSA
     size: 2048
     force: true
@@ -30,7 +24,7 @@
 - name: Generate an OpenSSL Certificate Signing Request
   openssl_csr:
     path: "{{ allspark_root_directory }}/data/secrets/traefik/certs/traefik.csr"
-    privatekey_path: "{{ allspark_root_directory }}/data/secrets/traefik/certs/private/traefik.pem"
+    privatekey_path: "{{ allspark_root_directory }}/data/secrets/traefik/certs/traefik.pem"
     country_name: "{{ allspark_country }}"
     state_or_province_name: "{{ allspark_state }}"
     locality_name: "{{ allspark_location }}"
@@ -43,7 +37,7 @@
 - name: Generate a Self Signed OpenSSL certificate
   openssl_certificate:
     path: "{{ allspark_root_directory }}/data/secrets/traefik/certs/traefik.crt"
-    privatekey_path: "{{ allspark_root_directory }}/data/secrets/traefik/certs/private/traefik.pem"
+    privatekey_path: "{{ allspark_root_directory }}/data/secrets/traefik/certs/traefik.pem"
     csr_path: "{{ allspark_root_directory }}/data/secrets/traefik/certs/traefik.csr"
     provider: selfsigned
     force: true
