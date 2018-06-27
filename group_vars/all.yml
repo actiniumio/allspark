@@ -4,11 +4,12 @@
 allspark_root_domain: allspark.localhost
 allspark_root_directory: /opt/allspark
 allspark_admin_user: admin
-allspark_country: FR
-allspark_state: Haute-Garonne
-allspark_location: Toulouse
-allspark_organisation: CRE
-organizational_unit: TheFkinCompany
+# For example country: FR
+allspark_country: XX
+allspark_state: state
+allspark_location: city
+allspark_organisation: myteam
+organizational_unit: myorganizational_unit 
 allspark_common_name: "*.{{ allspark_root_domain }}"
 allspark_docker_version: "17.03.2"
 
