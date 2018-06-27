@@ -19,20 +19,20 @@
     type: RSA
     size: 2048
     force: true
-  when: allspark_traefik.selfsigned
+  when: allspark_traefik.selfsigned.enable
 
 - name: Generate an OpenSSL Certificate Signing Request
   openssl_csr:
     path: "{{ allspark_root_directory }}/data/secrets/traefik/certs/traefik.csr"
     privatekey_path: "{{ allspark_root_directory }}/data/secrets/traefik/certs/traefik.pem"
-    country_name: "{{ allspark_country }}"
-    state_or_province_name: "{{ allspark_state }}"
-    locality_name: "{{ allspark_location }}"
-    organization_name: "{{ allspark_organisation }}"
-    common_name: "{{ allspark_common_name }}"
-    organizational_unit_name: "{{ organizational_unit }}"
+    country_name: "{{ allspark_traefik.selfsigned.country }}"
+    state_or_province_name: "{{ allspark_traefik.selfsigned.state }}"
+    locality_name: "{{ allspark_traefik.selfsigned.location }}"
+    organization_name: "{{ allspark_traefik.selfsigned.organisation }}"
+    common_name: "{{ allspark_traefik.selfsigned.common_name }}"
+    organizational_unit_name: "{{ allspark_traefik.selfsigned.organizational_unit }}"
     force: true
-  when: allspark_traefik.selfsigned
+  when: allspark_traefik.selfsigned.enable
 
 - name: Generate a Self Signed OpenSSL certificate
   openssl_certificate:
@@ -41,7 +41,7 @@
     csr_path: "{{ allspark_root_directory }}/data/secrets/traefik/certs/traefik.csr"
     provider: selfsigned
     force: true
-  when: allspark_traefik.selfsigned
+  when: allspark_traefik.selfsigned.enable
 
 - name: Prepare Traefik configuration
   template:
@@ -56,7 +56,7 @@
       [
       "{{ allspark_root_directory }}/config/traefik/traefik.toml:/etc/traefik/traefik.toml",
       "/var/run/docker.sock:/var/run/docker.sock",
-        {% if allspark_traefik.selfsigned %}
+        {% if allspark_traefik.selfsigned.enable %}
         "{{ allspark_root_directory }}/data/secrets/traefik/certs/traefik.crt:/certs/traefik.crt",
         "{{ allspark_root_directory }}/data/secrets/traefik/certs/traefik.pem:/certs/traefik.pem",
         {% endif %}
@@ -64,7 +64,7 @@
     ports: >-
       [
       "80:80",
-      {% if allspark_traefik.selfsigned %}
+      {% if allspark_traefik.selfsigned.enable %}
       "443:443",
       {% endif %}
       ]
