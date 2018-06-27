@@ -18,7 +18,6 @@
     path: "{{ allspark_root_directory }}/data/secrets/traefik/certs/traefik.pem"
     type: RSA
     size: 2048
-    force: true
   when: allspark_traefik.selfsigned.enable
 
 - name: Generate an OpenSSL Certificate Signing Request
@@ -31,7 +30,6 @@
     organization_name: "{{ allspark_traefik.selfsigned.organisation }}"
     common_name: "{{ allspark_traefik.selfsigned.common_name }}"
     organizational_unit_name: "{{ allspark_traefik.selfsigned.organizational_unit }}"
-    force: true
   when: allspark_traefik.selfsigned.enable
 
 - name: Generate a Self Signed OpenSSL certificate
@@ -40,7 +38,6 @@
     privatekey_path: "{{ allspark_root_directory }}/data/secrets/traefik/certs/traefik.pem"
     csr_path: "{{ allspark_root_directory }}/data/secrets/traefik/certs/traefik.csr"
     provider: selfsigned
-    force: true
   when: allspark_traefik.selfsigned.enable
 
 - name: Prepare Traefik configuration
