@@ -4,7 +4,7 @@
 allspark_root_domain: allspark.localhost
 allspark_root_directory: /opt/allspark
 allspark_admin_user: admin
-# For example country: FR
+
 allspark_docker_version: "17.03.2"
 
 allspark_ldap:
@@ -18,7 +18,8 @@ allspark_monitoring:
 
 allspark_traefik:
   selfsigned: 
-    enable: false
+    enabled: false
+    # For example country: FR
     country: XX
     state: state
     location: city
