@@ -11,14 +11,14 @@
   file:
     state: directory
     path: "{{ allspark_root_directory }}/data/secrets/traefik/certs/"
-  when: allspark_traefik.selfsigned
+  when: allspark_traefik.selfsigned.enabled
 
 - name: Generate an OpenSSL private key with an algorithm DSA with size 2048
   openssl_privatekey:
     path: "{{ allspark_root_directory }}/data/secrets/traefik/certs/traefik.pem"
     type: RSA
     size: 2048
-  when: allspark_traefik.selfsigned.enable
+  when: allspark_traefik.selfsigned.enabled
 
 - name: Generate an OpenSSL Certificate Signing Request
   openssl_csr:
@@ -30,7 +30,7 @@
     organization_name: "{{ allspark_traefik.selfsigned.organisation }}"
     common_name: "{{ allspark_traefik.selfsigned.common_name }}"
     organizational_unit_name: "{{ allspark_traefik.selfsigned.organizational_unit }}"
-  when: allspark_traefik.selfsigned.enable
+  when: allspark_traefik.selfsigned.enabled
 
 - name: Generate a Self Signed OpenSSL certificate
   openssl_certificate:
@@ -38,7 +38,7 @@
     privatekey_path: "{{ allspark_root_directory }}/data/secrets/traefik/certs/traefik.pem"
     csr_path: "{{ allspark_root_directory }}/data/secrets/traefik/certs/traefik.csr"
     provider: selfsigned
-  when: allspark_traefik.selfsigned.enable
+  when: allspark_traefik.selfsigned.enabled
 
 - name: Prepare Traefik configuration
   template:
@@ -53,7 +53,7 @@
       [
       "{{ allspark_root_directory }}/config/traefik/traefik.toml:/etc/traefik/traefik.toml",
       "/var/run/docker.sock:/var/run/docker.sock",
-        {% if allspark_traefik.selfsigned.enable %}
+        {% if allspark_traefik.selfsigned.enabled %}
         "{{ allspark_root_directory }}/data/secrets/traefik/certs/traefik.crt:/certs/traefik.crt",
         "{{ allspark_root_directory }}/data/secrets/traefik/certs/traefik.pem:/certs/traefik.pem",
         {% endif %}
@@ -61,7 +61,7 @@
     ports: >-
       [
       "80:80",
-      {% if allspark_traefik.selfsigned.enable %}
+      {% if allspark_traefik.selfsigned.enabled %}
       "443:443",
       {% endif %}
       ]
