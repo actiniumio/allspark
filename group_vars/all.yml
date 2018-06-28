@@ -13,11 +13,19 @@ allspark_ldap:
   image: osixia/openldap:1.2.0
   management_image: osixia/phpldapadmin:0.7.1
 
-
 allspark_monitoring:
   enabled: true
 
 allspark_traefik:
+  selfsigned: 
+    enabled: false
+    # For example country: FR
+    country: XX
+    state: state
+    location: city
+    organisation: myteam
+    organizational_unit: myorganizational_unit
+    common_name: "*.{{ allspark_root_domain }}"
   image: traefik:latest
 
 allspark_portainer:
