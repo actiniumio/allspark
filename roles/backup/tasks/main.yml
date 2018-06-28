@@ -11,35 +11,30 @@
   with_items:
     - "{{ output.stdout_lines }}"
 
-- name: Set volume facts
-  set_fact: vls="{{ vls | default([]) | union([item]) }}"
-  with_items: 
-    - "{{ output.stdout_lines }}"
-
-- debug: var="{{ item }}"
-  with_items: 
-    - "{{ vls}}"
-
-#- name: Starting creating Backup container
-#  docker_container:
-#    name: backup
-#    image: "{{ allspark_backup.image }}"
-#    volumes:
-#      - "{{ item }}:/source/{{ item }}:ro" 
-#      - "/var/run/docker.sock:/var/run/docker.sock"
-#      - "{{ allspark_root_directory }}/backup:/backup"
-#    with_items:
-#      - "{{ vls }}"
-#    env:
-#      VOLUMERIZE_SOURCE: '/source'
-#      VOLUMERIZE_TARGET: 'file:///backup'
-#      VOLUMERIZE_CONTAINERS: 'grafana prometheus rocketchat rocketchat_database portainer jenkins sonarqube gitlab grafana'
-#      VOLUMERIZE_JOBBER_TIME : "0 0 12 * * *"
-#    state: "{{ allspark_backup.enabled and 'started' or 'absent'}}"
-#    networks:
-#      - name: allspark
-#    labels:
-#      "traefik.backend": "backup"
-#      "traefik.frontend.rule": "Host:backup.{{ allspark_root_domain }}"
-#      "traefik.enable": "true"
-#    restart_policy: always
+- name: Starting creating Backup container
+  docker_container:
+    name: backup
+    image: "{{ allspark_backup.image }}"
+    volumes: >-
+      [
+      {% for i in output %}
+      {% do %}
+      "{{ item }}:/source/{{ item }}:ro",
+      "/var/run/docker.sock:/var/run/docker.sock",
+      "{{ allspark_root_directory }}/backup:/backup",
+      ]
+    env:
+#      - VOLUMERIZE_SOURCE: '/source'
+#      - VOLUMERIZE_TARGET: 'file:///backup'
+#      - VOLUMERIZE_CONTAINERS: 'grafana prometheus rocketchat rocketchat_database portainer jenkins sonarqube gitlab grafana'
+#      - VOLUMERIZE_JOBBER_TIME : "0 0 12 * * *"
+    state: "{{ allspark_backup.enabled and 'started' or 'absent'}}"
+    networks:
+      - name: allspark
+    labels:
+      "traefik.backend": "backup"
+      "traefik.frontend.rule": "Host:backup.{{ allspark_root_domain }}"
+      "traefik.enable": "true"
+    restart_policy: always
+  with_items:
+    - "{{ output }}"
