@@ -1,15 +1,19 @@
 ---
 
 - name: Get docker volume list
-  shell: docker volume ls  | grep -i allspark | awk '{print $2}'
-  register: output
+  shell: docker volume ls | grep -i allspark | awk '{print $2}'
+  register: volumes_list
 
 - name: Verify Docker volumes
   docker_volume:
     name: "{{ item }}"
     state: present
   with_items:
-    - "{{ output.stdout_lines }}"
+    - "{{ volumes_list.stdout_lines }}"
+
+- name: Get docker name list
+  shell: docker ps -q | xargs -n 1 docker inspect --format \{\{' .Name '\}\} | sed 's/\// /' | tr -d '\r\n'
+  register: names_list
 
 - name: Starting creating Backup container
   docker_container:
@@ -17,17 +21,17 @@
     image: "{{ allspark_backup.image }}"
     volumes: >-
       [
-      {% for i in output %}
-      {% do %}
-      "{{ item }}:/source/{{ item }}:ro",
+      {% for volume in volumes_list.stdout_lines %}
+      "{{ volume }}:/source/{{ volume }}:ro",
+      {% endfor %}
       "/var/run/docker.sock:/var/run/docker.sock",
       "{{ allspark_root_directory }}/backup:/backup",
       ]
     env:
-#      - VOLUMERIZE_SOURCE: '/source'
-#      - VOLUMERIZE_TARGET: 'file:///backup'
-#      - VOLUMERIZE_CONTAINERS: 'grafana prometheus rocketchat rocketchat_database portainer jenkins sonarqube gitlab grafana'
-#      - VOLUMERIZE_JOBBER_TIME : "0 0 12 * * *"
+      VOLUMERIZE_SOURCE: '/source'
+      VOLUMERIZE_TARGET: 'file:///backup'
+      VOLUMERIZE_CONTAINERS: "{{ names_list.stdout }}"
+#      VOLUMERIZE_JOBBER_TIME : "0 0 12 * * *"
     state: "{{ allspark_backup.enabled and 'started' or 'absent'}}"
     networks:
       - name: allspark
@@ -36,5 +40,3 @@
       "traefik.frontend.rule": "Host:backup.{{ allspark_root_domain }}"
       "traefik.enable": "true"
     restart_policy: always
-  with_items:
-    - "{{ output }}"
