@@ -1,0 +1,13 @@
+language: python
+python:
+- '3.6'
+install: pip install -r docs/requirements.txt
+jobs:
+  include:
+  - stage: deploy
+    script: bash .travis/deploy_docs.sh
+    env:
+    - ENCRYPTION_LABEL: 00dec0d56e73
+    - COMMIT_AUTHOR_EMAIL: "germain.gau@gmail.com"
+    on:
+      branch: develop

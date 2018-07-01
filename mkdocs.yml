@@ -1,0 +1,37 @@
+site_name: Allspark
+site_description: The developper toolbox.
+site_author: The fkin company
+theme:
+  name: 'material'
+  palette:
+    primary: 'blue grey'
+    accent: 'pink'
+  # logo: assets/images/logo_128.ico
+  # favicon: assets/images/favicon.ico
+
+docs_dir: ./docs/pages
+pages:
+  - Index: index.md
+  - Roadmap: roadmap.md
+  - Architecture: architecture.md
+
+repo_url: https://github.com/TheFkinCompany/allspark
+markdown_extensions:
+  # For notes and stuff: http://squidfunk.github.io/mkdocs-material/extensions/admonition/
+  - admonition
+  # Noices code blocks : http://squidfunk.github.io/mkdocs-material/extensions/codehilite/
+  - codehilite
+
+  - pymdownx.arithmatex
+  - pymdownx.betterem(smart_enable=all)
+  - pymdownx.caret
+  - pymdownx.critic
+  - pymdownx.emoji:
+      emoji_generator: !!python/name:pymdownx.emoji.to_svg
+  - pymdownx.inlinehilite
+  - pymdownx.magiclink
+  - pymdownx.mark
+  - pymdownx.smartsymbols
+  - pymdownx.superfences
+  - pymdownx.tasklist(custom_checkbox=true)
+  - pymdownx.tilde
