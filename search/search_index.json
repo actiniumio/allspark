@@ -1,0 +1,34 @@
+{
+    "docs": [
+        {
+            "location": "/",
+            "text": "Allspark",
+            "title": "Index"
+        },
+        {
+            "location": "/#allspark",
+            "text": "",
+            "title": "Allspark"
+        },
+        {
+            "location": "/roadmap/",
+            "text": "Roadmap",
+            "title": "Roadmap"
+        },
+        {
+            "location": "/roadmap/#roadmap",
+            "text": "",
+            "title": "Roadmap"
+        },
+        {
+            "location": "/architecture/",
+            "text": "Architecture",
+            "title": "Architecture"
+        },
+        {
+            "location": "/architecture/#architecture",
+            "text": "",
+            "title": "Architecture"
+        }
+    ]
+}
