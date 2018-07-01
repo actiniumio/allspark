@@ -11,6 +11,56 @@
             "title": "Allspark"
         },
         {
+            "location": "/install/",
+            "text": "Installation guide\n\n\nRequirements\n\n\nOn the allspark machine\n\n\n\n\nDocker ( tested with version 18.04 )\n\n\n\n\nOn the control machine\n\n\n\n\nAnsible ( tested with version 2.5.5 )\n\n\n\n\nAnsible playbook\n\n\n\n\nEdit the file \ngroup_vars/all.yml\n to fit with\nyour needs, like:\n\n\nThe \nallspark_root_domain\n to use your domain name\n    (each component will be exposed as a subdomain).\n\n\nEnable or disable component using their \nenabled\n boolean toggle\n\n\n\n\nOnline install\n\n\n\n\nChange the hosts file to point to the allspark machine.\n\n\n\n\nansible-playbook -i hosts install.yml\n\n\n\n\nAt this point, you will be able to see component show up along with their access URL\nat \ningress.YOUR_ROOT_DOMAIN\n.\n\n\nOffline install\n\n\n0. On the online control machine\n\n\n\n\nNote\n\n\nChange the \nallspark_release_destination\n and \nallspark_release_tmp_directory\n to point to somwhere with at least 10Go of free space\n\n\n\n\n\n\n\n\nBash\n\n\nansible-playbook -i hosts release.yml\n\n\n\n\n\nhosts\n\n\n[all]\n\n\nlocalhost ansible_connection\n=\nlocal\n\n\n\n\n\n\nit will generate a \n.tar.gz\n file at \nallspark_release_destination\n.\nThis file needs to be copied along with the \ngroup_vars\n\ndirectory to the offline allspark machine.\n\n\n1. On the offline allspark machine\n\n\n\n\nImport the \ngroup_vars\n directory and the relase \n.tar.gz\n\n\nSet the \nallspark_release_destination\n in the \ngroup_vars/all.yml\n file to point to the release.\n\n\nSet the \nallspark_release_tmp_directory\n to point to somwhere with at least 10Go of free space\n\n\n\n\n\n\n\n\nBash\n\n\nansible-playbook -i hosts setup.yml\nansible-playbook -i hosts install.yml\n\n\n\n\n\nhosts\n\n\n[all]\n\n\nlocalhost ansible_connection\n=\nlocal\n\n\n\n\n\n\n\n\nWarning\n\n\nThis playbook does not setup the system yet. The release is packaged along with\nCentOS RPM dependencies as well as pip wheels, but you will however have to install them yourself.",
+            "title": "Install"
+        },
+        {
+            "location": "/install/#installation-guide",
+            "text": "",
+            "title": "Installation guide"
+        },
+        {
+            "location": "/install/#requirements",
+            "text": "",
+            "title": "Requirements"
+        },
+        {
+            "location": "/install/#on-the-allspark-machine",
+            "text": "Docker ( tested with version 18.04 )",
+            "title": "On the allspark machine"
+        },
+        {
+            "location": "/install/#on-the-control-machine",
+            "text": "Ansible ( tested with version 2.5.5 )",
+            "title": "On the control machine"
+        },
+        {
+            "location": "/install/#ansible-playbook",
+            "text": "Edit the file  group_vars/all.yml  to fit with\nyour needs, like:  The  allspark_root_domain  to use your domain name\n    (each component will be exposed as a subdomain).  Enable or disable component using their  enabled  boolean toggle",
+            "title": "Ansible playbook"
+        },
+        {
+            "location": "/install/#online-install",
+            "text": "Change the hosts file to point to the allspark machine.   ansible-playbook -i hosts install.yml  At this point, you will be able to see component show up along with their access URL\nat  ingress.YOUR_ROOT_DOMAIN .",
+            "title": "Online install"
+        },
+        {
+            "location": "/install/#offline-install",
+            "text": "",
+            "title": "Offline install"
+        },
+        {
+            "location": "/install/#0-on-the-online-control-machine",
+            "text": "Note  Change the  allspark_release_destination  and  allspark_release_tmp_directory  to point to somwhere with at least 10Go of free space     Bash  ansible-playbook -i hosts release.yml   hosts  [all]  localhost ansible_connection = local    it will generate a  .tar.gz  file at  allspark_release_destination .\nThis file needs to be copied along with the  group_vars \ndirectory to the offline allspark machine.",
+            "title": "0. On the online control machine"
+        },
+        {
+            "location": "/install/#1-on-the-offline-allspark-machine",
+            "text": "Import the  group_vars  directory and the relase  .tar.gz  Set the  allspark_release_destination  in the  group_vars/all.yml  file to point to the release.  Set the  allspark_release_tmp_directory  to point to somwhere with at least 10Go of free space     Bash  ansible-playbook -i hosts setup.yml\nansible-playbook -i hosts install.yml   hosts  [all]  localhost ansible_connection = local     Warning  This playbook does not setup the system yet. The release is packaged along with\nCentOS RPM dependencies as well as pip wheels, but you will however have to install them yourself.",
+            "title": "1. On the offline allspark machine"
+        },
+        {
             "location": "/roadmap/",
             "text": "Roadmap",
             "title": "Roadmap"
@@ -22,13 +72,23 @@
         },
         {
             "location": "/architecture/",
-            "text": "Architecture",
+            "text": "Architecture\n\n\nComponents\n\n\n\n\n\n\n\n\nComponents\n\n\nUsage\n\n\n\n\n\n\n\n\n\n\nGitlab\n\n\nSource code management\n\n\n\n\n\n\n\n\nContinuous integration / delivery\n\n\n\n\n\n\n\n\nWork planning\n\n\n\n\n\n\n\n\nIssue tracking\n\n\n\n\n\n\nPortainer\n\n\nContainer management\n\n\n\n\n\n\nRocketChat\n\n\nInstant chat (Slack like)\n\n\n\n\n\n\nGrafana\n\n\nMonitoring\n\n\n\n\n\n\nPrometheus\n\n\nMetrics scraping / store\n\n\n\n\n\n\nCAdvisor\n\n\nContainer metrics\n\n\n\n\n\n\nNode exporter\n\n\nSystem metrics\n\n\n\n\n\n\nSonarqube\n\n\nContinuous Inspection\n\n\n\n\n\n\nTraefik\n\n\nDynamic reverse proxy\n\n\n\n\n\n\n\n\nPlaybooks\n\n\n\n\nrelease.yml\n\n\n\n\n\n\nPackage an Allspark release in a \n.tar.gz\n file\n\n\n\n\n\n\nsetup.yml\n\n\n\n\n\n\nLoad a packaged Allspark release into the system\n\n\n\n\n\n\ninstall.yml\n\n\n\n\n\n\nInstall Allspark on the machine (either with an internet access or after using \nsetup.yml\n playbook)",
             "title": "Architecture"
         },
         {
             "location": "/architecture/#architecture",
             "text": "",
             "title": "Architecture"
+        },
+        {
+            "location": "/architecture/#components",
+            "text": "Components  Usage      Gitlab  Source code management     Continuous integration / delivery     Work planning     Issue tracking    Portainer  Container management    RocketChat  Instant chat (Slack like)    Grafana  Monitoring    Prometheus  Metrics scraping / store    CAdvisor  Container metrics    Node exporter  System metrics    Sonarqube  Continuous Inspection    Traefik  Dynamic reverse proxy",
+            "title": "Components"
+        },
+        {
+            "location": "/architecture/#playbooks",
+            "text": "release.yml    Package an Allspark release in a  .tar.gz  file    setup.yml    Load a packaged Allspark release into the system    install.yml    Install Allspark on the machine (either with an internet access or after using  setup.yml  playbook)",
+            "title": "Playbooks"
         }
     ]
 }

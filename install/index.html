@@ -40,7 +40,7 @@
     
     
       
-        <title>Architecture - Allspark</title>
+        <title>Install - Allspark</title>
       
     
     
@@ -102,7 +102,7 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
     
-      <a href="#architecture" tabindex="1" class="md-skip">
+      <a href="#installation-guide" tabindex="1" class="md-skip">
         Skip to content
       </a>
     
@@ -128,7 +128,7 @@
                 Allspark
               </span>
               <span class="md-header-nav__topic">
-                Architecture
+                Install
               </span>
             
           
@@ -255,11 +255,116 @@
       
       
 
+  
 
-  <li class="md-nav__item">
-    <a href="../install/" title="Install" class="md-nav__link">
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Install
+      </label>
+    
+    <a href="./" title="Install" class="md-nav__link md-nav__link--active">
       Install
     </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#requirements" title="Requirements" class="md-nav__link">
+    Requirements
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#on-the-allspark-machine" title="On the allspark machine" class="md-nav__link">
+    On the allspark machine
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#on-the-control-machine" title="On the control machine" class="md-nav__link">
+    On the control machine
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ansible-playbook" title="Ansible playbook" class="md-nav__link">
+    Ansible playbook
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#online-install" title="Online install" class="md-nav__link">
+    Online install
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#offline-install" title="Offline install" class="md-nav__link">
+    Offline install
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#0-on-the-online-control-machine" title="0. On the online control machine" class="md-nav__link">
+    0. On the online control machine
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1-on-the-offline-allspark-machine" title="1. On the offline allspark machine" class="md-nav__link">
+    1. On the offline allspark machine
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
   </li>
 
     
@@ -279,56 +384,11 @@
       
       
 
-  
 
-
-  <li class="md-nav__item md-nav__item--active">
-    
-    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-    
-      
-    
-    
-      <label class="md-nav__link md-nav__link--active" for="__toc">
-        Architecture
-      </label>
-    
-    <a href="./" title="Architecture" class="md-nav__link md-nav__link--active">
+  <li class="md-nav__item">
+    <a href="../architecture/" title="Architecture" class="md-nav__link">
       Architecture
     </a>
-    
-      
-<nav class="md-nav md-nav--secondary">
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">Table of contents</label>
-    <ul class="md-nav__list" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#components" title="Components" class="md-nav__link">
-    Components
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#playbooks" title="Playbooks" class="md-nav__link">
-    Playbooks
-  </a>
-  
-</li>
-      
-      
-      
-      
-      
-    </ul>
-  
-</nav>
-    
   </li>
 
     
@@ -353,16 +413,76 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#components" title="Components" class="md-nav__link">
-    Components
+  <a href="#requirements" title="Requirements" class="md-nav__link">
+    Requirements
   </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#on-the-allspark-machine" title="On the allspark machine" class="md-nav__link">
+    On the allspark machine
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#on-the-control-machine" title="On the control machine" class="md-nav__link">
+    On the control machine
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#playbooks" title="Playbooks" class="md-nav__link">
-    Playbooks
+  <a href="#ansible-playbook" title="Ansible playbook" class="md-nav__link">
+    Ansible playbook
   </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#online-install" title="Online install" class="md-nav__link">
+    Online install
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#offline-install" title="Offline install" class="md-nav__link">
+    Offline install
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#0-on-the-online-control-machine" title="0. On the online control machine" class="md-nav__link">
+    0. On the online control machine
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1-on-the-offline-allspark-machine" title="1. On the offline allspark machine" class="md-nav__link">
+    1. On the offline allspark machine
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -382,88 +502,79 @@
             <article class="md-content__inner md-typeset">
               
                 
-                  <a href="https://github.com/TheFkinCompany/allspark/edit/master/docs/architecture.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
+                  <a href="https://github.com/TheFkinCompany/allspark/edit/master/docs/install.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
                 
                 
-                <h1 id="architecture">Architecture</h1>
-<h2 id="components">Components</h2>
-<table>
-<thead>
-<tr>
-<th>Components</th>
-<th>Usage</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Gitlab</td>
-<td>Source code management</td>
-</tr>
-<tr>
-<td></td>
-<td>Continuous integration / delivery</td>
-</tr>
-<tr>
-<td></td>
-<td>Work planning</td>
-</tr>
-<tr>
-<td></td>
-<td>Issue tracking</td>
-</tr>
-<tr>
-<td>Portainer</td>
-<td>Container management</td>
-</tr>
-<tr>
-<td>RocketChat</td>
-<td>Instant chat (Slack like)</td>
-</tr>
-<tr>
-<td>Grafana</td>
-<td>Monitoring</td>
-</tr>
-<tr>
-<td>Prometheus</td>
-<td>Metrics scraping / store</td>
-</tr>
-<tr>
-<td>CAdvisor</td>
-<td>Container metrics</td>
-</tr>
-<tr>
-<td>Node exporter</td>
-<td>System metrics</td>
-</tr>
-<tr>
-<td>Sonarqube</td>
-<td>Continuous Inspection</td>
-</tr>
-<tr>
-<td>Traefik</td>
-<td>Dynamic reverse proxy</td>
-</tr>
-</tbody>
-</table>
-<h2 id="playbooks">Playbooks</h2>
+                <h1 id="installation-guide">Installation guide</h1>
+<h2 id="requirements">Requirements</h2>
+<h3 id="on-the-allspark-machine">On the allspark machine</h3>
 <ul>
-<li><code class="codehilite">release.yml</code></li>
+<li>Docker ( tested with version 18.04 )</li>
 </ul>
-<blockquote>
-<p>Package an Allspark release in a <code class="codehilite"><span class="na">.tar.gz</span></code> file</p>
-</blockquote>
+<h3 id="on-the-control-machine">On the control machine</h3>
 <ul>
-<li><code class="codehilite">setup.yml</code></li>
+<li>Ansible ( tested with version 2.5.5 )</li>
 </ul>
-<blockquote>
-<p>Load a packaged Allspark release into the system</p>
-</blockquote>
+<h2 id="ansible-playbook">Ansible playbook</h2>
 <ul>
-<li><code class="codehilite">install.yml</code></li>
+<li>Edit the file <code class="codehilite">group_vars/all.yml</code> to fit with
+your needs, like:</li>
+<li>The <code class="codehilite">allspark_root_domain</code> to use your domain name
+    (each component will be exposed as a subdomain).</li>
+<li>Enable or disable component using their <code class="codehilite">enabled</code> boolean toggle</li>
 </ul>
-<blockquote>
-<p>Install Allspark on the machine (either with an internet access or after using <code class="codehilite">setup.yml</code> playbook)</p>
-</blockquote>
+<h3 id="online-install">Online install</h3>
+<ul>
+<li>Change the hosts file to point to the allspark machine.</li>
+</ul>
+<div class="codehilite"><pre><span></span>ansible-playbook -i hosts install.yml
+</pre></div>
+
+<p>At this point, you will be able to see component show up along with their access URL
+at <code class="codehilite">ingress.YOUR_ROOT_DOMAIN</code>.</p>
+<h3 id="offline-install">Offline install</h3>
+<h4 id="0-on-the-online-control-machine">0. On the online control machine</h4>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Change the <code class="codehilite">allspark_release_destination</code> and <code class="codehilite">allspark_release_tmp_directory</code> to point to somwhere with at least 10Go of free space</p>
+</div>
+<div class="superfences-tabs">
+<input name="__tabs_1" type="radio" id="__tab_1_0" checked="checked" />
+<label for="__tab_1_0">Bash</label>
+<div class="superfences-content"><div class="codehilite"><pre><span></span>ansible-playbook -i hosts release.yml
+</pre></div></div>
+<input name="__tabs_1" type="radio" id="__tab_1_1" />
+<label for="__tab_1_1">hosts</label>
+<div class="superfences-content"><div class="codehilite"><pre><span></span><span class="k">[all]</span>
+<span class="na">localhost ansible_connection</span><span class="o">=</span><span class="s">local</span>
+</pre></div></div>
+</div>
+<p>it will generate a <code class="codehilite"><span class="na">.tar.gz</span></code> file at <code class="codehilite">allspark_release_destination</code>.
+This file needs to be copied along with the <code class="codehilite">group_vars</code>
+directory to the offline allspark machine.</p>
+<h4 id="1-on-the-offline-allspark-machine">1. On the offline allspark machine</h4>
+<ul>
+<li>Import the <code class="codehilite">group_vars</code> directory and the relase <code class="codehilite"><span class="na">.tar.gz</span></code></li>
+<li>Set the <code class="codehilite">allspark_release_destination</code> in the <code class="codehilite">group_vars/all.yml</code> file to point to the release.</li>
+<li>Set the <code class="codehilite">allspark_release_tmp_directory</code> to point to somwhere with at least 10Go of free space</li>
+</ul>
+<div class="superfences-tabs">
+<input name="__tabs_2" type="radio" id="__tab_2_0" checked="checked" />
+<label for="__tab_2_0">Bash</label>
+<div class="superfences-content"><div class="codehilite"><pre><span></span>ansible-playbook -i hosts setup.yml
+ansible-playbook -i hosts install.yml
+</pre></div></div>
+<input name="__tabs_2" type="radio" id="__tab_2_1" />
+<label for="__tab_2_1">hosts</label>
+<div class="superfences-content"><div class="codehilite"><pre><span></span><span class="k">[all]</span>
+<span class="na">localhost ansible_connection</span><span class="o">=</span><span class="s">local</span>
+</pre></div></div>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This playbook does not setup the system yet. The release is packaged along with
+CentOS RPM dependencies as well as pip wheels, but you will however have to install them yourself.</p>
+</div>
                 
                   
                 
@@ -484,7 +595,7 @@
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
         
-          <a href="../roadmap/" title="Roadmap" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href=".." title="Index" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-flex__cell md-flex__cell--shrink">
               <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
             </div>
@@ -493,11 +604,25 @@
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                Roadmap
+                Index
               </span>
             </div>
           </a>
         
+        
+          <a href="../roadmap/" title="Roadmap" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                Roadmap
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
         
       </nav>
     </div>
