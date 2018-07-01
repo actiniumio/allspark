@@ -12,6 +12,7 @@ theme:
 docs_dir: ./docs/pages
 pages:
   - Index: index.md
+  - Install: install.md
   - Roadmap: roadmap.md
   - Architecture: architecture.md
 
@@ -22,6 +23,7 @@ markdown_extensions:
   # Noices code blocks : http://squidfunk.github.io/mkdocs-material/extensions/codehilite/
   - codehilite
 
+  - pymdownx.superfences
   - pymdownx.arithmatex
   - pymdownx.betterem(smart_enable=all)
   - pymdownx.caret
@@ -32,6 +34,5 @@ markdown_extensions:
   - pymdownx.magiclink
   - pymdownx.mark
   - pymdownx.smartsymbols
-  - pymdownx.superfences
   - pymdownx.tasklist(custom_checkbox=true)
   - pymdownx.tilde
