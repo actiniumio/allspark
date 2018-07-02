@@ -25,11 +25,10 @@
       "{{ volume }}:/source/{{ volume }}:ro",
       {% endfor %}
       "/var/run/docker.sock:/var/run/docker.sock",
-      "{{ allspark_root_directory }}/backup:/backup",
+      "{{ allspark_backup_directory }}:/backup",
       ]
     env:
       VOLUMERIZE_SOURCE: '/source'
       VOLUMERIZE_TARGET: 'file:///backup'
       VOLUMERIZE_CONTAINERS: "{{ names_list.stdout }}"
-    state: "{{ allspark_backup.enabled and 'started' or 'absent'}}"
     restart_policy: always
