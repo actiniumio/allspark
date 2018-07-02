@@ -5,14 +5,14 @@ allspark_root_domain: allspark.localhost
 allspark_root_directory: /opt/allspark
 allspark_admin_user: admin
 
-allspark_docker_version: "18.03.1"
+allspark_docker_version: "17.03.2"
 
 allspark_ldap:
   enabled: false
   organization: Allspark
 
 allspark_monitoring:
-  enabled: false
+  enabled: true
 
 allspark_traefik:
   selfsigned:
@@ -36,7 +36,7 @@ allspark_gitlab:
 allspark_jenkins:
   enabled: false
   # Toggle default plugin import from release.
-  import_plugins: false
+  import_plugins: true
 
 allspark_sonarqube:
   enabled: false
