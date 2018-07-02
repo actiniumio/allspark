@@ -3,6 +3,7 @@
 
 allspark_root_domain: allspark.localhost
 allspark_root_directory: /opt/allspark
+allspark_backup_directory: /opt/allspark/backup
 allspark_admin_user: admin
 
 allspark_docker_version: "17.03.2"
@@ -42,7 +43,6 @@ allspark_sonarqube:
   enabled: false
 
 allspark_backup:
-  enabled: true
   image: blacklabelops/volumerize
 
 ### Release configuration
