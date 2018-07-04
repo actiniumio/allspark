@@ -41,3 +41,4 @@
       "traefik.port": "80"
       "traefik.frontend.rule": "Host:gitlab.{{ allspark_root_domain }}"
       "traefik.enable": "true"
+      "managedby": "allspark"

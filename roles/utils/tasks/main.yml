@@ -53,4 +53,5 @@
       "traefik.backend": "rocketchat"
       "traefik.frontend.rule": "Host:chat.{{ allspark_root_domain }}"
       "traefik.enable": "true"
+      "managedby": "allspark"
     restart_policy: always
