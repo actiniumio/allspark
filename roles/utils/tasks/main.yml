@@ -35,6 +35,8 @@
       - name: allspark
     volumes:
       - "allspark_rocketchat_data:/data/db"
+    labels:
+      "managedby": "allspark"
     restart_policy: always
 
 - name: Setup RocketChat service

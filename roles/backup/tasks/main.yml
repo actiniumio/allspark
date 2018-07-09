@@ -12,7 +12,7 @@
     - "{{ volumes_list.stdout_lines }}"
 
 - name: Get docker name list
-  shell: docker ps -q | xargs -n 1 docker inspect --format \{\{' .Name '\}\} | sed 's/\// /' | tr -d '\r\n'
+  shell: docker ps -q --filter label=managedby=allspark | xargs -n 1 docker inspect --format \{\{' .Name '\}\} | sed 's/\// /' | tr -d '\r\n'
   register: names_list
 
 - name: Starting creating Backup container
