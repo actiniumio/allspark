@@ -1,0 +1,7 @@
+- name: Run using a Restore Test Project
+  hosts: all
+  tasks:
+
+  - name: Setup Restore Test in dry-run mode 
+    include_role:
+      name: restore-dry-run
