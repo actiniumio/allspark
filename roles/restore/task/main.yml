@@ -33,6 +33,5 @@
       VOLUMERIZE_CONTAINERS: "{{ names_list.stdout }}"
     restart_policy: always
 
-- name: Launch backup task
+- name: Launch Restore task
   shell: docker exec backup restore
-
