@@ -1,4 +1,4 @@
-- name: Run using a Restore Test Project
+- name: Run Restore Test Project
   hosts: all
   tasks:
 
