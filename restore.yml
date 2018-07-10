@@ -1,7 +1,7 @@
-- name: Run using a Restore project
+- name: Run Restore project
   hosts: all
   tasks:
 
-  - name: Setup Restore Policy
+  - name: Setup Restore Policy and launch the Restore
     include_role:
       name: restore
