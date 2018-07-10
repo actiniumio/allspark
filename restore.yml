@@ -1,0 +1,7 @@
+- name: Run using a Restore project
+  hosts: all
+  tasks:
+
+  - name: Setup Restore Policy
+    include_role:
+      name: restore
