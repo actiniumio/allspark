@@ -1,3 +1,7 @@
+## Avoid documentation temporary artifacts to be commited to the main repository
+.docs_venv
+doc
+
 
 # Created by https://www.gitignore.io/api/vim,data,linux,emacs,python,ansible,erlang,vagrant
 
