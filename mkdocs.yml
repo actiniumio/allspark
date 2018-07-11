@@ -15,6 +15,7 @@ pages:
   - Install: install.md
   - Roadmap: roadmap.md
   - Architecture: architecture.md
+  - Troubleshooting: troubleshooting.md
 
 repo_url: https://github.com/TheFkinCompany/allspark
 markdown_extensions:
