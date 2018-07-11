@@ -8,7 +8,7 @@ doc: $(DOCS_SRCS) docs/requirements.txt
 	@echo "Setting up docs virtual environment"
 	@EXIT_CODE=0
 	@[ -d .docs_venv ] || virtualenv .docs_venv
-	@source .docs_venv/bin/activate && \
+	@. .docs_venv/bin/activate && \
 	( \
 		pip $(PIP_GLOBAL_ARGS) install $(PIP_COMMAND_ARGS) -r docs/requirements.txt && \
 		echo "Building docs" && \
