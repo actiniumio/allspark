@@ -1,7 +1,6 @@
 language: python
 python:
 - '3.6'
-install: pip install -r docs/requirements.txt
 jobs:
   include:
   - stage: deploy
