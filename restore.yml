@@ -5,3 +5,10 @@
   - name: Setup Restore Policy and launch the Restore
     include_role:
       name: restore
+    tags: restore
+
+  - name: Setup Restore Policy and launch the dry-run restore mode to test your backup
+    include_role:
+      name: restore-dry-run
+    tags: dry-run
+

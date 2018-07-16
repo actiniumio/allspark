@@ -32,3 +32,7 @@
       VOLUMERIZE_TARGET: 'file:///backup'
       VOLUMERIZE_CONTAINERS: "{{ names_list.stdout }}"
     restart_policy: always
+
+- name: Launch backup task
+  shell: docker exec backup backup
+

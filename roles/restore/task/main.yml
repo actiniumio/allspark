@@ -35,3 +35,9 @@
 
 - name: Launch Restore task
   shell: docker exec backup restore
+  tags: restore
+
+- name: Launch Restore task
+  shell: docker exec backup restore --dry-run
+  tags: dry-run
+
