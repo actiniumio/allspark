@@ -43,13 +43,13 @@ allspark_sonarqube:
   enabled: false
 
 allspark_backup:
-  enabled: true
+  enabled: false 
   image: blacklabelops/volumerize
 
 allspark_restore:
   enabled: false
   dry_run:
-    enabled:false
+    enabled: false
 
 ### Release configuration
 # Should not be here

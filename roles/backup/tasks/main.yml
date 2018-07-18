@@ -34,15 +34,14 @@
     restart_policy: always
 
 - name: Backup - Execution
-    shell:  >-
-      docker exec backup backup
+  shell: docker exec backup backup
   when: allspark_backup.enabled
 
 - name: Restore - Execution
-    shell:  >-
-      docker exec backup restore
-      {% if allspark_restore.dry_run.enabled %}
-      --dry-run
-      {% endif %}
+  shell:  >-
+    docker exec backup restore
+    {% if allspark_restore.dry_run.enabled %}
+    --dry-run
+    {% endif %}
   when: allspark_restore.enabled
 
