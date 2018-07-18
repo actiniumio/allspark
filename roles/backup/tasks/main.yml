@@ -33,6 +33,16 @@
       VOLUMERIZE_CONTAINERS: "{{ names_list.stdout }}"
     restart_policy: always
 
-- name: Launch backup task
-  shell: docker exec backup backup
+- name: Backup - Execution
+    shell:  >-
+      docker exec backup backup
+  when: allspark_backup.enabled
+
+- name: Restore - Execution
+    shell:  >-
+      docker exec backup restore
+      {% if allspark_restore.dry_run.enabled %}
+      --dry-run
+      {% endif %}
+  when: allspark_restore.enabled
 
