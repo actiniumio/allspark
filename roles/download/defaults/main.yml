@@ -1,0 +1,65 @@
+# Downloads
+downloads:
+  gitlab:
+    enabled: "{{ allspark_gitlab.enabled }}"
+    image: "gitlab/gitlab-ce"
+    tag: "latest"
+  rocketchat:
+    enabled: "{{ allspark_rocketchat.enabled }}"
+    image: "rocket.chat"
+    tag: "latest"
+  rocketchat_mongodb:
+    enabled: "{{ allspark_rocketchat.enabled }}"
+    image: "mongo"
+    tag: "latest"
+  traefik:
+    enabled: true
+    image: "traefik"
+    tag: "latest"
+  grafana:
+    enabled: "{{ allspark_monitoring.enabled }}"
+    image: "grafana/grafana"
+    tag: "latest"
+  prometheus:
+    enabled: "{{ allspark_monitoring.enabled }}"
+    image: "prom/prometheus"
+    tag: "v2.1.0"
+  cadvisor:
+    enabled: "{{ allspark_monitoring.enabled }}"
+    image: "google/cadvisor"
+    tag: "latest"
+  node_exporter:
+    enabled: "{{ allspark_monitoring.enabled }}"
+    image: "prom/node-exporter"
+    tag: "latest"
+  sonarqube:
+    enabled: "{{ allspark_sonarqube.enabled }}"
+    image: "sonarqube"
+    tag: "latest"
+  portainer:
+    enabled: true
+    image: "portainer/portainer"
+    tag: "latest"
+  openldap:
+    enabled: "{{ allspark_ldap.enabled }}"
+    image: "osixia/openldap"
+    tag: "1.2.0"
+  phpldapadmin:
+    enabled: "{{ allspark_ldap.enabled }}"
+    image: "osixia/phpldapadmin"
+    tag: "0.7.1"
+  gitlab_runner:
+    enabled: "{{ allspark_gitlab.with_runner }}"
+    image: "gitlab/gitlab-runner"
+    tag: "latest"
+  jenkins:
+    enabled: "{{ allspark_jenkins.enabled }}"
+    image: "jenkins/jenkins"
+    tag: "latest"
+
+
+# Misc
+
+## Set this to true to force the download of every images, even if they are
+## disabled in the configuration
+force_download: false

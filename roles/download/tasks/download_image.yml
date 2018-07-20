@@ -1,0 +1,5 @@
+- name: "[Download] {{ item }}"
+  docker_image:
+    state: present
+    name: "{{ downloads[item].image }}:{{ downloads[item].tag }}"
+  when: downloads[item].enabled or force_download

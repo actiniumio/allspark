@@ -1,0 +1,2 @@
+- include_tasks: download_image.yml
+  with_items: "{{ downloads.keys() | list }}"
