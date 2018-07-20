@@ -56,6 +56,14 @@ downloads:
     enabled: "{{ allspark_jenkins.enabled }}"
     image: "jenkins/jenkins"
     tag: "latest"
+  centos:
+    enabled: true
+    image: "centos"
+    tag: "7"
+  volumerize:
+    enabled: true
+    image: "blacklabelops/volumerize"
+    tag: "latest"
 
 
 # Misc
