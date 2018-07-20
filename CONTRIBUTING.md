@@ -1,4 +1,15 @@
 # Contributing
+
+## Development
+
+### Docker images
+
+The docker images are downloaded in the `download` role.
+If you need to add an image to allspark, add the corresponding entry
+in the `roles/download/defaults/main.yml` file. You can then refer to
+your image using `{{ downloads.your_image.image }}:{{ downloads.your_image.tag }}`.
+
+
 ## Test modifications
 
 We use `vagrant` to test the Allspark single node environment.
