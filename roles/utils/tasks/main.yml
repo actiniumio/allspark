@@ -5,7 +5,7 @@
 - name: Setup Portainer as infra service
   docker_container:
     name: portainer
-    image: "{{ allspark_portainer.image }}"
+    image: "{{ downloads.portainer.image }}:{{ downloads.portainer.tag }}"
     volumes:
       - "allspark_portainer_data:/data"
       - "/var/run/docker.sock:/var/run/docker.sock"
@@ -29,7 +29,7 @@
 - name: Setup MongoDB chat service database
   docker_container:
     name: rocketchat_database
-    image: "{{ allspark_rocketchat.database_image }}"
+    image: "{{ downloads.rocketchat_mongodb.image }}:{{ downloads.rocketchat_mongodb.tag }}"
     state: "{{ allspark_rocketchat.enabled and 'started' or 'absent'}}"
     networks:
       - name: allspark
@@ -40,7 +40,7 @@
 - name: Setup RocketChat service
   docker_container:
     name: rocketchat
-    image: "{{ allspark_rocketchat.image }}"
+    image: "{{ downloads.rocketchat.image }}:{{ downloads.rocketchat.tag }}"
     state: "{{ allspark_rocketchat.enabled and 'started' or 'absent'}}"
     env:
       MONGO_URL: mongodb://rocketchat_database/rocketchat

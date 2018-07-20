@@ -48,7 +48,7 @@
 - name: Setup ingress manager
   docker_container:
     name: traefik
-    image: "{{ allspark_traefik.image }}"
+    image: "{{ downloads.traefik.image }}:{{ downloads.traefik.tag }}"
     volumes: >-
       [
       "{{ allspark_root_directory }}/config/traefik/traefik.toml:/etc/traefik/traefik.toml",

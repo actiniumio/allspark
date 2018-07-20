@@ -12,7 +12,7 @@
 - name: Starting Jenkins master
   docker_container:
     name: jenkins
-    image: "{{ allspark_jenkins.image }}"
+    image: "{{ downloads.jenkins.image }}:{{ downloads.jenkins.tag }}"
     state: "{{ allspark_jenkins.enabled and 'started' or 'absent'}}"
     networks:
       - name: allspark
