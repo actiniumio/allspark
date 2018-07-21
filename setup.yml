@@ -1,7 +1,8 @@
 # Load offline release
 - name: Load dependencies for an Allspark release
   hosts: all
-
+  roles:
+  - { role: download, force_download: true }
   tasks:
   - name: Creating release directory
     file:
@@ -12,12 +13,6 @@
     unarchive:
       src: "{{ allspark_release_destination }}"
       dest: "{{ allspark_release_tmp_directory }}"
-
-  - name: Downloading Docker images
-    include_role:
-      name: download
-    vars:
-      force_download: true
 
   - name: Importing Docker images
     docker_image:
