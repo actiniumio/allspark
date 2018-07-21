@@ -1,70 +1,105 @@
+# Images
+gitlab_image: gitlab/gitlab-ce
+rocketchat_image: rocket.chat
+rocketchat_mongodb_image: mongo
+traefik_image: traefik
+grafana_image: grafana/grafana
+prometheus_image: prom/prometheus
+cadvisor_image: google/cadvisor
+node_exporter_image: prom/node-exporter
+sonarqube_image: sonarqube
+portainer_image: portainer/portainer
+openldap_image: osixia/openldap
+phpldapadmin_image: osixia/phpldapadmin
+gitlab_runner_image: gitlab/gitlab-runner
+jenkins_image: jenkins/jenkins
+centos_image: centos
+volumerize_image: blacklabelops/volumerize
+
+# Tags
+gitlab_tag: latest
+rocketchat_tag: latest
+rocketchat_mongodb_tag: latest
+traefik_tag: latest
+grafana_tag: latest
+prometheus_tag: v2.1.0
+cadvisor_tag: latest
+node_exporter_tag: latest
+sonarqube_tag: latest
+portainer_tag: latest
+openldap_tag: 1.2.0
+phpldapadmin_tag: 0.7.1
+gitlab_runner_tag: latest
+jenkins_tag: latest
+centos_tag: 7
+volumerize_tag: latest
+
 # Downloads
 downloads:
-  gitlab:
-    enabled: "{{ allspark_gitlab.enabled }}"
-    image: "gitlab/gitlab-ce"
-    tag: "latest"
-  rocketchat:
-    enabled: "{{ allspark_rocketchat.enabled }}"
-    image: "rocket.chat"
-    tag: "latest"
-  rocketchat_mongodb:
-    enabled: "{{ allspark_rocketchat.enabled }}"
-    image: "mongo"
-    tag: "latest"
-  traefik:
-    enabled: true
-    image: "traefik"
-    tag: "latest"
-  grafana:
-    enabled: "{{ allspark_monitoring.enabled }}"
-    image: "grafana/grafana"
-    tag: "latest"
-  prometheus:
-    enabled: "{{ allspark_monitoring.enabled }}"
-    image: "prom/prometheus"
-    tag: "v2.1.0"
   cadvisor:
     enabled: "{{ allspark_monitoring.enabled }}"
-    image: "google/cadvisor"
-    tag: "latest"
-  node_exporter:
-    enabled: "{{ allspark_monitoring.enabled }}"
-    image: "prom/node-exporter"
-    tag: "latest"
-  sonarqube:
-    enabled: "{{ allspark_sonarqube.enabled }}"
-    image: "sonarqube"
-    tag: "latest"
-  portainer:
-    enabled: true
-    image: "portainer/portainer"
-    tag: "latest"
-  openldap:
-    enabled: "{{ allspark_ldap.enabled }}"
-    image: "osixia/openldap"
-    tag: "1.2.0"
-  phpldapadmin:
-    enabled: "{{ allspark_ldap.enabled }}"
-    image: "osixia/phpldapadmin"
-    tag: "0.7.1"
-  gitlab_runner:
-    enabled: "{{ allspark_gitlab.with_runner }}"
-    image: "gitlab/gitlab-runner"
-    tag: "latest"
-  jenkins:
-    enabled: "{{ allspark_jenkins.enabled }}"
-    image: "jenkins/jenkins"
-    tag: "latest"
+    image: "{{ cadvisor_image }}"
+    tag: "{{ cadvisor_tag }}"
   centos:
     enabled: true
-    image: "centos"
-    tag: "7"
+    image: "{{ centos_image }}"
+    tag: "{{ centos_tag }}"
+  gitlab:
+    enabled: "{{ allspark_gitlab.enabled }}"
+    image: "{{ gitlab_image }}"
+    tag: "{{ gitlab_tag }}"
+  gitlab_runner:
+    enabled: "{{ allspark_gitlab.with_runner }}"
+    image: "{{ gitlab_runner_image }}"
+    tag: "{{ gitlab_runner_tag }}"
+  grafana:
+    enabled: "{{ allspark_monitoring.enabled }}"
+    image: "{{ grafana_image }}"
+    tag: "{{ grafana_tag }}"
+  jenkins:
+    enabled: "{{ allspark_jenkins.enabled }}"
+    image: "{{ jenkins_image }}"
+    tag: "{{ jenkins_tag }}"
+  node_exporter:
+    enabled: "{{ allspark_monitoring.enabled }}"
+    image: "{{ node_exporter_image }}"
+    tag: "{{ node_exporter_tag }}"
+  openldap:
+    enabled: "{{ allspark_ldap.enabled }}"
+    image: "{{ openldap_image }}"
+    tag: "{{ openldap_tag }}"
+  phpldapadmin:
+    enabled: "{{ allspark_ldap.enabled }}"
+    image: "{{ phpldapadmin_image }}"
+    tag: "{{ phpldapadmin_tag }}"
+  portainer:
+    enabled: true
+    image: "{{ portainer_image }}"
+    tag: "{{ portainer_tag }}"
+  prometheus:
+    enabled: "{{ allspark_monitoring.enabled }}"
+    image: "{{ prometheus_image }}"
+    tag: "{{ prometheus_tag }}"
+  rocketchat:
+    enabled: "{{ allspark_rocketchat.enabled }}"
+    image: "{{ rocketchat_image }}"
+    tag: "{{ rocketchat_tag }}"
+  rocketchat_mongodb:
+    enabled: "{{ allspark_rocketchat.enabled }}"
+    image: "{{ rocketchat_mongodb_image }}"
+    tag: "{{ rocketchat_mongodb_tag }}"
+  sonarqube:
+    enabled: "{{ allspark_sonarqube.enabled }}"
+    image: "{{ sonarqube_image }}"
+    tag: "{{ sonarqube_tag }}"
+  traefik:
+    enabled: true
+    image: "{{ traefik_image }}"
+    tag: "{{ traefik_tag }}"
   volumerize:
     enabled: true
-    image: "blacklabelops/volumerize"
-    tag: "latest"
-
+    image: "{{ volumerize_image }}"
+    tag: "{{ volumerize_tag }}"
 
 # Misc
 
