@@ -535,6 +535,24 @@ your needs, like:</li>
     (each component will be exposed as a subdomain).</li>
 <li>Enable or disable component using their <code class="codehilite">enabled</code> boolean toggle</li>
 </ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You can customize the image or tag for a component by overriding the <code class="codehilite">component_image</code> and <code class="codehilite">component_tag</code>, using either :</p>
+<ul>
+<li><a href="https://docs.ansible.com/ansible/latest/user_guide/playbooks_variables.html#passing-variables-on-the-command-line">Ansible extra vars</a></li>
+<li>Add those variables to your <code class="codehilite">group_vars/all.yml</code> file.</li>
+</ul>
+<p><em>e.g</em>: (group_vars)
+<div class="codehilite"><pre><span></span><span class="c1"># Change gitlab-ce to gitlab-ee</span>
+<span class="l l-Scalar l-Scalar-Plain">gitlab_image</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">gitlab_ee</span>
+<span class="l l-Scalar l-Scalar-Plain">gitlab_tag</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">latest</span>
+</pre></div>
+You can access the complete list of available components in the <a href="https://github.com/TheFkinCompany/allspark/blob/master/roles/download/defaults/main.yml">roles/downloads/defaults/main.yml</a> file.</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>For offline install, the images configuration must be the same on both end.</p>
+</div>
 <h3 id="online-install">Online install</h3>
 <ul>
 <li>Change the hosts file to point to the allspark machine.</li>
