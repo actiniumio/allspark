@@ -1,7 +1,7 @@
 - name: Setup CAdvisor for containers monitoring
   docker_container:
     name: cadvisor
-    image: "{{ allspark_cadvisor.image }}"
+    image: "{{ downloads.cadvisor.image }}:{{ downloads.cadvisor.tag }}"
     state: "{{ allspark_monitoring.enabled and 'started' or 'absent' }}"
     volumes: >-
       [
@@ -20,7 +20,7 @@
 - name: Setup node exporter
   docker_container:
     name: node-exporter
-    image: "{{ allspark_node_exporter.image }}"
+    image: "{{ downloads.node_exporter.image }}:{{ downloads.node_exporter.tag }}"
     state: "{{ allspark_monitoring.enabled and 'started' or 'absent' }}"
     volumes:
       - /proc:/host/proc:ro
@@ -55,7 +55,7 @@
 - name: Setup Prometheus metrics collector
   docker_container:
     name: prometheus
-    image: "{{ allspark_prometheus.image }}"
+    image: "{{ downloads.prometheus.image }}:{{ downloads.prometheus.tag }}"
     state: "{{ allspark_monitoring.enabled and 'started' or 'absent' }}"
     volumes:
       - "{{ allspark_root_directory }}/config/prometheus/:/etc/prometheus/"
@@ -88,7 +88,7 @@
 - name: Setup Grafana for vizualization
   docker_container:
     name: grafana
-    image: "{{ allspark_grafana.image }}"
+    image: "{{ downloads.grafana.image }}:{{ downloads.grafana.tag }}"
     state: "{{ allspark_monitoring.enabled and 'started' or 'absent' }}"
     volumes:
       - allspark_grafana_data:/var/lib/grafana

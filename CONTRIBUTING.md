@@ -1,4 +1,36 @@
 # Contributing
+
+## Development
+
+### Docker images
+
+The docker images are downloaded in the `download` role.
+If you need to add an image to allspark, add the corresponding entry
+in the `roles/download/defaults/main.yml` file. You can then refer to
+your image using `{{ downloads.component_name.image }}:{{ downloads.component_name.tag }}`.
+
+By convention, the image `name` and `tag` are exposed in separated variables `${component_name}_image` and `${component_name}_tag`.
+
+_e.g_:
+```yaml
+# Images
+gitlab_image: gitlab/gitlab-ce
+
+# Tags
+gitlab_tag: latest
+
+# Downloads
+downloads:
+  gitlab:
+    enabled: "{{ allspark_gitlab.enabled }}"
+    image: "{{ gitlab_image }}"
+    tag: "{{ gitlab_tag }}"
+```
+
+This format is helful to centralize `downloads` for an easier access in roles, the exposed variables also allow the user to
+easily override an image/tag with a `ansible-playbook -e "${component_name}_image=my-image"`
+
+
 ## Test modifications
 
 We use `vagrant` to test the Allspark single node environment.

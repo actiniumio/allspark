@@ -1,24 +1,7 @@
 - name: Package an Allspark release
   hosts: all
-  vars:
-    docker_images:
-    - jenkins/jenkins
-    - centos:7
-    - blacklabelops/volumerize
-    - "{{ allspark_traefik.image }}"
-    - "{{ allspark_portainer.image }}"
-    - "{{ allspark_sonarqube.image }}"
-    - "{{ allspark_rocketchat.image }}"
-    - "{{ allspark_rocketchat.database_image }}"
-    - "{{ allspark_prometheus.image }}"
-    - "{{ allspark_grafana.image }}"
-    - "{{ allspark_node_exporter.image }}"
-    - "{{ allspark_cadvisor.image }}"
-    - "{{ allspark_gitlab.image }}"
-    - "{{ allspark_gitlab.runner_image }}"
-    - "{{ allspark_ldap.image }}"
-    - "{{ allspark_ldap.management_image }}"
-
+  roles:
+  - { role: download, force_download: true }
   tasks:
   - name: Creating release directory
     file:
@@ -39,19 +22,19 @@
       REQUIREMENTS_FILE: "{{ playbook_dir }}/files/jenkins_plugins.txt"
     when: allspark_jenkins.enabled
 
-  - name: Exporting Docker images
+  - name: Export Docker images
     docker_image:
       state: present
       archive_path: "{{ allspark_release_tmp_directory}}/images/{{ item | b64encode }}.tar"
-      name: "{{ item }}"
-    with_items: "{{ docker_images }}"
-
+      name: "{{ downloads[item].image }}:{{ downloads[item].tag }}"
+    with_items: "{{ downloads.keys() | list }}"
 
   # - name: Compress release into destination file
   #   archive:
   #     path: "{{ allspark_release_tmp_directory }}/*"
   #     dest: "{{ allspark_release_destination }}"
   #     remove: True
+  #   become: true
 
   # Using shell instead of unarchive because pigz (multicore compression)
   # is not yet supported by the archive module
@@ -59,6 +42,7 @@
     shell: "tar -c --use-compress-program=pigz -f {{ allspark_release_destination }} -C {{ allspark_release_tmp_directory }} ."
     args:
       warn: False
+    become: true
 
   - name: Clean up release directory
     file:

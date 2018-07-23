@@ -17,7 +17,7 @@
   docker_container:
     name: ldap_backend
     hostname: ldap_backend
-    image: "{{ allspark_ldap.image }}"
+    image: "{{ downloads.openldap.image }}:{{ downloads.openldap.tag }}"
     state: "{{ allspark_ldap.enabled and 'started' or 'absent'}}"
     networks:
       - name: allspark
@@ -33,7 +33,7 @@
 - name: Starting LDAP web management dashboard
   docker_container:
     name: ldap_management
-    image: "{{ allspark_ldap.management_image }}"
+    image: "{{ downloads.phpldapadmin.image }}:{{ downloads.phpldapadmin.tag }}"
     state: "{{ allspark_ldap.enabled and 'started' or 'absent'}}"
     networks:
       - name: allspark

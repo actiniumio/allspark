@@ -10,14 +10,12 @@ allspark_docker_version: "17.03.2"
 allspark_ldap:
   enabled: false
   organization: Allspark
-  image: osixia/openldap:1.2.0
-  management_image: osixia/phpldapadmin:0.7.1
 
 allspark_monitoring:
   enabled: true
 
 allspark_traefik:
-  selfsigned: 
+  selfsigned:
     enabled: false
     # For example country: FR
     country: XX
@@ -26,44 +24,22 @@ allspark_traefik:
     organisation: myteam
     organizational_unit: myorganizational_unit
     common_name: "*.{{ allspark_root_domain }}"
-  image: traefik:latest
-
-allspark_portainer:
-  image: portainer/portainer:latest
 
 allspark_rocketchat:
   enabled: true
-  image: rocket.chat:latest
-  database_image: mongo:latest
-
-allspark_prometheus:
-  image: prom/prometheus:v2.1.0
-
-allspark_grafana:
-  image: grafana/grafana:latest
-
-allspark_node_exporter:
-  image: prom/node-exporter
-
-allspark_cadvisor:
-  image: google/cadvisor:latest
 
 allspark_gitlab:
   enabled: false
   with_runner: false
-  image: gitlab/gitlab-ce:latest
-  runner_image: gitlab/gitlab-runner:latest
   lfs_enabled: true
 
 allspark_jenkins:
   enabled: false
-  image: jenkins/jenkins
   # Toggle default plugin import from release.
   import_plugins: true
 
 allspark_sonarqube:
   enabled: false
-  image: sonarqube:latest
 
 ### Release configuration
 # Should not be here

@@ -25,7 +25,7 @@
   docker_container:
     name: gitlab
     state: "{{ allspark_gitlab.enabled and 'started' or 'absent'}}"
-    image: "{{ allspark_gitlab.image }}"
+    image: "{{ downloads.gitlab.image }}:{{ downloads.gitlab.tag }}"
     hostname: "gitlab.{{ allspark_root_domain }}"
     volumes:
       - "allspark_gitlab_data:/var/opt/gitlab"

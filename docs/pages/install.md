@@ -16,6 +16,24 @@ your needs, like:
     (each component will be exposed as a subdomain).
   - Enable or disable component using their `enabled` boolean toggle
 
+
+!!! note
+    You can customize the image or tag for a component by overriding the `component_image` and `component_tag`, using either :
+
+    - [Ansible extra vars](https://docs.ansible.com/ansible/latest/user_guide/playbooks_variables.html#passing-variables-on-the-command-line)
+    - Add those variables to your `group_vars/all.yml` file.
+
+    _e.g_: (group_vars)
+    ```yaml
+    # Change gitlab-ce to gitlab-ee
+    gitlab_image: gitlab_ee
+    gitlab_tag: latest
+    ```
+    You can access the complete list of available components in the [roles/downloads/defaults/main.yml](https://github.com/TheFkinCompany/allspark/blob/master/roles/download/defaults/main.yml) file.
+
+!!! warning
+    For offline install, the images configuration must be the same on both end.
+
 ### Online install
 
 - Change the hosts file to point to the allspark machine.
