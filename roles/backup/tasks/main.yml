@@ -1,7 +1,7 @@
 ---
 
 - name: Get docker volume list
-  shell: docker volume ls | grep -i allspark | awk '{print $2}'
+  shell: docker volume ls | grep -i allspark --format \{\{' .Name '\}\}
   register: volumes_list
   changed_when: false
 
