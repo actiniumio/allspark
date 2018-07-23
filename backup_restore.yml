@@ -1,7 +1,0 @@
-- name: Run using a backup project
-  hosts: all
-  tasks:
-
-  - name: Setup Backup Policy
-    include_role:
-      name: backup
