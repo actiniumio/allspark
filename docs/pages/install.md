@@ -34,6 +34,8 @@ your needs, like:
 !!! warning
     For offline install, the images configuration must be the same on both end.
 
+If you are on a migration see the [operation pages](https://github.com/TheFkinCompany/allspark/blob/master/docs/pages/operation.md)
+
 ### Online install
 
 - Change the hosts file to point to the allspark machine.
