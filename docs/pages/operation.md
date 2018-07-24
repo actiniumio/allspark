@@ -16,7 +16,7 @@ ansible-playbook -i hosts backup.yml
 !!! Note
     You can specify your backup repository by modify `the group_vars/all.yml`
 
-    - Put the variable `allspark_backup_directory` on the to the desired value
+    - Put the variable `allspark_backup_directory` to the desired value
     - By default the backup is store on the local filesystem named: `/opt/allspark/backup`
 
 # Restore guide
