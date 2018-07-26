@@ -4,19 +4,33 @@ PIP_COMMAND_ARGS =
 RM = rm -f
 DOCS_SRCS := $(shell find docs/pages -name '*.md')
 
-doc: $(DOCS_SRCS) docs/requirements.txt
+.docs_venv:  docs/requirements.txt
 	@echo "Setting up docs virtual environment"
 	@EXIT_CODE=0
 	@[ -d .docs_venv ] || virtualenv .docs_venv
 	@. .docs_venv/bin/activate && \
 	( \
-		pip $(PIP_GLOBAL_ARGS) install $(PIP_COMMAND_ARGS) -r docs/requirements.txt && \
+		pip $(PIP_GLOBAL_ARGS) install $(PIP_COMMAND_ARGS) -r docs/requirements.txt || \
+		EXIT_CODE=1 \
+	); deactivate
+	@exit $(EXIT_CODE)
+
+doc: $(DOCS_SRCS) .docs_venv
+	@. .docs_venv/bin/activate && \
+	( \
 		echo "Building docs" && \
 		mkdocs build -d doc || \
 		EXIT_CODE=1 \
 	); deactivate
 	@exit $(EXIT_CODE)
 
+doc-dev: .docs_venv
+	@. .docs_venv/bin/activate && \
+	( \
+		mkdocs serve || \
+		EXIT_CODE=1 \
+	); deactivate
+	@exit $(EXIT_CODE)
 
 clean:
 	@echo "Removing documentation artifacts"
@@ -29,4 +43,4 @@ clean:
 test:
 	vagrant up
 
-.PHONY: clean install test
+.PHONY: clean install test doc-dev
