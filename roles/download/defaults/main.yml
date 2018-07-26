@@ -16,7 +16,7 @@ jenkins_image: jenkins/jenkins
 centos_image: centos
 volumerize_image: blacklabelops/volumerize
 mattermost_image: mattermost/mattermost-prod-app
-mattermost_postgresql_image: postgres/postgres
+mattermost_postgresql_image: postgres
 
 # Tags
 gitlab_tag: latest

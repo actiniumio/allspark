@@ -27,7 +27,7 @@ allspark_traefik:
     common_name: "*.{{ allspark_root_domain }}"
 
 allspark_rocketchat:
-  enabled: true
+  enabled: false
 
 allspark_gitlab:
   enabled: false
@@ -46,7 +46,7 @@ allspark_backup:
   image: blacklabelops/volumerize
 
 allspark_mattermost:
-  enabled: false
+  enabled: true
 
 ### Release configuration
 # Should not be here

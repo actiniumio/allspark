@@ -77,7 +77,6 @@
     - mattermost_logs
     - mattermost_config
     - mattermost_postgres_data
-    - mattermost_localtime
   when: allspark_mattermost.enabled
 
 - name: Setup PostgreSQL chat service database
@@ -86,14 +85,14 @@
     image: "{{ downloads.mattermost_postgresql.image }}:{{ downloads.mattermost_postgresql.tag }}"
     state: "{{ allspark_mattermost.enabled and 'started' or 'absent'}}"
     env:
-      POSTGRES_USER: admin
-      POSTGRES_PASSWORD: password
-      POSTGRES_DB: mattermostdb
+      POSTGRES_USER: "admin"
+      POSTGRES_PASSWORD: "password"
+      POSTGRES_DB: "mattermostdb"
+      POSTGRES_INITDB_ARGS: "--data-checksums"
     networks:
       - name: allspark
     volumes:
       - "allspark_mattermost_postgres_data:/var/lib/postgresql/data"
-      - "allspark_mattermost_localtime:/etc/localtime"
     restart_policy: always
 
 - name: Setup MatterMost service
@@ -102,14 +101,14 @@
     image: "{{ downloads.mattermost.image }}:{{ downloads.mattermost.tag }}"
     state: "{{ allspark_mattermost.enabled and 'started' or 'absent'}}"
     env:
-      MM_USERNAME: admin
-      MM_PASSWORD: password
-      MM_DBNAME: mattermostdb
+      MM_USERNAME: "admin"
+      MM_PASSWORD: "password"
+      MM_DBNAME: "mattermostdb"
+      DB_HOST: "mattermost_database"
     volumes:
       - "allspark_mattermost_data:/mattermost/data"
       - "allspark_mattermost_logs:/mattermost/logs"
-      - "allspark_mattermost_config:/mattermost/config/config.json"
-      - "allspark_mattermost_localtime:/etc/localtime"
+      - "allspark_mattermost_config:/mattermost/config"
       - "{{ allspark_root_directory }}/config/mattermost/config.json:/mattermost/config/config.json"
     networks:
       - name: allspark
