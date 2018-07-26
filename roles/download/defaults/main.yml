@@ -109,7 +109,7 @@ downloads:
     image: "{{ mattermost_image }}"
     tag: "{{ mattermost_tag }}"
   mattermost_postgresql:
-    enabled: "{{ allspark_mattermost_postgresql.enabled }}"
+    enabled: "{{ allspark_mattermost.enabled }}"
     image: "{{ mattermost_postgresql_image }}"
     tag: "{{ mattermost_postgresql_tag }}"
 
