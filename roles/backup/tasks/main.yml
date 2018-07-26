@@ -27,7 +27,7 @@
 - name: "[Backup] perform operation"
   docker_container:
     name: backup
-    image: "{{ allspark_backup.image }}"
+    image: "{{ downloads.volumerize.image }}:{{ downloads.volumerize.tag }}"
     volumes: >-
       [
       {% for volume in volumes_list.stdout_lines %}
