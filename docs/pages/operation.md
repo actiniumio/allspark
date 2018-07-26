@@ -5,7 +5,6 @@
 ## Requirements
 
 ### On the allspark machine
-- Docker ( tested with version 18.04 )
 - Have an allspark instance running
 
 ## Ansible Backup playbook
@@ -26,7 +25,6 @@ ansible-playbook -i hosts backup.yml
 ## Requirements
 
 ### On the allspark machine
-- Docker ( tested with version 18.04 )
 - Have the same installation of your backup to be able to restore your release
 
 !!! warning
