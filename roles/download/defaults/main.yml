@@ -15,6 +15,8 @@ gitlab_runner_image: gitlab/gitlab-runner
 jenkins_image: jenkins/jenkins
 centos_image: centos
 volumerize_image: blacklabelops/volumerize
+mattermost_image: mattermost/mattermost-prod-app
+mattermost_postgresql_image: postgres/postgres
 
 # Tags
 gitlab_tag: latest
@@ -33,6 +35,8 @@ gitlab_runner_tag: latest
 jenkins_tag: latest
 centos_tag: 7
 volumerize_tag: latest
+mattermost_tag: latest
+mattermost_postgresql_tag: 9.4.18
 
 # Downloads
 downloads:
@@ -100,6 +104,14 @@ downloads:
     enabled: true
     image: "{{ volumerize_image }}"
     tag: "{{ volumerize_tag }}"
+  mattermost:
+    enabled: "{{ allspark_mattermost.enabled }}"
+    image: "{{ mattermost_image }}"
+    tag: "{{ mattermost_tag }}"
+  mattermost_postgresql:
+    enabled: "{{ allspark_mattermost_postgresql.enabled }}"
+    image: "{{ mattermost_postgresql_image }}"
+    tag: "{{ mattermost_postgresql_tag }}"
 
 # Misc
 
