@@ -72,7 +72,7 @@
       "traefik.backend": "prometheus"
       "traefik.frontend.rule": "Host:metrics.{{ allspark_root_domain }}"
       "traefik.enable": "true"
-      "managedby": "allspark"
+      "heritage": "allspark"
 
 # TODO: Skip this when grafana is disabled
 # Not possible to just skip the task as some files are needed for the container
@@ -105,4 +105,4 @@
       "traefik.backend": "grafana"
       "traefik.frontend.rule": "Host:monitoring.{{ allspark_root_domain }}"
       "traefik.enable": "true"
-      "managedby": "allspark"
+      "heritage": "allspark"
