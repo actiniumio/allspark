@@ -16,7 +16,6 @@ your needs, like:
     (each component will be exposed as a subdomain).
   - Enable or disable component using their `enabled` boolean toggle
 
-
 !!! note
     You can customize the image or tag for a component by overriding the `component_image` and `component_tag`, using either :
 
@@ -35,6 +34,8 @@ your needs, like:
     For offline install, the images configuration must be the same on both end.
 
 If you are on a migration see the [operation pages](https://github.com/TheFkinCompany/allspark/blob/master/docs/pages/operation.md)
+
+If you are on a migration see the [operation pages](/operation.md)
 
 ### Online install
 
