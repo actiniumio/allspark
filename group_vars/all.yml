@@ -13,7 +13,7 @@ allspark_ldap:
   organization: Allspark
 
 allspark_monitoring:
-  enabled: false
+  enabled: true
 
 allspark_traefik:
   selfsigned:
