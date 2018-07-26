@@ -1,0 +1,53 @@
+---
+
+- name: "[Preflight] Ensuring operation is defined"
+  fail:
+    msg: "Backup role called without ansible_operation variabl set. Exiting."
+  when: allspark_operation is undefined
+  changed_when: false
+
+
+- name: "[Backup] Get docker volume list"
+  shell: docker volume ls --format \{\{' .Name '\}\} | grep -i allspark
+  register: volumes_list
+  changed_when: false
+
+- name: "[Backup] Verify Docker volumes"
+  docker_volume:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - "{{ volumes_list.stdout_lines }}"
+
+- name: "[Backup] Get docker container list"
+  shell: docker ps -q --filter label=managedby=allspark | xargs -n 1 docker inspect --format \{\{' .Name '\}\} | sed 's/\// /' | tr -d '\r\n'
+  register: names_list
+  changed_when: false
+
+- name: "[Backup] perform operation"
+  docker_container:
+    name: backup
+    image: "{{ downloads.volumerize.image }}:{{ downloads.volumerize.tag }}"
+    volumes: >-
+      [
+      {% for volume in volumes_list.stdout_lines %}
+      "{{ volume }}:/source/{{ volume }}:{% if allspark_operation == 'backup' %}ro{% endif %}",
+      {% endfor %}
+      "/var/run/docker.sock:/var/run/docker.sock",
+      "{{ allspark_backup_directory }}:/backup",
+      ]
+    env:
+      VOLUMERIZE_SOURCE: '/source'
+      VOLUMERIZE_TARGET: 'file:///backup'
+      VOLUMERIZE_CONTAINERS: "{{ names_list.stdout }}"
+    restart_policy: no
+    command: >-
+      volumerize --
+        {% if allspark_operation == 'restore' %}
+          restore
+          {% if allspark_restore_dry_run %}
+          --dry-run
+          {% endif %}
+        {% elif allspark_operation == 'backup'%}
+          backup
+        {% endif %}

@@ -35,6 +35,8 @@
       - name: allspark
     volumes:
       - "allspark_rocketchat_data:/data/db"
+    labels:
+      "heritage": "allspark"
     restart_policy: always
 
 - name: Setup RocketChat service
@@ -53,4 +55,5 @@
       "traefik.backend": "rocketchat"
       "traefik.frontend.rule": "Host:chat.{{ allspark_root_domain }}"
       "traefik.enable": "true"
+      "heritage": "allspark"
     restart_policy: always

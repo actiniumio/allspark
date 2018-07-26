@@ -3,6 +3,7 @@
 
 allspark_root_domain: allspark.localhost
 allspark_root_directory: /opt/allspark
+allspark_backup_directory: /opt/allspark/backup
 allspark_admin_user: admin
 
 allspark_docker_version: "17.03.2"
@@ -41,11 +42,13 @@ allspark_jenkins:
 allspark_sonarqube:
   enabled: false
 
+allspark_backup:
+  image: blacklabelops/volumerize
+
 ### Release configuration
 # Should not be here
 allspark_release_tmp_directory: /opt/allspark/release
 allspark_release_destination: /opt/allspark.tar.gz
-
 
 ## RHEL7 / CentOS specific system configuration
 allspark_epel_repo_file: "/etc/yum.repos.d/epel.repo"
