@@ -57,3 +57,65 @@
       "traefik.enable": "true"
       "heritage": "allspark"
     restart_policy: always
+
+- name: MatterMost config directory
+  file:
+    state: directory
+    path: "{{ allspark_root_directory }}/config/mattermost"
+
+- name: Generate Mattermost config
+  template:
+    src: templates/config.json.j2
+    dest: "{{ allspark_root_directory }}/config/mattermost/config.json"
+  when: allspark_mattermost.enabled
+
+- name: Docker volumes creation
+  docker_volume:
+    name: "allspark_{{ item }}"
+  with_items:
+    - mattermost_data
+    - mattermost_logs
+    - mattermost_config
+    - mattermost_postgres_data
+    - mattermost_localtime
+  when: allspark_mattermost.enabled
+
+- name: Setup PostgreSQL chat service database
+  docker_container:
+    name: mattermost_database
+    image: "{{ downloads.mattermost_postgresql.image }}:{{ downloads.mattermost_postgresql.tag }}"
+    state: "{{ allspark_mattermost.enabled and 'started' or 'absent'}}"
+    env:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: mattermostdb
+    networks:
+      - name: allspark
+    volumes:
+      - "allspark_mattermost_postgres_data:/var/lib/postgresql/data"
+      - "allspark_mattermost_localtime:/etc/localtime"
+    restart_policy: always
+
+- name: Setup MatterMost service
+  docker_container:
+    name: mattermost
+    image: "{{ downloads.mattermost.image }}:{{ downloads.mattermost.tag }}"
+    state: "{{ allspark_mattermost.enabled and 'started' or 'absent'}}"
+    env:
+      MM_USERNAME: admin
+      MM_PASSWORD: password
+      MM_DBNAME: mattermostdb
+    volumes:
+      - "allspark_mattermost_data:/mattermost/data"
+      - "allspark_mattermost_logs:/mattermost/logs"
+      - "allspark_mattermost_config:/mattermost/config/config.json"
+      - "allspark_mattermost_localtime:/etc/localtime"
+      - "{{ allspark_root_directory }}/config/mattermost/config.json:/mattermost/config/config.json"
+    networks:
+      - name: allspark
+    labels:
+      "traefik.backend": "mattermost"
+      "traefik.frontend.rule": "Host:mattermost.{{ allspark_root_domain }}"
+      "traefik.enable": "true"
+    restart_policy: always
+
