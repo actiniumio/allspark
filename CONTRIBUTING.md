@@ -66,12 +66,6 @@ python2 -m SimpleHTTPServer
 ### Hot reload
 If you want to review your work while editing, you can use :
 ```sh
-# Generate the virtualenv
-make doc
-
-# Switch the python runtime to the venv one
-source .docs_venv/bin/activate
-
 # Serve the documentation on http://localhost:8000
-mkdocs serve
+make doc-dev
 ```
