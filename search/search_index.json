@@ -12,7 +12,7 @@
         }, 
         {
             "location": "/install/", 
-            "text": "Installation guide\n\n\nRequirements\n\n\nOn the allspark machine\n\n\n\n\nDocker ( tested with version 18.04 )\n\n\n\n\nOn the control machine\n\n\n\n\nAnsible ( tested with version 2.5.5 )\n\n\n\n\nAnsible playbook\n\n\n\n\nEdit the file \ngroup_vars/all.yml\n to fit with\nyour needs, like:\n\n\nThe \nallspark_root_domain\n to use your domain name\n    (each component will be exposed as a subdomain).\n\n\nEnable or disable component using their \nenabled\n boolean toggle\n\n\n\n\n\n\nNote\n\n\nYou can customize the image or tag for a component by overriding the \ncomponent_image\n and \ncomponent_tag\n, using either :\n\n\n\n\nAnsible extra vars\n\n\nAdd those variables to your \ngroup_vars/all.yml\n file.\n\n\n\n\ne.g\n: (group_vars)\n\n# Change gitlab-ce to gitlab-ee\n\n\ngitlab_image\n:\n \ngitlab_ee\n\n\ngitlab_tag\n:\n \nlatest\n\n\n\nYou can access the complete list of available components in the \nroles/downloads/defaults/main.yml\n file.\n\n\n\n\n\n\nWarning\n\n\nFor offline install, the images configuration must be the same on both end.\n\n\n\n\nOnline install\n\n\n\n\nChange the hosts file to point to the allspark machine.\n\n\n\n\nansible-playbook -i hosts install.yml\n\n\n\n\nAt this point, you will be able to see component show up along with their access URL\nat \ningress.YOUR_ROOT_DOMAIN\n.\n\n\nOffline install\n\n\n0. On the online control machine\n\n\n\n\nNote\n\n\nChange the \nallspark_release_destination\n and \nallspark_release_tmp_directory\n to point to somwhere with at least 10Go of free space\n\n\n\n\n\n\n\n\nBash\n\n\nansible-playbook -i hosts release.yml\n\n\n\n\n\nhosts\n\n\n[all]\n\n\nlocalhost ansible_connection\n=\nlocal\n\n\n\n\n\n\nit will generate a \n.tar.gz\n file at \nallspark_release_destination\n.\nThis file needs to be copied along with the \ngroup_vars\n\ndirectory to the offline allspark machine.\n\n\n1. On the offline allspark machine\n\n\n\n\nImport the \ngroup_vars\n directory and the relase \n.tar.gz\n\n\nSet the \nallspark_release_destination\n in the \ngroup_vars/all.yml\n file to point to the release.\n\n\nSet the \nallspark_release_tmp_directory\n to point to somwhere with at least 10Go of free space\n\n\n\n\n\n\n\n\nBash\n\n\nansible-playbook -i hosts setup.yml\nansible-playbook -i hosts install.yml\n\n\n\n\n\nhosts\n\n\n[all]\n\n\nlocalhost ansible_connection\n=\nlocal\n\n\n\n\n\n\n\n\nWarning\n\n\nThis playbook does not setup the system yet. The release is packaged along with\nCentOS RPM dependencies as well as pip wheels, but you will however have to install them yourself.", 
+            "text": "Installation guide\n\n\nRequirements\n\n\nOn the allspark machine\n\n\n\n\nDocker ( tested with version 18.04 )\n\n\n\n\nOn the control machine\n\n\n\n\nAnsible ( tested with version 2.5.5 )\n\n\n\n\nAnsible playbook\n\n\n\n\nEdit the file \ngroup_vars/all.yml\n to fit with\nyour needs, like:\n\n\nThe \nallspark_root_domain\n to use your domain name\n    (each component will be exposed as a subdomain).\n\n\nEnable or disable component using their \nenabled\n boolean toggle\n\n\n\n\n\n\nNote\n\n\nYou can customize the image or tag for a component by overriding the \ncomponent_image\n and \ncomponent_tag\n, using either :\n\n\n\n\nAnsible extra vars\n\n\nAdd those variables to your \ngroup_vars/all.yml\n file.\n\n\n\n\ne.g\n: (group_vars)\n\n# Change gitlab-ce to gitlab-ee\n\n\ngitlab_image\n:\n \ngitlab_ee\n\n\ngitlab_tag\n:\n \nlatest\n\n\n\nYou can access the complete list of available components in the \nroles/downloads/defaults/main.yml\n file.\n\n\n\n\n\n\nWarning\n\n\nFor offline install, the images configuration must be the same on both end.\n\n\n\n\nIf you are on a migration see the \noperation pages\n\n\nIf you are on a migration see the \noperation pages\n\n\nOnline install\n\n\n\n\nChange the hosts file to point to the allspark machine.\n\n\n\n\nansible-playbook -i hosts install.yml\n\n\n\n\nAt this point, you will be able to see component show up along with their access URL\nat \ningress.YOUR_ROOT_DOMAIN\n.\n\n\nOffline install\n\n\n0. On the online control machine\n\n\n\n\nNote\n\n\nChange the \nallspark_release_destination\n and \nallspark_release_tmp_directory\n to point to somwhere with at least 10Go of free space\n\n\n\n\n\n\n\n\nBash\n\n\nansible-playbook -i hosts release.yml\n\n\n\n\n\nhosts\n\n\n[all]\n\n\nlocalhost ansible_connection\n=\nlocal\n\n\n\n\n\n\nit will generate a \n.tar.gz\n file at \nallspark_release_destination\n.\nThis file needs to be copied along with the \ngroup_vars\n\ndirectory to the offline allspark machine.\n\n\n1. On the offline allspark machine\n\n\n\n\nImport the \ngroup_vars\n directory and the relase \n.tar.gz\n\n\nSet the \nallspark_release_destination\n in the \ngroup_vars/all.yml\n file to point to the release.\n\n\nSet the \nallspark_release_tmp_directory\n to point to somwhere with at least 10Go of free space\n\n\n\n\n\n\n\n\nBash\n\n\nansible-playbook -i hosts setup.yml\nansible-playbook -i hosts install.yml\n\n\n\n\n\nhosts\n\n\n[all]\n\n\nlocalhost ansible_connection\n=\nlocal\n\n\n\n\n\n\n\n\nWarning\n\n\nThis playbook does not setup the system yet. The release is packaged along with\nCentOS RPM dependencies as well as pip wheels, but you will however have to install them yourself.", 
             "title": "Install"
         }, 
         {
@@ -37,7 +37,7 @@
         }, 
         {
             "location": "/install/#ansible-playbook", 
-            "text": "Edit the file  group_vars/all.yml  to fit with\nyour needs, like:  The  allspark_root_domain  to use your domain name\n    (each component will be exposed as a subdomain).  Enable or disable component using their  enabled  boolean toggle    Note  You can customize the image or tag for a component by overriding the  component_image  and  component_tag , using either :   Ansible extra vars  Add those variables to your  group_vars/all.yml  file.   e.g : (group_vars) # Change gitlab-ce to gitlab-ee  gitlab_image :   gitlab_ee  gitlab_tag :   latest  \nYou can access the complete list of available components in the  roles/downloads/defaults/main.yml  file.    Warning  For offline install, the images configuration must be the same on both end.", 
+            "text": "Edit the file  group_vars/all.yml  to fit with\nyour needs, like:  The  allspark_root_domain  to use your domain name\n    (each component will be exposed as a subdomain).  Enable or disable component using their  enabled  boolean toggle    Note  You can customize the image or tag for a component by overriding the  component_image  and  component_tag , using either :   Ansible extra vars  Add those variables to your  group_vars/all.yml  file.   e.g : (group_vars) # Change gitlab-ce to gitlab-ee  gitlab_image :   gitlab_ee  gitlab_tag :   latest  \nYou can access the complete list of available components in the  roles/downloads/defaults/main.yml  file.    Warning  For offline install, the images configuration must be the same on both end.   If you are on a migration see the  operation pages  If you are on a migration see the  operation pages", 
             "title": "Ansible playbook"
         }, 
         {
@@ -89,6 +89,51 @@
             "location": "/architecture/#playbooks", 
             "text": "release.yml    Package an Allspark release in a  .tar.gz  file    setup.yml    Load a packaged Allspark release into the system    install.yml    Install Allspark on the machine (either with an internet access or after using  setup.yml  playbook)", 
             "title": "Playbooks"
+        }, 
+        {
+            "location": "/operation/", 
+            "text": "Warning\n\n\nPay attention when you launch the \nbackup.yml\n or \nrestore.yml\n because playbook automatically \nstop and start\n the container to \nkeep all the data safe\n.\n\n\n\n\nBackup guide\n\n\nRequirements\n\n\nOn the allspark machine\n\n\n\n\nHave an allspark instance running\n\n\n\n\nAnsible Backup playbook\n\n\n\n\nLaunch the playbook to make your backup, like:\n\n\n\n\nansible-playbook -i hosts backup.yml\n\n\n\n\n\n\nNote\n\n\nYou can change the release destination (default: \n/opt/allspark/backup\n) like so:\n\nansible-playbook -i hosts backup.yml --extra-vars \nallspark_backup_directory=/tmp/allspark_backup\n\n\n\n\n\n\nRestore guide\n\n\nRequirements\n\n\nOn the allspark machine\n\n\n\n\nHave the same installation of your backup to be able to restore your release\n\n\n\n\n\n\nWarning\n\n\nPay attention:\n\n\n\n\nA component disabled (on the allspark machine) won't be imported on restore\n\n\nrestore needs a running instance\n\n\nPrevious datas of the restored containers will be lost (and aligned on the backup ones)\n\n\n\n\n\n\nAnsible Restore playbook\n\n\n\n\nLaunch the playbook Restore to make the restore\n\n\n\n\nansible-playbook -i hosts restore.yml\n\n\n\n\n\n\nNote\n\n\nYou can launch a dry-run mode if you want to test your backup to restore, like so:\n\nansible-playbook -i hosts restore.yml --extra-vars \nallspark_restore_dry_run=true", 
+            "title": "Operation"
+        }, 
+        {
+            "location": "/operation/#backup-guide", 
+            "text": "", 
+            "title": "Backup guide"
+        }, 
+        {
+            "location": "/operation/#requirements", 
+            "text": "", 
+            "title": "Requirements"
+        }, 
+        {
+            "location": "/operation/#on-the-allspark-machine", 
+            "text": "Have an allspark instance running", 
+            "title": "On the allspark machine"
+        }, 
+        {
+            "location": "/operation/#ansible-backup-playbook", 
+            "text": "Launch the playbook to make your backup, like:   ansible-playbook -i hosts backup.yml   Note  You can change the release destination (default:  /opt/allspark/backup ) like so: ansible-playbook -i hosts backup.yml --extra-vars  allspark_backup_directory=/tmp/allspark_backup", 
+            "title": "Ansible Backup playbook"
+        }, 
+        {
+            "location": "/operation/#restore-guide", 
+            "text": "", 
+            "title": "Restore guide"
+        }, 
+        {
+            "location": "/operation/#requirements_1", 
+            "text": "", 
+            "title": "Requirements"
+        }, 
+        {
+            "location": "/operation/#on-the-allspark-machine_1", 
+            "text": "Have the same installation of your backup to be able to restore your release    Warning  Pay attention:   A component disabled (on the allspark machine) won't be imported on restore  restore needs a running instance  Previous datas of the restored containers will be lost (and aligned on the backup ones)", 
+            "title": "On the allspark machine"
+        }, 
+        {
+            "location": "/operation/#ansible-restore-playbook", 
+            "text": "Launch the playbook Restore to make the restore   ansible-playbook -i hosts restore.yml   Note  You can launch a dry-run mode if you want to test your backup to restore, like so: ansible-playbook -i hosts restore.yml --extra-vars  allspark_restore_dry_run=true", 
+            "title": "Ansible Restore playbook"
         }, 
         {
             "location": "/troubleshooting/", 
