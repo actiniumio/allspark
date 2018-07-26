@@ -16,10 +16,10 @@ ansible-playbook -i hosts backup.yml
 ```
 
 !!! Note
-    You can specify your backup repository by modify the `group_vars/all.yml`
-
-    - Set the variable `allspark_backup_directory` to the desired value
-    - By default the backup is stored on the local filesystem named: `/opt/allspark/backup`
+    You can change the release destination (default: `/opt/allspark/backup`) like so:
+    ```bash
+    ansible-playbook -i hosts backup.yml --extra-vars 'allspark_backup_directory=/tmp/allspark_backup'
+    ```
 
 # Restore guide
 ## Requirements
@@ -44,11 +44,7 @@ ansible-playbook -i hosts restore.yml
 ```
 
 !!! Note
-    - Modify the file `roles/backup/defaults/main.yml`
-    - Set the variable `allspark_restore_dry_run` at `true` instead of `false`
-
-You can launch a dry-run mode if you want to test your backup to restore, like:
-
-```bash
-ansible-playbook -i hosts restore.yml --extra-vars 'allspark_restore_dry_run=true'
-```
+    You can launch a dry-run mode if you want to test your backup to restore, like so:
+    ```bash
+    ansible-playbook -i hosts restore.yml --extra-vars 'allspark_restore_dry_run=true'
+    ```
