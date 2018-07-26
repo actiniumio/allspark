@@ -45,6 +45,9 @@ allspark_sonarqube:
 allspark_backup:
   image: blacklabelops/volumerize
 
+allspark_mattermost:
+  enabled: false
+
 ### Release configuration
 # Should not be here
 allspark_release_tmp_directory: /opt/allspark/release
