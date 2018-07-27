@@ -3,7 +3,7 @@
         "SiteURL": "http://mattermost.{{ allspark_root_domain }}",
         "WebsocketURL": "",
         "LicenseFileLocation": "",
-        "ListenAddress": ":8065",
+        "ListenAddress": ":8000",
         "ConnectionSecurity": "",
         "TLSCertFile": "",
         "TLSKeyFile": "",
@@ -22,7 +22,6 @@
         "EnableOnlyAdminIntegrations": true,
         "EnablePostUsernameOverride": false,
         "EnablePostIconOverride": false,
-        "EnableAPIv3": false,
         "EnableLinkPreviews": false,
         "EnableTesting": false,
         "EnableDeveloper": false,
@@ -33,9 +32,6 @@
         "EnforceMultifactorAuthentication": false,
         "EnableUserAccessTokens": false,
         "AllowCorsFrom": "",
-        "CorsExposedHeaders": "",
-        "CorsAllowCredentials": false,
-        "CorsDebug": false,
         "AllowCookiesForSubdomains": false,
         "SessionLengthWebInDays": 30,
         "SessionLengthMobileInDays": 30,
@@ -54,22 +50,21 @@
         "RestrictPostDelete": "all",
         "AllowEditPost": "always",
         "PostEditTimeLimit": -1,
-        "ExperimentalEnableAuthenticationTransfer": true,
         "TimeBetweenUserTypingUpdatesMilliseconds": 5000,
         "EnablePostSearch": true,
         "EnableUserTypingMessages": true,
         "EnableChannelViewedMessages": true,
         "EnableUserStatuses": true,
+        "ExperimentalEnableAuthenticationTransfer": true,
         "ClusterLogTimeoutMilliseconds": 2000,
-        "EnablePreviewFeatures": true,
         "CloseUnusedDirectMessages": false,
+        "EnablePreviewFeatures": true,
         "EnableTutorial": true,
         "ExperimentalEnableDefaultChannelLeaveJoinMessages": true,
         "ExperimentalGroupUnreadChannels": "disabled",
-        "ExperimentalChannelOrganization": false,
         "ImageProxyType": "",
-        "ImageProxyOptions": "",
         "ImageProxyURL": "",
+        "ImageProxyOptions": "",
         "EnableAPITeamDeletion": false,
         "ExperimentalEnableHardenedMode": false,
         "ExperimentalLimitClientConfig": false,
@@ -106,10 +101,6 @@
         "ExperimentalTownSquareIsReadOnly": false,
         "ExperimentalPrimaryTeam": ""
     },
-    "DisplaySettings": {
-        "CustomUrlSchemes": [],
-        "ExperimentalTimezone": false
-    },
     "ClientRequirements": {
         "AndroidLatestVersion": "",
         "AndroidMinVersion": "",
@@ -120,19 +111,19 @@
     },
     "SqlSettings": {
         "DriverName": "postgres",
-        "DataSource": "postgres://mmuser:password@localhost:5432/mattermost_test?sslmode=disable&connect_timeout=10",
+        "DataSource": "postgres://admin:password@mattermost_database:5432/mattermostdb?sslmode=disable\u0026connect_timeout=10",
         "DataSourceReplicas": [],
         "DataSourceSearchReplicas": [],
         "MaxIdleConns": 20,
         "ConnMaxLifetimeMilliseconds": 3600000,
         "MaxOpenConns": 300,
         "Trace": false,
-        "AtRestEncryptKey": "",
+        "AtRestEncryptKey": "Xh0DKI0IoX0YpMtFOXWKI5oNXXOCR4OvlZmvMkNCAoFLa50g",
         "QueryTimeout": 30
     },
     "LogSettings": {
-        "EnableConsole": true,
-        "ConsoleLevel": "DEBUG",
+        "EnableConsole": false,
+        "ConsoleLevel": "INFO",
         "ConsoleJson": true,
         "EnableFile": true,
         "FileLevel": "INFO",
@@ -154,9 +145,9 @@
         "EnableMobileDownload": true,
         "MaxFileSize": 52428800,
         "DriverName": "local",
-        "Directory": "./data/",
-        "EnablePublicLink": false,
-        "PublicLinkSalt": "",
+        "Directory": "/mattermost/data/",
+        "EnablePublicLink": true,
+        "PublicLinkSalt": "7uK1J8AryaofxxkQ5Osf2DkX5OtGktlsL9fqNHfcUjCflJ0u",
         "InitialFont": "nunito-bold.ttf",
         "AmazonS3AccessKeyId": "",
         "AmazonS3SecretAccessKey": "",
@@ -172,19 +163,19 @@
         "EnableSignUpWithEmail": true,
         "EnableSignInWithEmail": true,
         "EnableSignInWithUsername": true,
-        "SendEmailNotifications": true,
+        "SendEmailNotifications": false,
         "UseChannelInEmailNotifications": false,
         "RequireEmailVerification": false,
         "FeedbackName": "",
-        "FeedbackEmail": "test@example.com",
+        "FeedbackEmail": "",
         "FeedbackOrganization": "",
         "EnableSMTPAuth": false,
         "SMTPUsername": "",
         "SMTPPassword": "",
-        "SMTPServer": "dockerhost",
-        "SMTPPort": "2500",
+        "SMTPServer": "",
+        "SMTPPort": "",
         "ConnectionSecurity": "",
-        "InviteSalt": "",
+        "InviteSalt": "H9gl8vk4yq7zM1cP9FgIvXYcWnwgCXgVdnvXbZvOz5R1egtP",
         "SendPushNotifications": false,
         "PushNotificationServer": "",
         "PushNotificationContents": "generic",
@@ -198,12 +189,8 @@
         "LoginButtonBorderColor": "",
         "LoginButtonTextColor": ""
     },
-    "ExtensionSettings": {
-        "EnableExperimentalExtensions": false,
-        "AllowedExtensionsIDs": []
-    },
     "RateLimitSettings": {
-        "Enable": false,
+        "Enable": true,
         "PerSec": 10,
         "MaxBurst": 100,
         "MemoryStoreSize": 10000,
@@ -235,9 +222,6 @@
         "DefaultTheme": "default",
         "AllowCustomThemes": true,
         "AllowedThemes": []
-    },
-    "TimezoneSettings": {
-        "SupportedTimezonesPath": "timezones.json"
     },
     "GitLabSettings": {
         "Enable": false,
@@ -393,9 +377,9 @@
     },
     "MessageExportSettings": {
         "EnableExport": false,
+        "ExportFormat": "actiance",
         "DailyRunTime": "01:00",
         "ExportFromTimestamp": 0,
-        "FileLocation": "export",
         "BatchSize": 10000,
         "GlobalRelaySettings": {
             "CustomerType": "A9",
@@ -414,6 +398,17 @@
         "Directory": "./plugins",
         "ClientDirectory": "./client/plugins",
         "Plugins": {},
-        "PluginStates": {}
+        "PluginStates": {
+            "jira": {
+                "Enable": true
+            }
+        }
+    },
+    "DisplaySettings": {
+        "CustomUrlSchemes": [],
+        "ExperimentalTimezone": false
+    },
+    "TimezoneSettings": {
+        "SupportedTimezonesPath": "timezones.json"
     }
 }

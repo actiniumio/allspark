@@ -67,6 +67,8 @@
   template:
     src: templates/config.json.j2
     dest: "{{ allspark_root_directory }}/config/mattermost/config.json"
+    owner: 2000
+    group: 2000
   when: allspark_mattermost.enabled
 
 - name: Docker volumes creation

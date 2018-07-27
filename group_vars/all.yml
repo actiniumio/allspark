@@ -30,7 +30,7 @@ allspark_rocketchat:
   enabled: false
 
 allspark_gitlab:
-  enabled: false
+  enabled: true
   with_runner: false
   lfs_enabled: true
 
