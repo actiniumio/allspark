@@ -1,5 +1,5 @@
 # Images
-gitlab_image: gitlab/gitlab-ee
+gitlab_image: gitlab/gitlab-ce
 rocketchat_image: rocket.chat
 rocketchat_mongodb_image: mongo
 traefik_image: traefik
