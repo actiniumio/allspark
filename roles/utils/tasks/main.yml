@@ -9,7 +9,7 @@
     volumes:
       - "allspark_portainer_data:/data"
       - "/var/run/docker.sock:/var/run/docker.sock"
-    command: --no-auth --no-analytics --host unix:///var/run/docker.sock
+    command: "--admin-password-file {{ allspark_root_directory }}/data/secrets/admin_password.txt --no-analytics --host unix:///var/run/docker.sock"
     networks:
       - name: allspark
     labels:
