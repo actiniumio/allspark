@@ -43,9 +43,6 @@
         "WebserverMode": "gzip",
         "EnableCustomEmoji": false,
         "EnableEmojiPicker": true,
-        "EnableGifPicker": false,
-        "GfycatApiKey": "2_KtH_W5",
-        "GfycatApiSecret": "3wLVZPiswc3DnaiaFoLkDvB4X0IV6CpMkj4tf2inJRsBY6-FnkT08zGmppWFgeof",
         "RestrictCustomEmojiCreation": "all",
         "RestrictPostDelete": "all",
         "AllowEditPost": "always",
@@ -111,18 +108,17 @@
     },
     "SqlSettings": {
         "DriverName": "postgres",
-        "DataSource": "postgres://admin:password@mattermost_database:5432/mattermostdb?sslmode=disable\u0026connect_timeout=10",
+        "DataSource": "postgres://{{ allspark_admin_user }}:{{ allspark_admin_password }}@mattermost_database:5432/mattermostdb?sslmode=disable\u0026connect_timeout=10",
         "DataSourceReplicas": [],
         "DataSourceSearchReplicas": [],
         "MaxIdleConns": 20,
-        "ConnMaxLifetimeMilliseconds": 3600000,
         "MaxOpenConns": 300,
         "Trace": false,
         "AtRestEncryptKey": "Xh0DKI0IoX0YpMtFOXWKI5oNXXOCR4OvlZmvMkNCAoFLa50g",
         "QueryTimeout": 30
     },
     "LogSettings": {
-        "EnableConsole": false,
+        "EnableConsole": true,
         "ConsoleLevel": "INFO",
         "ConsoleJson": true,
         "EnableFile": true,
@@ -134,10 +130,10 @@
     },
     "PasswordSettings": {
         "MinimumLength": 5,
-        "Lowercase": false,
-        "Number": false,
-        "Uppercase": false,
-        "Symbol": false
+        "Lowercase": true,
+        "Number": true,
+        "Uppercase": true,
+        "Symbol": true
     },
     "FileSettings": {
         "EnableFileAttachments": true,
@@ -389,8 +385,8 @@
         }
     },
     "JobSettings": {
-        "RunJobs": true,
-        "RunScheduler": true
+        "RunJobs": false,
+        "RunScheduler": false
     },
     "PluginSettings": {
         "Enable": true,
