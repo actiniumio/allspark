@@ -8,8 +8,9 @@
     image: "{{ downloads.portainer.image }}:{{ downloads.portainer.tag }}"
     volumes:
       - "allspark_portainer_data:/data"
+      - "{{ allspark_root_directory }}/data/secrets/admin_password.txt:/data/secrets/portainer-pass"
       - "/var/run/docker.sock:/var/run/docker.sock"
-    command: "--admin-password-file {{ allspark_root_directory }}/data/secrets/admin_password.txt --no-analytics --host unix:///var/run/docker.sock"
+    command: "--admin-password-file /data/secrets/portainer-pass --no-analytics --host unix:///var/run/docker.sock"
     networks:
       - name: allspark
     labels:
