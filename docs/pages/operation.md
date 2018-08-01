@@ -1,3 +1,4 @@
+# Operation
 !!! warning
     Pay attention when you launch the `backup.yml` or `restore.yml` because playbook automatically _**stop and start**_ the container to _**keep all the data safe**_.
 
@@ -7,7 +8,7 @@
 #### On the allspark machine
 - Have an allspark instance running
 
-#### Ansible Backup playbook
+### Ansible Backup playbook
 
 - Launch the playbook to make your backup, like:
 
@@ -35,7 +36,7 @@ ansible-playbook -i hosts backup.yml
     - Previous datas of the restored containers will be lost (and aligned on the backup ones)
 
 
-#### Ansible Restore playbook
+### Ansible Restore playbook
 
 - Launch the playbook Restore to make the restore
 
