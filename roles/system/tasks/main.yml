@@ -22,3 +22,10 @@
   pip:
     name: docker-py
   become: true
+
+- name: Pip - pyopenssl
+  pip:
+    name: pyopenssl
+    version: 0.15
+  become: true
+
