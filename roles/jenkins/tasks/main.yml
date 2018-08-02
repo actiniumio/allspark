@@ -8,6 +8,11 @@
     - jenkins_plugins
   when: allspark_jenkins.enabled
 
+- name: Generate User Config
+  template:
+    src: templates/jenkins_security.groovy.j2
+    dest: "{{ allspark_root_directory }}/config/jenkins_security.groovy"
+  when: allspark_jenkins.enabled
 
 - name: Starting Jenkins master
   docker_container:
