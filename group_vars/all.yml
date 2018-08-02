@@ -1,0 +1,56 @@
+---
+# defaults file for allspark
+
+allspark_root_domain: allspark.localhost
+allspark_root_directory: /opt/allspark
+allspark_backup_directory: /opt/allspark/backup
+allspark_admin_user: admin
+
+allspark_docker_version: "17.03.2"
+
+allspark_ldap:
+  enabled: false
+  organization: Allspark
+
+allspark_monitoring:
+  enabled: true
+
+allspark_traefik:
+  selfsigned:
+    enabled: false
+    # For example country: FR
+    country: XX
+    state: state
+    location: city
+    organisation: myteam
+    organizational_unit: myorganizational_unit
+    common_name: "*.{{ allspark_root_domain }}"
+
+allspark_rocketchat:
+  enabled: true
+
+allspark_gitlab:
+  enabled: false
+  with_runner: false
+  lfs_enabled: true
+
+allspark_jenkins:
+  enabled: false
+  # Toggle default plugin import from release.
+  import_plugins: true
+
+allspark_sonarqube:
+  enabled: false
+
+allspark_backup:
+  image: blacklabelops/volumerize
+
+### Release configuration
+# Should not be here
+allspark_release_tmp_directory: /opt/allspark/release
+allspark_release_destination: /opt/allspark.tar.gz
+
+## RHEL7 / CentOS specific system configuration
+allspark_epel_repo_file: "/etc/yum.repos.d/epel.repo"
+allspark_epel_repo_url: "https://dl.fedoraproject.org/pub/epel/epel-release-latest-{{ ansible_distribution_major_version }}.noarch.rpm"
+allspark_epel_gpg_url: "https://dl.fedoraproject.org/pub/epel/RPM-GPG-KEY-EPEL-{{ ansible_distribution_major_version }}"
