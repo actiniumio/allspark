@@ -36,7 +36,7 @@
         <meta name="lang:search.tokenizer" content="[\s\-]+">
       
       <link rel="shortcut icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-0.17.5, mkdocs-material-2.9.2">
+      <meta name="generator" content="mkdocs-0.17.5, mkdocs-material-2.9.4">
     
     
       
@@ -44,9 +44,9 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/application.ba0fd1a6.css">
+      <link rel="stylesheet" href="../assets/stylesheets/application.451f80e5.css">
       
-        <link rel="stylesheet" href="../assets/stylesheets/application-palette.6079476c.css">
+        <link rel="stylesheet" href="../assets/stylesheets/application-palette.22915126.css">
       
       
         
@@ -207,11 +207,11 @@
                   <div class="md-sidebar__inner">
                     <nav class="md-nav md-nav--primary" data-md-level="0">
   <label class="md-nav__title md-nav__title--site" for="__drawer">
-    <span class="md-nav__button md-logo">
+    <a href=".." title="Allspark" class="md-nav__button md-logo">
       
         <i class="md-icon"></i>
       
-    </span>
+    </a>
     Allspark
   </label>
   
@@ -298,8 +298,6 @@
     
     <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
     
-      
-    
     
       <label class="md-nav__link md-nav__link--active" for="__toc">
         Operation
@@ -313,13 +311,19 @@
 <nav class="md-nav md-nav--secondary">
   
   
-    
-  
   
     <label class="md-nav__title" for="__toc">Table of contents</label>
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#backup-guide" title="Backup guide" class="md-nav__link">
+    Backup guide
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
   <a href="#requirements" title="Requirements" class="md-nav__link">
     Requirements
   </a>
@@ -338,11 +342,56 @@
     </nav>
   
 </li>
-      
-        <li class="md-nav__item">
+        
+          <li class="md-nav__item">
   <a href="#ansible-backup-playbook" title="Ansible Backup playbook" class="md-nav__link">
     Ansible Backup playbook
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#restore-guide" title="Restore guide" class="md-nav__link">
+    Restore guide
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#requirements_1" title="Requirements" class="md-nav__link">
+    Requirements
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#on-the-allspark-machine_1" title="On the allspark machine" class="md-nav__link">
+    On the allspark machine
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ansible-restore-playbook" title="Ansible Restore playbook" class="md-nav__link">
+    Ansible Restore playbook
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -383,13 +432,19 @@
 <nav class="md-nav md-nav--secondary">
   
   
-    
-  
   
     <label class="md-nav__title" for="__toc">Table of contents</label>
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#backup-guide" title="Backup guide" class="md-nav__link">
+    Backup guide
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
   <a href="#requirements" title="Requirements" class="md-nav__link">
     Requirements
   </a>
@@ -408,11 +463,56 @@
     </nav>
   
 </li>
-      
-        <li class="md-nav__item">
+        
+          <li class="md-nav__item">
   <a href="#ansible-backup-playbook" title="Ansible Backup playbook" class="md-nav__link">
     Ansible Backup playbook
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#restore-guide" title="Restore guide" class="md-nav__link">
+    Restore guide
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#requirements_1" title="Requirements" class="md-nav__link">
+    Requirements
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#on-the-allspark-machine_1" title="On the allspark machine" class="md-nav__link">
+    On the allspark machine
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ansible-restore-playbook" title="Ansible Restore playbook" class="md-nav__link">
+    Ansible Restore playbook
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -435,17 +535,19 @@
                   <a href="https://github.com/TheFkinCompany/allspark/edit/master/docs/operation.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
                 
                 
+                  <h1>Operation</h1>
+                
                 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>Pay attention when you launch the <code class="codehilite">backup.yml</code> or <code class="codehilite">restore.yml</code> because playbook automatically <em><strong>stop and start</strong></em> the container to <em><strong>keep all the data safe</strong></em>.</p>
 </div>
-<h1 id="backup-guide">Backup guide</h1>
-<h2 id="requirements">Requirements</h2>
-<h3 id="on-the-allspark-machine">On the allspark machine</h3>
+<h2 id="backup-guide">Backup guide</h2>
+<h3 id="requirements">Requirements</h3>
+<h4 id="on-the-allspark-machine">On the allspark machine</h4>
 <ul>
 <li>Have an allspark instance running</li>
 </ul>
-<h2 id="ansible-backup-playbook">Ansible Backup playbook</h2>
+<h3 id="ansible-backup-playbook">Ansible Backup playbook</h3>
 <ul>
 <li>Launch the playbook to make your backup, like:</li>
 </ul>
@@ -458,9 +560,9 @@
 <div class="codehilite"><pre><span></span>ansible-playbook -i hosts backup.yml --extra-vars <span class="s1">&#39;allspark_backup_directory=/tmp/allspark_backup&#39;</span>
 </pre></div></p>
 </div>
-<h1 id="restore-guide">Restore guide</h1>
-<h2 id="requirements_1">Requirements</h2>
-<h3 id="on-the-allspark-machine_1">On the allspark machine</h3>
+<h2 id="restore-guide">Restore guide</h2>
+<h3 id="requirements_1">Requirements</h3>
+<h4 id="on-the-allspark-machine_1">On the allspark machine</h4>
 <ul>
 <li>Have the same installation of your backup to be able to restore your release</li>
 </ul>
@@ -473,7 +575,7 @@
 <li>Previous datas of the restored containers will be lost (and aligned on the backup ones)</li>
 </ul>
 </div>
-<h2 id="ansible-restore-playbook">Ansible Restore playbook</h2>
+<h3 id="ansible-restore-playbook">Ansible Restore playbook</h3>
 <ul>
 <li>Launch the playbook Restore to make the restore</li>
 </ul>
@@ -557,7 +659,7 @@
       
     </div>
     
-      <script src="../assets/javascripts/application.a59e2a89.js"></script>
+      <script src="../assets/javascripts/application.30f6b8b1.js"></script>
       
       <script>app.initialize({version:"0.17.5",url:{base:".."}})</script>
       
