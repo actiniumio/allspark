@@ -108,7 +108,7 @@
     },
     "SqlSettings": {
         "DriverName": "postgres",
-        "DataSource": "postgres://{{ allspark_admin_user }}:{{ allspark_admin_password }}@mattermost_database:5432/mattermostdb?sslmode=disable\u0026connect_timeout=10",
+        "DataSource": "postgres://postgres:{{ allspark_admin_password_mattermostdb }}@mattermost_database:5432/mattermostdb?sslmode=disable\u0026connect_timeout=10",
         "DataSourceReplicas": [],
         "DataSourceSearchReplicas": [],
         "MaxIdleConns": 20,
