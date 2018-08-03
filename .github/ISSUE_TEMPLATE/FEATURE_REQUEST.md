@@ -4,24 +4,16 @@ about: Suggest an idea
 
 ---
 
-### Story
-- as a '...' is want '...'
-- as a '...' is want '...'
+---
+### Feature
+
+> Describe the feature with its scope.
+> Replace $ROLE by the role of the feature destinated users (e.g: developer, user, operator)
+
+- as a $ROLE i need ...
+
 
 ---
 ### Motivation
-Why is this feature needed ?
 
----
-### Acceptance criteria
-
----
-### Implementation proposal
-
----
-### Status
-
-- [ ] Implementation
-- [ ] Test coverage
-- [ ] Documentation
-- [ ] '...'
+> Why is this feature needed ?
