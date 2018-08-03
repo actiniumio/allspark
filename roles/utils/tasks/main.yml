@@ -58,6 +58,18 @@
       "heritage": "allspark"
     restart_policy: always
 
+- name: Test admin mattermost db password existence
+  stat: path="{{ allspark_root_directory}}/data/secrets/admin_password_mattermostdb.txt"
+  register: admin_password_mattermost_file
+
+- name: Generate random admin mattermost db password
+  shell: "echo $(< /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c26) > {{ allspark_root_directory}}/data/secrets/admin_password_mattermostdb.txt"
+  when: not admin_password_mattermost_file.stat.exists
+
+- name: Register random admin password
+  shell: "cat {{ allspark_root_directory}}/data/secrets/admin_password_mattermostdb.txt"
+  register: allspark_admin_password_mattermostdb
+
 - name: MatterMost config directory
   file:
     state: directory
@@ -87,8 +99,8 @@
     image: "{{ downloads.mattermost_postgresql.image }}:{{ downloads.mattermost_postgresql.tag }}"
     state: "{{ allspark_mattermost.enabled and 'started' or 'absent'}}"
     env:
-      POSTGRES_USER: "{{ allspark_admin_user }}"
-      POSTGRES_PASSWORD: "{{ allspark_admin_password.stdout }}"
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "{{ allspark_admin_password_mattermostdb.stdout }}"
       POSTGRES_DB: "mattermostdb"
       POSTGRES_INITDB_ARGS: "--data-checksums"
     networks:
@@ -103,8 +115,8 @@
     image: "{{ downloads.mattermost.image }}:{{ downloads.mattermost.tag }}"
     state: "{{ allspark_mattermost.enabled and 'started' or 'absent'}}"
     env:
-      MM_USERNAME: "{{ allspark_admin_user }}"
-      MM_PASSWORD: "{{ allspark_admin_password.stdout }}"
+      MM_USERNAME: "postgres"
+      MM_PASSWORD: "{{ allspark_admin_password_mattermostdb.stdout }}"
       MM_DBNAME: "mattermostdb"
       DB_HOST: "mattermost_database"
     volumes:
