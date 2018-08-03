@@ -36,7 +36,7 @@ jenkins_tag: latest
 centos_tag: 7
 volumerize_tag: latest
 mattermost_tag: latest
-mattermost_postgresql_tag: 9.4.18
+mattermost_postgresql_tag: latest
 
 # Downloads
 downloads:
