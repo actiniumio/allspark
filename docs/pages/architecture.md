@@ -1,5 +1,6 @@
 # Architecture
 
+![Architecture](assets/images/architecture_allinone.png)
 
 ## Components
 
