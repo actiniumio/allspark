@@ -81,6 +81,7 @@
     dest: "{{ allspark_root_directory }}/config/mattermost/config.json"
     owner: 2000
     group: 2000
+  become: true
   when: allspark_mattermost.enabled
 
 - name: Docker volumes creation
