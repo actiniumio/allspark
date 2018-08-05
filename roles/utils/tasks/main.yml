@@ -75,7 +75,7 @@
   register: AtRestEncryptKey_file
 
 - name: Generate random [AtRestEncryptKey]
-  shell: "echo -n $(< date +%s | sha256sum | base64 | head -c 48) > {{ allspark_root_directory}}/data/secrets/AtRestEncryptKey.txt"
+  shell: "echo -n $(< date +%s | sha256sum | base64 | head -c 32) > {{ allspark_root_directory}}/data/secrets/AtRestEncryptKey.txt"
   when: not AtRestEncryptKey_file.stat.exists
 
 - name: Register random [AtRestEncryptKey]
@@ -87,7 +87,7 @@
   register: PublicLinkSalt_file
 
 - name: Generate random [PublicLinkSalt]
-  shell: "echo -n $(< date +%s | sha256sum | base64 | head -c 48) > {{ allspark_root_directory}}/data/secrets/PublicLinkSalt.txt"
+  shell: "echo -n $(< date +%s | sha256sum | base64 | head -c 32) > {{ allspark_root_directory}}/data/secrets/PublicLinkSalt.txt"
   when: not PublicLinkSalt_file.stat.exists
 
 - name: Register random [PublicLinkSalt]
@@ -99,7 +99,7 @@
   register: InviteSalt_file
 
 - name: Generate random [InviteSalt]
-  shell: "echo -n $(< date +%s | sha256sum | base64 | head -c 48) > {{ allspark_root_directory}}/data/secrets/admin_password_mattermostdb.txt"
+  shell: "echo -n $(< date +%s | sha256sum | base64 | head -c 32) > {{ allspark_root_directory}}/data/secrets/admin_password_mattermostdb.txt"
   when: not InviteSalt_file.stat.exists
 
 - name: Register random [InviteSalt]
