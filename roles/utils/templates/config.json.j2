@@ -114,7 +114,7 @@
         "MaxIdleConns": 20,
         "MaxOpenConns": 300,
         "Trace": false,
-        "AtRestEncryptKey": "Xh0DKI0IoX0YpMtFOXWKI5oNXXOCR4OvlZmvMkNCAoFLa50g",
+        "AtRestEncryptKey": "{{ allspark_AtRestEncryptKey }}",
         "QueryTimeout": 30
     },
     "LogSettings": {
@@ -143,7 +143,7 @@
         "DriverName": "local",
         "Directory": "/mattermost/data/",
         "EnablePublicLink": true,
-        "PublicLinkSalt": "7uK1J8AryaofxxkQ5Osf2DkX5OtGktlsL9fqNHfcUjCflJ0u",
+        "PublicLinkSalt": "{{ allspark_PublicLinkSalt }}",
         "InitialFont": "nunito-bold.ttf",
         "AmazonS3AccessKeyId": "",
         "AmazonS3SecretAccessKey": "",
@@ -171,7 +171,7 @@
         "SMTPServer": "",
         "SMTPPort": "",
         "ConnectionSecurity": "",
-        "InviteSalt": "H9gl8vk4yq7zM1cP9FgIvXYcWnwgCXgVdnvXbZvOz5R1egtP",
+        "InviteSalt": "{{ allspark_InviteSalt }}",
         "SendPushNotifications": false,
         "PushNotificationServer": "",
         "PushNotificationContents": "generic",
