@@ -26,6 +26,6 @@
 - name: Pip - pyopenssl
   pip:
     name: pyopenssl
-    version: 0.15
+    extra_args: -U
   become: true
 
