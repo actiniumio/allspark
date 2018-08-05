@@ -99,7 +99,7 @@
   register: InviteSalt_file
 
 - name: Generate random [InviteSalt]
-  shell: "echo -n $(< date +%s | sha256sum | base64 | head -c 32) > {{ allspark_root_directory}}/data/secrets/admin_password_mattermostdb.txt"
+  shell: "echo -n $(< date +%s | sha256sum | base64 | head -c 32) > {{ allspark_root_directory}}/data/secrets/InviteSalt.txt"
   when: not InviteSalt_file.stat.exists
 
 - name: Register random [InviteSalt]
