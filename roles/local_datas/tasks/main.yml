@@ -22,7 +22,3 @@
 - name: Generate random admin password
   shell: "echo $(< /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c26) > {{ allspark_root_directory}}/data/secrets/admin_password.txt"
   when: not admin_password_file.stat.exists
-
-- name: Register random admin password
-  shell: "cat {{ allspark_root_directory}}/data/secrets/admin_password.txt"
-  register: allspark_admin_password
