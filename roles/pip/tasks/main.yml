@@ -1,4 +1,13 @@
-- send [Pip] Requirements to remote server
+- name: allspark data directory creation
+  file:
+    state: directory
+    path: "{{ allspark_root_directory }}/{{item}}"
+  with_items:
+    - config
+    - data
+    - data/secrets
+
+- name: send [Pip] Requirements to remote server
   copy:
     src: files/requirements.txt
     dest: "{{ allspark_root_directory }}/config/pip-requirements.txt" 
