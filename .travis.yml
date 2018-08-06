@@ -1,8 +1,8 @@
 language: python
 python:
-- '3.7-dev'
-install:
-- pip install --upgrade pip
+- '3.6'
+pip:
+- '18.0'
 jobs:
   include:
   - stage: deploy
