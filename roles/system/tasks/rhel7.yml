@@ -69,13 +69,9 @@
   failed_when: false
   register: docker_install
 
-
-- name: Install Docker
-  shell: >
-    yum install -y
-    --setopt=obsoletes=0
-    docker-ce-{{ allspark_docker_version }}.ce-1.el7.centos.x86_64
-    docker-ce-selinux-{{ allspark_docker_version }}.ce-1.el7.centos.noarch
+- name: Install [Docker]
+  yum:
+    name: "docker-ce-{{ allspark_docker_version }}*"
   become: true
   when: docker_install.rc != 0
 
