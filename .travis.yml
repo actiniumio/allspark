@@ -1,11 +1,11 @@
 language: python
 python:
 - '3.6'
+install:
+- pip install --upgrade pip
 jobs:
   include:
   - stage: deploy
-    install:
-    - pip install --upgrade pip
     script: bash .travis/deploy_docs.sh
     env:
     - ENCRYPTION_LABEL: 00dec0d56e73
