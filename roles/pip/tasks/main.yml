@@ -6,3 +6,4 @@
 - name: Installing python libraries using requirements file in Ansible
   pip:
     requirements: "{{ allspark_root_directory }}/config/pip-requirements.txt"
+  become: true
