@@ -6,6 +6,8 @@ jobs:
         - gh-pages
     docker:
       - image: circleci/python:3.6.3
+    environment:
+      - COMMIT_AUTHOR_EMAIL: "guiadco4geekhomeinside@gmail.com"
     steps:
       - checkout
       - run:
