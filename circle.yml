@@ -15,7 +15,7 @@ jobs:
           command: pip install --user virtualenv
       - run:
           name: Prepare shell commands
-          command: cp ./.circleci/deploy-ghpages.sh ../ && chmod +x ../deploy-ghpages.sh
+          command: chmod +x .circleci/deploy-ghpages.sh
       - deploy:
           name: Deploy
-          command: PATH=$PATH:/home/circleci/.local/bin/ ../deploy-ghpages.sh docs
+          command: PATH=$PATH:/home/circleci/.local/bin/ .circleci/deploy-ghpages.sh docs
