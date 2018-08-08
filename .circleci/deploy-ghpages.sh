@@ -4,7 +4,6 @@
 # https://gist.github.com/domenic/ec8b0fc8ab45f39403dd
 
 set -xe # Exit with nonzero exit code if anything fails
-env
 
 SOURCE_BRANCH="master"
 TARGET_BRANCH="gh-pages"
@@ -16,7 +15,7 @@ function doCompile {
 }
 
 # Pull requests and commits to other branches shouldn't try to deploy, just build to verify
-if [ "$CIRCLE_PULL_REQUEST" -o "$CIRCLE_BRANCH" != "$SOURCE_BRANCH" ]; then
+if [ ! -z "$CIRCLE_PULL_REQUEST" -o "$CIRCLE_BRANCH" != "$SOURCE_BRANCH" ]; then
     echo "Skipping deploy; just doing a build."
     mkdir out
     doCompile
@@ -55,7 +54,6 @@ fi
 
 # Commit the "changes", i.e. the new version.
 # The delta will show diffs between new and old versions.
-#git diff --name-only --diff-filter=M | xargs git add
 git add -A .
 git commit -m "Deploy to GitHub Pages: ${SHA}"
 git push $SSH_REPO $TARGET_BRANCH
