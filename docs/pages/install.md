@@ -3,7 +3,7 @@
 ## Requirements
 
 ### On the allspark machine
-- Docker ( tested with version 18.04 )
+- Docker ( tested with version 18.06.0 )
 
 ### On the control machine
 - Ansible ( tested with version 2.5.5 )
