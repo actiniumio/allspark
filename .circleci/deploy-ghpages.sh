@@ -16,7 +16,7 @@ function doCompile {
 }
 
 # Pull requests and commits to other branches shouldn't try to deploy, just build to verify
-if [ "$CIRCLE_PULL_REQUEST" != "false" -o "$CIRCLE_BRANCH" != "$SOURCE_BRANCH" ]; then
+if [ "$CIRCLE_PULL_REQUEST" -o "$CIRCLE_BRANCH" != "$SOURCE_BRANCH" ]; then
     echo "Skipping deploy; just doing a build."
     mkdir out
     doCompile
