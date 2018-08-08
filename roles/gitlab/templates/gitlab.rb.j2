@@ -216,7 +216,7 @@ gitlab_rails['lfs_storage_path'] = "/var/opt/gitlab/gitlab-rails/shared/lfs-obje
 ### GitLab Mattermost
 ###! These settings are void if Mattermost is installed on the same omnibus
 ###! install
-# gitlab_rails['mattermost_host'] = "https://mattermost.example.com"
+# gitlab_rails['mattermost_host'] = "http://mattermost.{{ allspark_root_domain }}"
 
 ### LDAP Settings
 ###! Docs: https://docs.gitlab.com/omnibus/settings/ldap.html
@@ -1129,9 +1129,9 @@ gitlab_pages['inplace_chroot'] = true
 ##! Docs: https://docs.gitlab.com/omnibus/gitlab-mattermost
 ################################################################################
 
-# mattermost_external_url 'http://mattermost.example.com'
+# mattermost_external_url 'http://mattermost.{{ allspark_root_domain }}'
 
-# mattermost['enable'] = false
+mattermost['enable'] = false
 # mattermost['username'] = 'mattermost'
 # mattermost['group'] = 'mattermost'
 # mattermost['uid'] = nil
