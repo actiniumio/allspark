@@ -12,17 +12,11 @@ An easy fix being to downgrade your ansible install to `v2.5.5`.
 
    ```bash tab="Issuer certificate is invalid"
 
-   [root@allspark ~]# git config --global http.sslVerify true
-   [root@allspark ~]# git clone http://gitlab.allspark.domainename/root/test.git
+   $ git config --global http.sslVerify true
+   $ git clone http://gitlab.allspark.domainename/root/test.git
    Cloning into 'test'...
    fatal: unable to access 'http://gitlab.allspark. domainename/root/test.git/': Issuer certificate is invalid.
 
-   [root@localhost allspark]# git config --global http.sslVerify false
-   [root@localhost allspark]# git clone https://gitlab.allspark.localhost/root/test.git
-   Cloning into 'test'...
-   Username for 'https://gitlab.allspark.localhost': root
-   Password for 'https://root@gitlab.allspark.localhost':
-   remote: Counting objects: 3, done.
-   remote: Total 3 (delta 0), reused 0 (delta 0)
-   Unpacking objects: 100% (3/3), done.
+   $ git config --global http.sslVerify false
+   $ git clone https://gitlab.allspark.localhost/root/test.git
    ```
