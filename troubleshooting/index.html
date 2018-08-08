@@ -338,6 +338,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#gitlab" title="Gitlab" class="md-nav__link">
+    Gitlab
+  </a>
+  
+</li>
+      
       
       
       
@@ -376,6 +383,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#gitlab" title="Gitlab" class="md-nav__link">
+    Gitlab
+  </a>
+  
+</li>
+      
       
       
       
@@ -405,6 +419,20 @@ An easy fix being to downgrade your ansible install to <code class="codehilite">
 </blockquote>
 </li>
 </ul>
+<h2 id="gitlab">Gitlab</h2>
+<hr />
+<div class="superfences-tabs">
+<input name="__tabs_1" type="radio" id="__tab_1_0" checked="checked" />
+<label for="__tab_1_0">Issuer certificate is invalid</label>
+<div class="superfences-content"><div class="codehilite"><pre><span></span>$ git config --global http.sslVerify <span class="nb">true</span>
+$ git clone http://gitlab.allspark.domainename/root/test.git
+Cloning into <span class="s1">&#39;test&#39;</span>...
+fatal: unable to access <span class="s1">&#39;http://gitlab.allspark. domainename/root/test.git/&#39;</span>: Issuer certificate is invalid.
+
+$ git config --global http.sslVerify <span class="nb">false</span>
+$ git clone https://gitlab.allspark.localhost/root/test.git
+</pre></div></div>
+</div>
                 
                   
                 
