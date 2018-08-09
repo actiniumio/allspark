@@ -374,6 +374,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../configuration/" title="Configuration" class="md-nav__link">
+      Configuration
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
     <a href="../roadmap/" title="Roadmap" class="md-nav__link">
       Roadmap
     </a>
@@ -540,32 +552,11 @@
 <li>Ansible ( tested with version 2.5.5 )</li>
 </ul>
 <h2 id="ansible-playbook">Ansible playbook</h2>
-<ul>
-<li>Edit the file <code class="codehilite">group_vars/all.yml</code> to fit with
-your needs, like:</li>
-<li>The <code class="codehilite">allspark_root_domain</code> to use your domain name
-    (each component will be exposed as a subdomain).</li>
-<li>Enable or disable component using their <code class="codehilite">enabled</code> boolean toggle</li>
-</ul>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>You can customize the image or tag for a component by overriding the <code class="codehilite">component_image</code> and <code class="codehilite">component_tag</code>, using either :</p>
-<ul>
-<li><a href="https://docs.ansible.com/ansible/latest/user_guide/playbooks_variables.html#passing-variables-on-the-command-line">Ansible extra vars</a></li>
-<li>Add those variables to your <code class="codehilite">group_vars/all.yml</code> file.</li>
-</ul>
-<p><em>e.g</em>: (group_vars)
-<div class="codehilite"><pre><span></span><span class="c1"># Change gitlab-ce to gitlab-ee</span>
-<span class="l l-Scalar l-Scalar-Plain">gitlab_image</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">gitlab_ee</span>
-<span class="l l-Scalar l-Scalar-Plain">gitlab_tag</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">latest</span>
-</pre></div>
-You can access the complete list of available components in the <a href="https://github.com/TheFkinCompany/allspark/blob/master/roles/download/defaults/main.yml">roles/downloads/defaults/main.yml</a> file.</p>
-</div>
+<p>If you are on to adapt the configuration see the <a href="../configuration/">configuration pages</a></p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>For offline install, the images configuration must be the same on both end.</p>
 </div>
-<p>If you are on a migration see the <a href="https://github.com/TheFkinCompany/allspark/blob/master/docs/pages/operation.md">operation pages</a></p>
 <p>If you are on a migration see the <a href="../operation/">operation pages</a></p>
 <h3 id="online-install">Online install</h3>
 <ul>
@@ -598,7 +589,7 @@ This file needs to be copied along with the <code class="codehilite">group_vars<
 directory to the offline allspark machine.</p>
 <h4 id="1-on-the-offline-allspark-machine">1. On the offline allspark machine</h4>
 <ul>
-<li>Import the <code class="codehilite">group_vars</code> directory and the relase <code class="codehilite"><span class="na">.tar.gz</span></code></li>
+<li>Import the <code class="codehilite">group_vars</code> directory and the release <code class="codehilite"><span class="na">.tar.gz</span></code></li>
 <li>Set the <code class="codehilite">allspark_release_destination</code> in the <code class="codehilite">group_vars/all.yml</code> file to point to the release.</li>
 <li>Set the <code class="codehilite">allspark_release_tmp_directory</code> to point to somwhere with at least 10Go of free space</li>
 </ul>
@@ -654,13 +645,13 @@ CentOS RPM dependencies as well as pip wheels, but you will however have to inst
           </a>
         
         
-          <a href="../roadmap/" title="Roadmap" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="../configuration/" title="Configuration" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
               <span class="md-flex__ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                Roadmap
+                Configuration
               </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink">

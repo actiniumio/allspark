@@ -40,7 +40,7 @@
     
     
       
-        <title>Architecture - Allspark</title>
+        <title>Configuration - Allspark</title>
       
     
     
@@ -102,7 +102,7 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
     
-      <a href="../#architecture" tabindex="1" class="md-skip">
+      <a href="../#configuration" tabindex="1" class="md-skip">
         Skip to content
       </a>
     
@@ -128,7 +128,7 @@
                 Allspark
               </span>
               <span class="md-header-nav__topic">
-                Architecture
+                Configuration
               </span>
             
           
@@ -267,11 +267,56 @@
       
       
 
+  
 
-  <li class="md-nav__item">
-    <a href="../configuration/" title="Configuration" class="md-nav__link">
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Configuration
+      </label>
+    
+    <a href="./" title="Configuration" class="md-nav__link md-nav__link--active">
       Configuration
     </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#group_vars" title="Group_vars" class="md-nav__link">
+    Group_vars
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#downloads" title="Downloads" class="md-nav__link">
+    Downloads
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
   </li>
 
     
@@ -291,56 +336,11 @@
       
       
 
-  
 
-
-  <li class="md-nav__item md-nav__item--active">
-    
-    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-    
-      
-    
-    
-      <label class="md-nav__link md-nav__link--active" for="__toc">
-        Architecture
-      </label>
-    
-    <a href="./" title="Architecture" class="md-nav__link md-nav__link--active">
+  <li class="md-nav__item">
+    <a href="../architecture/" title="Architecture" class="md-nav__link">
       Architecture
     </a>
-    
-      
-<nav class="md-nav md-nav--secondary">
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">Table of contents</label>
-    <ul class="md-nav__list" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#components" title="Components" class="md-nav__link">
-    Components
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#playbooks" title="Playbooks" class="md-nav__link">
-    Playbooks
-  </a>
-  
-</li>
-      
-      
-      
-      
-      
-    </ul>
-  
-</nav>
-    
   </li>
 
     
@@ -389,15 +389,15 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#components" title="Components" class="md-nav__link">
-    Components
+  <a href="#group_vars" title="Group_vars" class="md-nav__link">
+    Group_vars
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#playbooks" title="Playbooks" class="md-nav__link">
-    Playbooks
+  <a href="#downloads" title="Downloads" class="md-nav__link">
+    Downloads
   </a>
   
 </li>
@@ -418,96 +418,54 @@
             <article class="md-content__inner md-typeset">
               
                 
-                  <a href="https://github.com/TheFkinCompany/allspark/edit/master/docs/architecture.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
+                  <a href="https://github.com/TheFkinCompany/allspark/edit/master/docs/configuration.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
                 
                 
-                <h1 id="architecture">Architecture</h1>
-<h2 id="components">Components</h2>
-<table>
-<thead>
-<tr>
-<th>Components</th>
-<th>Usage</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Gitlab</td>
-<td>Source code management</td>
-</tr>
-<tr>
-<td></td>
-<td>Continuous integration / delivery</td>
-</tr>
-<tr>
-<td></td>
-<td>Work planning</td>
-</tr>
-<tr>
-<td></td>
-<td>Issue tracking</td>
-</tr>
-<tr>
-<td>Portainer</td>
-<td>Container management</td>
-</tr>
-<tr>
-<td>RocketChat</td>
-<td>Instant chat (Slack like)</td>
-</tr>
-<tr>
-<td>Grafana</td>
-<td>Monitoring</td>
-</tr>
-<tr>
-<td>Prometheus</td>
-<td>Metrics scraping / store</td>
-</tr>
-<tr>
-<td>CAdvisor</td>
-<td>Container metrics</td>
-</tr>
-<tr>
-<td>Node exporter</td>
-<td>System metrics</td>
-</tr>
-<tr>
-<td>Sonarqube</td>
-<td>Continuous Inspection</td>
-</tr>
-<tr>
-<td>Traefik</td>
-<td>Dynamic reverse proxy</td>
-</tr>
-<tr>
-<td>Volumerize</td>
-<td>Backup and Restore solution for Docker volume backups</td>
-</tr>
-<tr>
-<td>MatterMost</td>
-<td>Default Instant Chat (Slack like)</td>
-</tr>
-</tbody>
-</table>
-<h2 id="playbooks">Playbooks</h2>
+                <h1 id="configuration">Configuration</h1>
+<h2 id="group_vars">Group_vars</h2>
 <ul>
-<li><code class="codehilite">release.yml</code></li>
+<li>Edit the file <code class="codehilite">group_vars/all.yml</code> to fit with
+your needs, like:</li>
+<li>The <code class="codehilite">allspark_root_domain</code> to use your domain name
+    (each component will be exposed as a subdomain).</li>
+<li>The <code class="codehilite">allspark_docker_version</code> to choose the docker version you want.</li>
+<li>Enable or disable component using their <code class="codehilite">enabled</code> boolean toggle.</li>
+<li>Enable or disable certificates option using their <code class="codehilite">enable</code> boolean Toggle.<ul>
+<li>You can set all you want for the self-signed use.</li>
 </ul>
-<blockquote>
-<p>Package an Allspark release in a <code class="codehilite"><span class="na">.tar.gz</span></code> file</p>
-</blockquote>
+</li>
+</ul>
+<div class="codehilite"><pre><span></span><span class="n">allspark_monitoring</span><span class="o">:</span>
+  <span class="n">enabled</span><span class="o">:</span> <span class="kc">true</span>
+
+<span class="n">allspark_traefik</span><span class="o">:</span>
+  <span class="n">selfsigned</span><span class="o">:</span>
+    <span class="n">enabled</span><span class="o">:</span> <span class="kc">false</span>
+    <span class="err">#</span> <span class="n">For</span> <span class="n">example</span> <span class="n">country</span><span class="o">:</span> <span class="n">FR</span>
+    <span class="n">country</span><span class="o">:</span> <span class="n">XX</span>
+    <span class="n">state</span><span class="o">:</span> <span class="n">state</span>
+    <span class="n">location</span><span class="o">:</span> <span class="n">city</span>
+    <span class="n">organisation</span><span class="o">:</span> <span class="n">myteam</span>
+    <span class="n">organizational_unit</span><span class="o">:</span> <span class="n">myorganizational_unit</span>
+    <span class="n">common_name</span><span class="o">:</span> <span class="s2">&quot;*.{{ allspark_root_domain }}&quot;</span>
+</pre></div>
+
+<h2 id="downloads">Downloads</h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You can customize the image or tag for a component by overriding the <code class="codehilite">component_image</code> and <code class="codehilite">component_tag</code>, using either :</p>
 <ul>
-<li><code class="codehilite">setup.yml</code></li>
+<li><a href="https://docs.ansible.com/ansible/latest/user_guide/playbooks_variables.html#passing-variables-on-the-command-line">Ansible extra vars</a></li>
+<li>Add those variables to your <code class="codehilite">group_vars/all.yml</code> file.</li>
 </ul>
-<blockquote>
-<p>Load a packaged Allspark release into the system</p>
-</blockquote>
-<ul>
-<li><code class="codehilite">install.yml</code></li>
-</ul>
-<blockquote>
-<p>Install Allspark on the machine (either with an internet access or after using <code class="codehilite">setup.yml</code> playbook)</p>
-</blockquote>
+<p><em>e.g</em>: gitlab</p>
+<div class="codehilite"><pre><span></span>   <span class="c1"># Change gitlab-ce to gitlab-ee</span>
+   <span class="l l-Scalar l-Scalar-Plain">gitlab_image</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">gitlab_ee</span>
+   <span class="l l-Scalar l-Scalar-Plain">gitlab_tag</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">latest</span>
+</pre></div>
+
+<p>You can access the complete list of available components in the <a href="https://github.com/TheFkinCompany/allspark/blob/master/roles/download/defaults/main.yml">roles/downloads/defaults/main.yml</a> file.</p>
+</div>
                 
                   
                 
@@ -528,7 +486,7 @@
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
         
-          <a href="../roadmap/" title="Roadmap" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="../install/" title="Install" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-flex__cell md-flex__cell--shrink">
               <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
             </div>
@@ -537,19 +495,19 @@
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                Roadmap
+                Install
               </span>
             </div>
           </a>
         
         
-          <a href="../operation/" title="Operation" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="../roadmap/" title="Roadmap" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
               <span class="md-flex__ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                Operation
+                Roadmap
               </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink">
