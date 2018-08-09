@@ -34,12 +34,12 @@ allspark_traefik:
     - [Ansible extra vars](https://docs.ansible.com/ansible/latest/user_guide/playbooks_variables.html#passing-variables-on-the-command-line)
     - Add those variables to your `group_vars/all.yml` file.
 
-_e.g_: gitlab
+    _e.g_: gitlab
 
-```yaml
-# Change gitlab-ce to gitlab-ee
-gitlab_image: gitlab_ee
-gitlab_tag: latest
-```
+    ```yaml
+       # Change gitlab-ce to gitlab-ee
+       gitlab_image: gitlab_ee
+       gitlab_tag: latest
+    ```
 
-You can access the complete list of available components in the [roles/downloads/defaults/main.yml](https://github.com/TheFkinCompany/allspark/blob/master/roles/download/defaults/main.yml) file.
+    You can access the complete list of available components in the [roles/downloads/defaults/main.yml](https://github.com/TheFkinCompany/allspark/blob/master/roles/download/defaults/main.yml) file.
