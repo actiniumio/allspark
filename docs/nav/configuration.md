@@ -7,7 +7,7 @@ your needs, like:
     (each component will be exposed as a subdomain).
   - The `allspark_docker_version` to choose the docker version you want.
   - Enable or disable component using their `enabled` boolean toggle.
-  - Enable or disable certificat option using their `enable` boolean Toggle.
+  - Enable or disable certificates option using their `enable` boolean Toggle.
     - You can set all you want for the self-signed use.
 
 ```
@@ -34,12 +34,12 @@ allspark_traefik:
 
 ## Downloads
 
-  _e.g_: (group_vars)
+_e.g_: gitlab
 
-    ```yaml
-    # Change gitlab-ce to gitlab-ee
-    gitlab_image: gitlab_ee
-    gitlab_tag: latest
-    ```
+```yaml
+# Change gitlab-ce to gitlab-ee
+gitlab_image: gitlab_ee
+gitlab_tag: latest
+```
 
 You can access the complete list of available components in the [roles/downloads/defaults/main.yml](https://github.com/TheFkinCompany/allspark/blob/master/roles/download/defaults/main.yml) file.
