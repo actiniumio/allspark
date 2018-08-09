@@ -10,7 +10,7 @@
 
 ## Ansible playbook
 
-If you are on to adpat the configuration see the [configuration pages](/configuration.md)
+If you are on to adapt the configuration see the [configuration pages](/configuration.md)
 
 !!! warning
     For offline install, the images configuration must be the same on both end.
