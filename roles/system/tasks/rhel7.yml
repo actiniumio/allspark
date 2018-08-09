@@ -58,14 +58,9 @@
   changed_when: false
   register: pip_install
 
-- name: Install pip
-  shell: "curl https://bootstrap.pypa.io/get-pip.py | python -"
-  become: true
-  when: pip_install.rc != 0
-
-- name: Install [Docker]
+- name: Install [Python-pip]
   yum:
-    name: pip
+    name: python-pip
   become: true
   when: pip_install.rc != 0
 
