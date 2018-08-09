@@ -9,7 +9,7 @@ theme:
   # logo: assets/images/logo_128.ico
   # favicon: assets/images/favicon.ico
 
-docs_dir: ./docs/pages
+docs_dir: ./docs/nav
 nav:
   - Index: index.md
   - Install: install.md
