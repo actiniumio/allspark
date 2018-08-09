@@ -9,10 +9,11 @@ theme:
   # logo: assets/images/logo_128.ico
   # favicon: assets/images/favicon.ico
 
-docs_dir: ./docs/pages
-pages:
+docs_dir: ./docs/nav
+nav:
   - Index: index.md
   - Install: install.md
+  - Configuration: configuration.md
   - Roadmap: roadmap.md
   - Architecture: architecture.md
   - Operation: operation.md

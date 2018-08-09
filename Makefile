@@ -2,7 +2,7 @@
 PIP_GLOBAL_ARGS =
 PIP_COMMAND_ARGS =
 RM = rm -f
-DOCS_SRCS := $(shell find docs/pages -name '*.md')
+DOCS_SRCS := $(shell find docs/nav -name '*.md')
 
 .docs_venv:  docs/requirements.txt
 	@echo "Setting up docs virtual environment"
