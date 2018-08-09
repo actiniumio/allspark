@@ -10,30 +10,10 @@
 
 ## Ansible playbook
 
-- Edit the file `group_vars/all.yml` to fit with
-your needs, like:
-  - The `allspark_root_domain` to use your domain name
-    (each component will be exposed as a subdomain).
-  - Enable or disable component using their `enabled` boolean toggle
-
-!!! note
-    You can customize the image or tag for a component by overriding the `component_image` and `component_tag`, using either :
-
-    - [Ansible extra vars](https://docs.ansible.com/ansible/latest/user_guide/playbooks_variables.html#passing-variables-on-the-command-line)
-    - Add those variables to your `group_vars/all.yml` file.
-
-    _e.g_: (group_vars)
-    ```yaml
-    # Change gitlab-ce to gitlab-ee
-    gitlab_image: gitlab_ee
-    gitlab_tag: latest
-    ```
-    You can access the complete list of available components in the [roles/downloads/defaults/main.yml](https://github.com/TheFkinCompany/allspark/blob/master/roles/download/defaults/main.yml) file.
+If you are on to adpat the configuration see the [configuration pages](/configuration.md)
 
 !!! warning
     For offline install, the images configuration must be the same on both end.
-
-If you are on a migration see the [operation pages](https://github.com/TheFkinCompany/allspark/blob/master/docs/pages/operation.md)
 
 If you are on a migration see the [operation pages](/operation.md)
 
@@ -69,7 +49,7 @@ directory to the offline allspark machine.
 
 #### 1. On the offline allspark machine
 
-- Import the `group_vars` directory and the relase `.tar.gz`
+- Import the `group_vars` directory and the release `.tar.gz`
 - Set the `allspark_release_destination` in the `group_vars/all.yml` file to point to the release.
 - Set the `allspark_release_tmp_directory` to point to somwhere with at least 10Go of free space
 
