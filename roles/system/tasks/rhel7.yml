@@ -63,6 +63,12 @@
   become: true
   when: pip_install.rc != 0
 
+- name: Install [Docker]
+  yum:
+    name: pip
+  become: true
+  when: pip_install.rc != 0
+
 - name: test docker install
   shell: which docker
   changed_when: false
