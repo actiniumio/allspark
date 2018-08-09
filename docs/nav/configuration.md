@@ -26,13 +26,13 @@ allspark_traefik:
     common_name: "*.{{ allspark_root_domain }}"
 ```
 
+## Downloads
+
 !!! note
     You can customize the image or tag for a component by overriding the `component_image` and `component_tag`, using either :
 
     - [Ansible extra vars](https://docs.ansible.com/ansible/latest/user_guide/playbooks_variables.html#passing-variables-on-the-command-line)
     - Add those variables to your `group_vars/all.yml` file.
-
-## Downloads
 
 _e.g_: gitlab
 
