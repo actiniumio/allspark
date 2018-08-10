@@ -21,6 +21,9 @@
 | MatterMost    | Default Instant Chat (Slack like)                      |
 
 ## Playbooks
+
+All Playbooks are stored on the folder `playbooks/`
+
 - `release.yml`
 
 > Package an Allspark release in a `.tar.gz` file
