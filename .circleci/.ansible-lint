@@ -2,8 +2,9 @@ parseable: true
 quiet: false
 use_default_rules: true
 verbosity: 1
-#exclude_paths:
-#  - ./my/excluded/directory/
+exclude_paths:
+  - ./roles/**/files/
+  - ./role/**/templates/
 #
 #rulesdir:
 #  - ./rule/directory
