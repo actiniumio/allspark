@@ -1,6 +1,6 @@
 version: 2
 jobs:
-  build:
+  build-docs:
     branches:
       ignore:
         - gh-pages
@@ -19,3 +19,18 @@ jobs:
       - deploy:
           name: Deploy
           command: PATH=$PATH:/home/circleci/.local/bin/ .circleci/deploy-ghpages.sh docs
+  test-ansible-lint:
+    docker:
+      - image: python:2.7
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - run: pip install --user -r ./.circleci/requirements.txt
+      - run: ansible-lint ./*.yml -c .circleci/.ansible-lint
+
+workflows:
+  version: 2
+  build-docs-and-ansible-lint:
+    jobs:
+      - build-docs
+      - test-ansible-lint
