@@ -22,7 +22,7 @@
 
 ## Playbooks
 
-All Playbooks are stored on the folder `playbooks/`
+All Playbooks are stored in the folder `playbooks/`
 
 - `release.yml`
 
