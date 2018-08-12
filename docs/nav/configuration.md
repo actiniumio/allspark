@@ -14,7 +14,7 @@ your needs, like:
 allspark_monitoring:
   enabled: true
 
-allspark_traefik:
+allspark_haproxy:
   selfsigned:
     enabled: false
     # For example country: FR
@@ -23,7 +23,6 @@ allspark_traefik:
     location: city
     organisation: myteam
     organizational_unit: myorganizational_unit
-    common_name: "*.{{ allspark_root_domain }}"
 ```
 
 ## Downloads
