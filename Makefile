@@ -41,6 +41,6 @@ clean:
 	@(which vagrant >/dev/null && vagrant destroy -f) || echo "Vagrant not installed, skipping VM destruction."
 
 test:
-	vagrant up
+	vagrant up --provision
 
 .PHONY: clean install test doc-dev
