@@ -16,6 +16,8 @@
     networks:
       - name: allspark
     restart_policy: always
+    labels:
+      "heritage": "allspark"
 
 - name: Setup node exporter
   docker_container:
@@ -34,6 +36,8 @@
     networks:
       - name: allspark
     restart_policy: always
+    labels:
+      "heritage": "allspark"
 
 - name: Create Prometheus config folder
   file:
@@ -69,9 +73,6 @@
       - name: allspark
     restart_policy: always
     labels:
-      "traefik.backend": "prometheus"
-      "traefik.frontend.rule": "Host:metrics.{{ allspark_root_domain }}"
-      "traefik.enable": "true"
       "heritage": "allspark"
 
 # TODO: Skip this when grafana is disabled
@@ -102,7 +103,4 @@
     networks:
       - name: allspark
     labels:
-      "traefik.backend": "grafana"
-      "traefik.frontend.rule": "Host:monitoring.{{ allspark_root_domain }}"
-      "traefik.enable": "true"
       "heritage": "allspark"
