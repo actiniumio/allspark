@@ -1,0 +1,101 @@
+#---------------------------------------------------------------------
+# Global settings
+#---------------------------------------------------------------------
+global
+  log         /dev/log local0 debug
+  maxconn     4000
+  {% if allspark_haproxy.selfsigned.enabled -%}
+  ca-base /etc/ssl
+  crt-base /etc/ssl
+  tune.ssl.default-dh-param 2048
+  {% endif %}
+
+#---------------------------------------------------------------------
+# common defaults that all the 'listen' and 'backend' sections will
+# use if not designated in their block
+#---------------------------------------------------------------------
+defaults
+  log             global
+  option          dontlognull
+
+  # default 1 second time out if a backend is not found
+  timeout connect 1000
+  timeout client  300000
+  timeout server  300000
+  maxconn         60000
+  retries         3
+  default-server init-addr libc,none
+
+resolvers docker_resolver
+    nameserver dns 127.0.0.11:53
+
+{% for item in haproxy_endpoints %}
+{% for backend in item.backends %}
+backend           {{ item.name }}-{{ backend.mode }}
+  mode            {{ backend.mode }}
+  balance         roundrobin
+
+{% if backend.mode == "http" %}
+  http-response   replace-value Location ^http://(.*)$ https://\1
+  redirect        scheme https if !{ ssl_fc }
+{% endif %}
+
+  server          {{ item.host }} {{ item.name }}:{{ backend.port }} check inter 10s resolvers docker_resolver resolve-prefer ipv4
+{% endfor %}
+{% endfor %}
+
+frontend http-in
+  mode            http
+  option          forwardfor
+  option          http-server-close
+
+  bind            :{{ haproxy_http_port }}
+  log             127.0.0.1 local0 debug
+{% if allspark_haproxy.selfsigned.enabled %}
+  acl             is_http dst_port {{ haproxy_http_port }}
+  http-request    replace-value Host (.*):{{ haproxy_http_port }} \1 if is_http
+  http-request    redirect location https://%[req.hdr(Host)]:{{ haproxy_https_port }}%[capture.req.uri] if is_http
+{% else %}
+{% for item in haproxy_endpoints %}
+{% for backend in item.backends %}
+{% if backend.mode == "http" %}
+  acl             match_{{ item.name }} hdr_dom(host) -i {{ item.host }}
+  use_backend     {{ item.name }}-{{ backend.mode }} if match_{{ item.name }}
+{% endif %}
+{% endfor %}
+{% endfor %}
+{% endif %}
+
+
+{% if allspark_haproxy.selfsigned.enabled %}
+frontend https-in
+  mode            http
+  option          forwardfor
+  option          http-server-close
+  bind            :{{ haproxy_https_port }} ssl crt-list /etc/ssl/crt-list.txt
+  log             127.0.0.1 local0 debug
+  http-request    add-header X-Forwarded-Proto https if { ssl_fc }
+{% for item in haproxy_endpoints %}
+{% for backend in item.backends %}
+{% if backend.mode == "http" %}
+  acl             match_{{ item.name }} hdr_dom(host) -i {{ item.host }}
+  use_backend     {{ item.name }}-{{ backend.mode }} if match_{{ item.name }}
+{% endif %}
+{% endfor %}
+{% endfor %}
+{% endif %}
+
+
+
+{% for item in haproxy_endpoints %}
+{% for backend in item.backends %}
+{% if backend.mode == "tcp" %}
+frontend {{ item.name }}-tcp-in
+  acl             match_{{ item.name }} hdr_dom(host) -i {{ item.host }}
+  log             127.0.0.1 local0 debug
+  use_backend     {{ item.name }}-{{ backend.mode }} if match_{{ item.name }}
+  bind            :{{ backend.exposed_port }}
+
+{% endif %}
+{% endfor %}
+{% endfor %}
