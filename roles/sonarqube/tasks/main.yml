@@ -17,8 +17,5 @@
     volumes:
       - allspark_sonarqube_data:/opt/sonarqube/data
     labels:
-      "traefik.backend": "sonarqube"
-      "traefik.frontend.rule": "Host:sonarqube.{{ allspark_root_domain }}"
-      "traefik.enable": "true"
       "heritage": "allspark"
     restart_policy: always

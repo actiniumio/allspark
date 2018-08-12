@@ -14,9 +14,7 @@
     networks:
       - name: allspark
     labels:
-      "traefik.backend": "portainer"
-      "traefik.frontend.rule": "Host:infra.{{ allspark_root_domain }}"
-      "traefik.enable": "true"
+      "heritage": "allspark"
     restart_policy: always
 
 - name: Docker volumes creation
@@ -53,9 +51,6 @@
     networks:
       - name: allspark
     labels:
-      "traefik.backend": "rocketchat"
-      "traefik.frontend.rule": "Host:chat.{{ allspark_root_domain }}"
-      "traefik.enable": "true"
       "heritage": "allspark"
     restart_policy: always
 
@@ -162,6 +157,8 @@
     volumes:
       - "allspark_mattermost_postgres_data:/var/lib/postgresql/data"
     restart_policy: always
+    labels:
+      "heritage": "allspark"
 
 - name: Setup MatterMost service
   docker_container:
@@ -181,7 +178,5 @@
     networks:
       - name: allspark
     labels:
-      "traefik.backend": "mattermost"
-      "traefik.frontend.rule": "Host:mattermost.{{ allspark_root_domain }}"
-      "traefik.enable": "true"
+      "heritage": "allspark"
     restart_policy: always

@@ -41,7 +41,5 @@
       PHPLDAPADMIN_LDAP_HOSTS: ldap_backend
       PHPLDAPADMIN_HTTPS: false
     labels:
-      "traefik.backend": "ldap_management"
-      "traefik.frontend.rule": "Host:users.{{ allspark_root_domain }}"
-      "traefik.enable": "true"
+      "heritage": "allspark"
     restart_policy: always
