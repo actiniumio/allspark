@@ -3,22 +3,22 @@
 
 ## Components
 
-| Components    | Usage                                                  |
-| ------------- | ------------------------------------------------------ |
-| Gitlab        | Source code management                                 |
-|               | Continuous integration / delivery                      |
-|               | Work planning                                          |
-|               | Issue tracking                                         |
-| Portainer     | Container management                                   |
-| RocketChat    | Instant chat (Slack like)                              |
-| Grafana       | Monitoring                                             |
-| Prometheus    | Metrics scraping / store                               |
-| CAdvisor      | Container metrics                                      |
-| Node exporter | System metrics                                         |
-| Sonarqube     | Continuous Inspection                                  |
-| Traefik       | Dynamic reverse proxy                                  |
-| Volumerize    | Backup and Restore solution for Docker volume backups  |
-| MatterMost    | Default Instant Chat (Slack like)                      |
+| Components    | Usage                                                 |
+| ------------- | ----------------------------------------------------- |
+| Gitlab        | Source code management                                |
+|               | Continuous integration / delivery                     |
+|               | Work planning                                         |
+|               | Issue tracking                                        |
+| Portainer     | Container management                                  |
+| RocketChat    | Instant chat (Slack like)                             |
+| Grafana       | Monitoring                                            |
+| Prometheus    | Metrics scraping / store                              |
+| CAdvisor      | Container metrics                                     |
+| Node exporter | System metrics                                        |
+| Sonarqube     | Continuous Inspection                                 |
+| HAProxy       | Reverse proxy                                         | 
+| Volumerize    | Backup and Restore solution for Docker volume backups |
+| MatterMost    | Default Instant Chat (Slack like)                     |
 
 
 ## OS Compatibility
