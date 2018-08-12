@@ -2,7 +2,7 @@
 gitlab_image: gitlab/gitlab-ce
 rocketchat_image: rocket.chat
 rocketchat_mongodb_image: mongo
-traefik_image: traefik
+haproxy_image: haproxy
 grafana_image: grafana/grafana
 prometheus_image: prom/prometheus
 cadvisor_image: google/cadvisor
@@ -22,7 +22,9 @@ mattermost_postgresql_image: postgres
 gitlab_tag: latest
 rocketchat_tag: latest
 rocketchat_mongodb_tag: latest
-traefik_tag: latest
+# Alpine tag is required, because it bundle rsyslogd
+# which allow us to read logs from HAProxy
+haproxy_tag: alpine
 grafana_tag: latest
 prometheus_tag: v2.1.0
 cadvisor_tag: latest
@@ -96,10 +98,10 @@ downloads:
     enabled: "{{ allspark_sonarqube.enabled }}"
     image: "{{ sonarqube_image }}"
     tag: "{{ sonarqube_tag }}"
-  traefik:
+  haproxy:
     enabled: true
-    image: "{{ traefik_image }}"
-    tag: "{{ traefik_tag }}"
+    image: "{{ haproxy_image }}"
+    tag: "{{ haproxy_tag }}"
   volumerize:
     enabled: true
     image: "{{ volumerize_image }}"
