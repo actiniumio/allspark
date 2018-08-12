@@ -62,6 +62,8 @@ if you don't found a box to test your compatibility, send a mail to ```bot.actin
 
 ### Docker images
 
+#### Download
+
 The docker images are downloaded in the `download` role.
 If you need to add an image to allspark, add the corresponding entry
 in the `roles/download/defaults/main.yml` file. You can then refer to
@@ -88,6 +90,40 @@ downloads:
 This format is helful to centralize `downloads` for an easier access in roles, the exposed variables also allow the user to
 easily override an image/tag with a `ansible-playbook -e "${component_name}_image=my-image"`
 
+#### Expose
+
+All the docker containers beside `haproxy` does not export any port on the host.
+However, you can configure `haproxy` in the `roles/haproxy/defaults/main.yml` file.
+This file allow you to configure ingress on the machine, with automatic ssl termination handled
+by the reverse proxy (only if your backend is of type `http`)
+
+_e.g_: Ingress of the `portainer` infra service.
+```yaml
+
+-
+  # Runtime name of the container
+  # (defined by the `docker_container` module `name` parameter)
+  name: "portainer"
+  # The host on which the service will be exposed
+  host: "infra.{{ allspark_root_domain }}"
+
+  # List of object with the following properties:
+  # - mode: http|tcp
+  # - port: the listening container port to expose
+  # - exposed_port: The port exposed on the host machine (only for tcp mode)
+  backends:
+    # # Sample HTTP backend
+    # - port: 8080
+    #   mode: http
+    # # Sample TCP backend
+    # - port: 6578
+    #   mode: tcp
+    #   exposed_port: 6578
+
+    - port: 9000
+      mode: http
+
+```
 
 ## Test modifications
 
