@@ -30,7 +30,7 @@ jobs:
             - "59:35:d6:58:31:87:ac:e6:f2:87:f3:0e:9e:8d:c2:e1"
       - run: pip install --user -r ./.circleci/requirements.txt
       - run: PATH=$PATH:/root/.local/bin ansible-lint ./playbooks/*.yml -c .circleci/.ansible-lint
-      - run: PATH=$PATH:/root/.local/bin ansible-lint ./roles/**/**/*.yml -c .circleci/.ansible-lint
+      - run: PATH=$PATH:/root/.local/bin ansible-lint ./roles/**/tasks/*.yml -c .circleci/.ansible-lint
 
 workflows:
   version: 2
