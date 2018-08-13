@@ -1,6 +1,6 @@
 site_name: Allspark
 site_description: The developper toolbox.
-site_author: The fkin company
+site_author: Actinium team
 theme:
   name: 'material'
   palette:
@@ -19,7 +19,7 @@ nav:
   - Operation: operation.md
   - Troubleshooting: troubleshooting.md
 
-repo_url: https://github.com/TheFkinCompany/allspark
+repo_url: https://github.com/actiniumio/allspark
 markdown_extensions:
   # For notes and stuff: http://squidfunk.github.io/mkdocs-material/extensions/admonition/
   - admonition

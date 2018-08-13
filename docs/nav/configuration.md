@@ -42,4 +42,4 @@ allspark_traefik:
        gitlab_tag: latest
     ```
 
-    You can access the complete list of available components in the [roles/downloads/defaults/main.yml](https://github.com/TheFkinCompany/allspark/blob/master/roles/download/defaults/main.yml) file.
+    You can access the complete list of available components in the [roles/downloads/defaults/main.yml](https://github.com/actiniumio/allspark/blob/master/roles/download/defaults/main.yml) file.
