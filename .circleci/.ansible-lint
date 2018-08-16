@@ -7,3 +7,4 @@ exclude_paths:
   - /playbooks/group_vars
   - /playbooks/roles/**/defaults/
   - /playbooks/roles/**/templates/
+  - /playbooks/roles/**/files/
