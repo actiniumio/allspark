@@ -19,19 +19,16 @@
 - name: Install yum utils
   yum:
     name: yum-utils
-    state: latest
   become: true
 
 - name: Install device-mapper-persistent-data
   yum:
     name: device-mapper-persistent-data
-    state: latest
   become: true
 
 - name: Install lvm2
   yum:
     name: lvm2
-    state: latest
   become: true
 
 - name: Add Docker repo
