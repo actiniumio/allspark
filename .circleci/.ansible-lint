@@ -2,3 +2,5 @@ parseable: true
 quiet: false
 use_default_rules: true
 verbosity: 1
+exclude_paths:
+  - ./playbooks/Vagrantfile
