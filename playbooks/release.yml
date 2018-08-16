@@ -21,8 +21,6 @@
       TARGET: "{{ allspark_release_tmp_directory}}/dependencies/jenkins_plugins"
       REQUIREMENTS_FILE: "{{ playbook_dir }}/files/jenkins_plugins.txt"
     when: allspark_jenkins.enabled
-    tags:
-      - skip_ansible_lint
 
   - name: Export Docker images
     docker_image:
@@ -45,8 +43,6 @@
     args:
       warn: False
     become: true
-    tags:
-      - skip_ansible_lint
 
   - name: Clean up release directory
     file:

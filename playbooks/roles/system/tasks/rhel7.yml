@@ -21,24 +21,18 @@
     name: yum-utils
     state: latest
   become: true
-  tags:
-    - skip_ansible_lint
 
 - name: Install device-mapper-persistent-data
   yum:
     name: device-mapper-persistent-data
     state: latest
   become: true
-  tags:
-    - skip_ansible_lint
 
 - name: Install lvm2
   yum:
     name: lvm2
     state: latest
   become: true
-  tags:
-    - skip_ansible_lint
 
 - name: Add Docker repo
   get_url:

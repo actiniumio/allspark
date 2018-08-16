@@ -13,13 +13,13 @@
 - Launch the playbook to make your backup, like:
 
 ```bash
-ansible-playbook -i hosts playbooks/backup.yml
+ansible-playbook -i hosts backup.yml
 ```
 
 !!! Note
     You can change the release destination (default: `/opt/allspark/backup`) like so:
     ```bash
-    ansible-playbook -i hosts playbooks/backup.yml --extra-vars 'allspark_backup_directory=/tmp/allspark_backup'
+    ansible-playbook -i hosts backup.yml --extra-vars 'allspark_backup_directory=/tmp/allspark_backup'
     ```
 
 ## Restore guide
@@ -41,11 +41,11 @@ ansible-playbook -i hosts playbooks/backup.yml
 - Launch the playbook Restore to make the restore
 
 ```bash
-ansible-playbook -i hosts playbooks/restore.yml
+ansible-playbook -i hosts restore.yml
 ```
 
 !!! Note
     You can launch a dry-run mode if you want to test your backup to restore, like so:
     ```bash
-    ansible-playbook -i hosts playbooks/restore.yml --extra-vars 'allspark_restore_dry_run=true'
+    ansible-playbook -i hosts restore.yml --extra-vars 'allspark_restore_dry_run=true'
     ```
