@@ -31,7 +31,6 @@ jobs:
       - run: pip install --user -r ./.circleci/requirements.txt
       - run: PATH=$PATH:/root/.local/bin ansible-lint playbooks/*.yml -c .circleci/.ansible-lint
       - run: PATH=$PATH:/root/.local/bin ansible-lint playbooks/*.yaml -c .circleci/.ansible-lint
-      - run: PATH=$PATH:/root/.local/bin ansible-lint playbooks/roles/**/tasks/** -c .circleci/.ansible-lint
 
 workflows:
   version: 2
