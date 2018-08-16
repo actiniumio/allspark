@@ -22,7 +22,7 @@ If you are on a migration see the [operation pages](/operation.md)
 - Change the hosts file to point to the allspark machine.
 
 ```bash
-ansible-playbook -i hosts playbooks/install.yml
+ansible-playbook -i hosts install.yml
 ```
 
 At this point, you will be able to see component show up along with their access URL
@@ -35,7 +35,7 @@ at `ingress.YOUR_ROOT_DOMAIN`.
     Change the `allspark_release_destination` and `allspark_release_tmp_directory` to point to somwhere with at least 10Go of free space
 
 ```bash tab="Bash"
-ansible-playbook -i hosts playbooks/release.yml
+ansible-playbook -i hosts release.yml
 ```
 
 ```ini tab="hosts"
@@ -54,8 +54,8 @@ directory to the offline allspark machine.
 - Set the `allspark_release_tmp_directory` to point to somwhere with at least 10Go of free space
 
 ```bash tab="Bash"
-ansible-playbook -i hosts playbooks/setup.yml
-ansible-playbook -i hosts playbooks/install.yml
+ansible-playbook -i hosts setup.yml
+ansible-playbook -i hosts install.yml
 ```
 
 ```ini tab="hosts"

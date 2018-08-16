@@ -2,6 +2,7 @@
   hosts: all
   roles:
     - system
+    - pip
     - { role: download, tags: [ "download", "prepare" ] }
     - infra
     - monitoring

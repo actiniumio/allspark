@@ -17,15 +17,3 @@
     path: "{{ allspark_root_directory }}"
     owner: "{{ ansible_user }}"
   become: true
-
-- name: Pip - docker-py
-  pip:
-    name: docker-py
-  become: true
-
-- name: Pip - pyopenssl
-  pip:
-    name: pyopenssl
-    extra_args: --upgrade
-  become: true
-

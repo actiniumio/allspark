@@ -67,9 +67,10 @@
   shell: "echo -n $(< /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c26) > {{ allspark_root_directory}}/data/secrets/admin_password_mattermostdb.txt"
   when: not admin_password_mattermost_file.stat.exists
 
-- name: Register random admin password
+- name: Register mattermost admin password
   shell: "cat {{ allspark_root_directory}}/data/secrets/admin_password_mattermostdb.txt"
   register: allspark_admin_password_mattermostdb
+  changed_when: false
 
 - name: Test [AtRestEncryptKey] existence
   stat: path="{{ allspark_root_directory}}/data/secrets/AtRestEncryptKey.txt"
@@ -82,6 +83,7 @@
 - name: Register random [AtRestEncryptKey]
   shell: "cat {{ allspark_root_directory}}/data/secrets/AtRestEncryptKey.txt"
   register: allspark_AtRestEncryptKey
+  changed_when: false
 
 - name: Test [PublicLinkSalt] existence
   stat: path="{{ allspark_root_directory}}/data/secrets/PublicLinkSalt.txt"
@@ -94,6 +96,7 @@
 - name: Register random [PublicLinkSalt]
   shell: "cat {{ allspark_root_directory}}/data/secrets/PublicLinkSalt.txt"
   register: allspark_PublicLinkSalt
+  changed_when: false
 
 - name: Test [InviteSalt] existence
   stat: path="{{ allspark_root_directory}}/data/secrets/InviteSalt.txt"
@@ -106,6 +109,7 @@
 - name: Register random [InviteSalt]
   shell: "cat {{ allspark_root_directory}}/data/secrets/InviteSalt.txt"
   register: allspark_InviteSalt
+  changed_when: false
 
 - name: MatterMost config directory
   file:
@@ -115,11 +119,23 @@
 - name: Generate Mattermost config
   template:
     src: templates/config.json.j2
+    dest: "{{ allspark_root_directory }}/config/mattermost/config_i.json"
+  register: mattermost_template
+  when: allspark_mattermost.enabled
+
+## Mattermost change the contents of it's configuration file at runtime
+## To avoid indepotency break using only the template module on this file,
+## we first copy it to config_i.json and then override runtime config
+## only if this task changed.
+- name: Copy Mattermost runtime configuration
+  copy:
+    remote_src: yes
+    src: "{{ allspark_root_directory }}/config/mattermost/config_i.json"
     dest: "{{ allspark_root_directory }}/config/mattermost/config.json"
     owner: 2000
     group: 2000
   become: true
-  when: allspark_mattermost.enabled
+  when: mattermost_template is changed
 
 - name: Docker volumes creation
   docker_volume:
@@ -169,4 +185,3 @@
       "traefik.frontend.rule": "Host:mattermost.{{ allspark_root_domain }}"
       "traefik.enable": "true"
     restart_policy: always
-

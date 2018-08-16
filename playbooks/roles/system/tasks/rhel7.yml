@@ -21,24 +21,18 @@
     name: yum-utils
     state: latest
   become: true
-  tags:
-    - skip_ansible_lint
 
 - name: Install device-mapper-persistent-data
   yum:
     name: device-mapper-persistent-data
     state: latest
   become: true
-  tags:
-    - skip_ansible_lint
 
 - name: Install lvm2
   yum:
     name: lvm2
     state: latest
   become: true
-  tags:
-    - skip_ansible_lint
 
 - name: Add Docker repo
   get_url:
@@ -64,8 +58,9 @@
   changed_when: false
   register: pip_install
 
-- name: Install pip
-  shell: "curl https://bootstrap.pypa.io/get-pip.py | python -"
+- name: Install [Python-pip]
+  yum:
+    name: python-pip
   become: true
   when: pip_install.rc != 0
 
