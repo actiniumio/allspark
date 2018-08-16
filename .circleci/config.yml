@@ -1,0 +1,41 @@
+version: 2
+jobs:
+  build:
+    branches:
+      ignore:
+        - gh-pages
+    docker:
+      - image: circleci/python:3.6.3
+    environment:
+      - COMMIT_AUTHOR_EMAIL: "guiadco4geekhomeinside@gmail.com"
+    steps:
+      - checkout
+      - run:
+          name: Install Virtualenv dependencies for Pip
+          command: pip install --user virtualenv
+      - run:
+          name: Prepare shell commands
+          command: chmod +x .circleci/deploy-ghpages.sh
+      - deploy:
+          name: Deploy
+          command: PATH=$PATH:/home/circleci/.local/bin/ .circleci/deploy-ghpages.sh docs
+
+  test-ansible-lint:
+    docker:
+      - image: python:2.7
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - add_ssh_keys:
+          fingerprints:
+            - "59:35:d6:58:31:87:ac:e6:f2:87:f3:0e:9e:8d:c2:e1"
+      - run: pip install --user -r ./.circleci/requirements.txt
+      - run: PATH=$PATH:/root/.local/bin ansible-lint playbooks/*.yml -c .circleci/.ansible-lint
+      - run: PATH=$PATH:/root/.local/bin ansible-lint playbooks/*.yaml -c .circleci/.ansible-lint
+
+workflows:
+  version: 2
+  test-to-master:
+    jobs:
+      - test-ansible-lint
+      - build-docs
