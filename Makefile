@@ -36,11 +36,11 @@ clean:
 	@echo "Removing documentation artifacts"
 	@$(RM) -r doc .docs_venv
 	@echo "Removing Ansible retry files"
-	@find . -name '*.retry' | xargs $(RM)
+	@find ./playbooks/ -name '*.retry' | xargs $(RM)
 	@echo "Tearing down development Vagrant box."
-	@(which vagrant >/dev/null && vagrant destroy -f) || echo "Vagrant not installed, skipping VM destruction."
+	@(which vagrant >/dev/null && cd playbooks/ && vagrant destroy -f) || echo "Vagrant not installed, skipping VM destruction."
 
 test:
-	vagrant up --provision
+	cd playbooks/ && vagrant up --provision
 
 .PHONY: clean install test doc-dev

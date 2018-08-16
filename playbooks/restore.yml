@@ -1,0 +1,4 @@
+- name: Restore an instance Allspark from release
+  hosts: all
+  roles:
+    - { role: backup, allspark_operation: 'restore', allspark_restore_dry_run: false }
