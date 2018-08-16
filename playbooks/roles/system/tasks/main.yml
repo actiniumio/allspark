@@ -17,6 +17,7 @@
     path: "{{ allspark_root_directory }}"
     owner: "{{ ansible_user }}"
   become: true
+<<<<<<< HEAD:playbooks/roles/system/tasks/main.yml
 <<<<<<< HEAD:roles/system/tasks/main.yml
 <<<<<<< HEAD
 =======
@@ -35,3 +36,5 @@
 >>>>>>> e9b6403... Update systemtask
 =======
 >>>>>>> e0d5f74... Move Core to playbooks folder & Update Makefile & and CircleCI:playbooks/roles/system/tasks/main.yml
+=======
+>>>>>>> 60b89d2aa86df5fc1edac313ed83c85153eed539:playbooks/roles/system/tasks/main.yml

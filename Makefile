@@ -42,9 +42,13 @@ clean:
 
 test:
 <<<<<<< HEAD
+<<<<<<< HEAD
 	vagrant up --provision
 =======
 	cd playbooks/ && vagrant up --provision
 >>>>>>> e0d5f74... Move Core to playbooks folder & Update Makefile & and CircleCI
+=======
+	cd playbooks/ && vagrant up --provision
+>>>>>>> 60b89d2aa86df5fc1edac313ed83c85153eed539
 
 .PHONY: clean install test doc-dev
