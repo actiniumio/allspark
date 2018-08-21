@@ -2,6 +2,14 @@
 
 ## Development
 
+### Ansible Lint
+Actually, you need to edit `.circleci/.config.yml` if you add a main core playbook for allspark
+
+_e.g_:
+```yaml
+ - run: PATH=$PATH:/root/.local/bin ansible-lint mynewplaybook.yml -c .circleci/.ansible-lint
+
+
 ### Docker images
 
 The docker images are downloaded in the `download` role.
