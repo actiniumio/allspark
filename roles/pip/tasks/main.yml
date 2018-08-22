@@ -10,7 +10,7 @@
 - name: send [Pip] Requirements to remote server
   copy:
     src: files/requirements.txt
-    dest: "{{ allspark_root_directory }}/config/pip-requirements.txt" 
+    dest: "{{ allspark_root_directory }}/config/pip-requirements.txt"
 
 - name: Installing python libraries using requirements file
   pip:

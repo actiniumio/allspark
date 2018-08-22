@@ -1,0 +1,8 @@
+parseable: true
+quiet: false
+use_default_rules: true
+verbosity: 1
+exclude_paths:
+  - /roles/**/defaults/**
+  - /roles/**/templates/**
+  - /roles/**/files/**
