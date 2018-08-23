@@ -8,6 +8,7 @@ Actually, you need to edit `.circleci/.config.yml` if you add a main core playbo
 _e.g_:
 ```yaml
  - run: PATH=$PATH:/root/.local/bin ansible-lint mynewplaybook.yml -c .circleci/.ansible-lint
+```
 
 
 ### Docker images
