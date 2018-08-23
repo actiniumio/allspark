@@ -1,6 +1,9 @@
-- name: System packages - CentOS|RedHat
-  include: rhel7.yml
-  when: ansible_distribution == 'CentOS' or ansible_distribution == 'RedHat'
+- include_tasks: "{{ prerequisites_file }}"
+  with_first_found:
+    - files:
+        - "{{ ansible_distribution }}-{{ ansible_distribution_major_version}}.yml"
+  loop_control:
+    loop_var: prerequisites_file
 
 - name: Docker - Ensuring daemon is started
   systemd: state=started name=docker
