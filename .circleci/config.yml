@@ -9,7 +9,7 @@ jobs:
       - checkout
       - add_ssh_keys:
           fingerprints:
-            - "59:35:d6:58:31:87:ac:e6:f2:87:f3:0e:9e:8d:c2:e1"
+            - "3e:42:39:0c:71:79:a2:20:13:68:de:3a:a7:0d:a9:b5"
       - run:
           name: Install Virtualenv dependencies for Pip
           command: pip install --user virtualenv
@@ -28,7 +28,7 @@ jobs:
       - checkout
       - add_ssh_keys:
           fingerprints:
-            - "59:35:d6:58:31:87:ac:e6:f2:87:f3:0e:9e:8d:c2:e1"
+            - "3e:42:39:0c:71:79:a2:20:13:68:de:3a:a7:0d:a9:b5"
       - run: pip install --user -r ./.circleci/requirements.txt
       - run: PATH=$PATH:/root/.local/bin ansible-lint install.yml -c .circleci/.ansible-lint
       - run: PATH=$PATH:/root/.local/bin ansible-lint setup.yml -c .circleci/.ansible-lint
