@@ -27,7 +27,7 @@
     - python-pip
     state: present
   become: yes
-  
+
 - name: Add Docker repo
   get_url:
     url: https://download.docker.com/linux/centos/docker-ce.repo
