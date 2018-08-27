@@ -9,6 +9,17 @@ _e.g_:
 ```yaml
  - run: PATH=$PATH:/root/.local/bin ansible-lint mynewplaybook.yml -c .circleci/.ansible-lint
 
+### OS Compatibility
+
+To add an OS compatibility
+  - you need to add a valid yml on folder roles/system/tasks
+  - you need to named him like : "{{ ansible_distribution }}-{{ ansible_distribution_major_version}}.yml"
+  - for exemple:
+    - Ubuntu-14.yml
+    - CentOS-7.yml
+  - you need to validate him via vagrant
+
+if you don't found a box to test your compatibility, send a mail to ```bot.actinium@gmail.com```
 
 ### Docker images
 
