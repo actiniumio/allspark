@@ -21,7 +21,7 @@
     packages:
     - yum-utils
     - device-mapper-persistent-data
-    - lvm2 
+    - lvm2
     - python-pip
     state: present
 
