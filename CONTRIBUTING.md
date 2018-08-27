@@ -15,7 +15,7 @@ _e.g_:
 To add an OS compatibility
   - you need to add a valid yml on folder roles/system/tasks
   - you need to named him like : "{{ ansible_distribution }}-{{ ansible_distribution_major_version}}.yml"
-  - for exemple:
+  - for example:
     - Ubuntu-14.yml
     - CentOS-7.yml
   - you need to validate him via vagrant
