@@ -43,7 +43,7 @@ clean:
 test-centos7:
 	vagrant up centos7 --provision
 
-test-ubuntu:
+test-ubuntu14:
 	vagrant up ubuntu14 --provision
 
 test-rhel7:
