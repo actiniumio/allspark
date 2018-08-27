@@ -24,4 +24,15 @@ Vagrant.configure("2") do |config|
       ansible.playbook = "install.yml"
     end
   end
+  config.vm.define "rhel7", autostart: false do |rhel7|
+    rhel7.vm.box = "generic/rhel7"
+    rhel7.vm.network "forwarded_port", guest: 80, host: 8081, host_ip: "127.0.0.1"
+    rhel7.vm.provider "virtualbox" do |vb|
+      vb.memory = "2048"
+    end
+    rhel7.vm.provision "ansible" do |ansible|
+      ansible.verbose = "vvv"
+      ansible.playbook = "install.yml"
+    end
+  end
 end
