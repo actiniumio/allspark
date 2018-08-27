@@ -82,4 +82,4 @@
     state: absent
   delegate_to: localhost
   changed_when: false
-when: user_task is changed
+  when: user_task is changed
