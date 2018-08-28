@@ -21,8 +21,7 @@ To add an OS compatibility
   - you need to validate him via vagrant
 
 >For the Red Hat Enterprise Linux, only the actinium team could validate the playbook
-
-If you don't found a box to test your compatibility, send a mail to ```bot.actinium@gmail.com```
+>If you don't found a box to test your compatibility, send a mail to ```bot.actinium@gmail.com```
 
 ### Docker images
 
@@ -68,7 +67,7 @@ vagrant box add centos/7
 # It needs to be online when running this command.
 make test
 
->The ```make test``` command launch the default system ( CentOS 7)
+   >The ```make test``` command launch the default system ( CentOS 7)
 
 # If you want to test in another system, juste run this command:
 
