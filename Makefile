@@ -46,4 +46,6 @@ test-centos7:
 test-ubuntu14:
 	vagrant up ubuntu14 --provision
 
-.PHONY: clean install test doc-dev
+test: test-centos7
+
+.PHONY: clean install test doc-dev test-centos7 test-ubuntu14
