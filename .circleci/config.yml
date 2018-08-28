@@ -46,8 +46,11 @@ jobs:
             - "3e:42:39:0c:71:79:a2:20:13:68:de:3a:a7:0d:a9:b5"
       - run: sudo apt-get -y update && sudo apt-get -y upgrade
       - run: sudo apt-add-repository ppa:ansible/ansible
+      - run: sudo apt-get -y update && sudo apt-get -y upgrade
       - run: git clone https://github.com/actiniumio/allspark.git .
+      - run: ls -ltra || true
       - run: sudo apt-get install -y ansible
+      - run: ansible --version || true
       - run: sudo ansible-playbook -i hosts install.yml -vvv
       - run: pip --version
       - run: pip freeze
