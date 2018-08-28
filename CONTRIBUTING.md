@@ -68,7 +68,7 @@ vagrant box add centos/7
 # It needs to be online when running this command.
 make test
 
-# The ```make test``` command launch the default system ( CentOS 7)
+# The `make test` command launch the default system ( CentOS 7)
 
 # If you want to test in another system, juste run this command:
 
