@@ -20,9 +20,10 @@ To add an OS compatibility
     - CentOS-7.yml
   - you need to validate him via vagrant
 
-!!! warning
+<aside class="warning">
     PS: for the Red Hat Enterprise Linux, only the actinium team could validate the playbook
     If you don't found a box to test your compatibility, send a mail to ```bot.actinium@gmail.com```
+</aside>
 
 ### Docker images
 
