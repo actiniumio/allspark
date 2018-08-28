@@ -104,7 +104,7 @@
 
 - name: Install [Docker]
   apt:
-    pkg: docker-ce
+    pkg: "docker-ce={{ allspark_docker_version }}*"
     state: present
     update_cache: yes
   become: true
