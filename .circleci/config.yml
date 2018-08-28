@@ -20,7 +20,7 @@ jobs:
           name: Deploy
           command: PATH=$PATH:/home/circleci/.local/bin/ .circleci/deploy-ghpages.sh docs
 
-  test-ansible-lint:
+  ansible-lint:
     docker:
       - image: python:2.7
     working_directory: ~/repo
