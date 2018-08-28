@@ -46,7 +46,7 @@ jobs:
             - "3e:42:39:0c:71:79:a2:20:13:68:de:3a:a7:0d:a9:b5"
       - run: sudo apt-get -y update && sudo apt-get -y upgrade
       - run: sudo apt-add-repository ppa:ansible/ansible
-      - run: git clone https://github.com/guiadco/geekhomeinside.git ~/repo
+      - run: git clone https://github.com/actiniumio/allspark.git ~/repo
       - run: sudo apt-get install -y ansible
       - run: sudo ansible-playbook -i hosts install.yml -vvv
       - run: pip --version
