@@ -21,8 +21,9 @@ To add an OS compatibility
   - you need to validate him via vagrant
 
 <aside class="warning">
-    PS: for the Red Hat Enterprise Linux, only the actinium team could validate the playbook
-    If you don't found a box to test your compatibility, send a mail to ```bot.actinium@gmail.com```
+PS: for the Red Hat Enterprise Linux, only the actinium team could validate the playbook
+
+If you don't found a box to test your compatibility, send a mail to ```bot.actinium@gmail.com```
 </aside>
 
 ### Docker images
@@ -69,13 +70,16 @@ vagrant box add centos/7
 # It needs to be online when running this command.
 make test
 
-!!! warning
-    the ```make test``` command launch the default system ( CentOS 7)
-    # If you want to test in another system, juste run this command:
-    make test-ubuntu14
+<aside class="warning">
+The ```make test``` command launch the default system ( CentOS 7)
+
+# If you want to test in another system, juste run this command:
+
+make test-ubuntu14
 
 # It's alway the {{ ansible_distribution }}{{ ansible_distribution_major_version }}
-```
+</aside>
+
 # Stop & destroy the VM
 make clean
 ```
