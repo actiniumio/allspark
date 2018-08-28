@@ -21,6 +21,7 @@ To add an OS compatibility
   - you need to validate him via vagrant
 
 >For the Red Hat Enterprise Linux, only the actinium team could validate the playbook
+
 >If you don't found a box to test your compatibility, send a mail to ```bot.actinium@gmail.com```
 
 ### Docker images
