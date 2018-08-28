@@ -49,4 +49,6 @@ test-ubuntu:
 test-rhel7:
         vagrant up rhel7 --provision
 
-.PHONY: clean install test doc-dev
+test: test-centos7
+
+.PHONY: clean install test doc-dev test-centos7 test-ubuntu14
