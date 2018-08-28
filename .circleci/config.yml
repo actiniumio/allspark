@@ -20,6 +20,7 @@ jobs:
           name: Deploy
           command: PATH=$PATH:/home/circleci/.local/bin/ .circleci/deploy-ghpages.sh docs
 
+<<<<<<< HEAD
   create-release:
     machine: true
     environment:
@@ -34,6 +35,9 @@ jobs:
           command: .circleci/release_notes.sh
 
   test-ansible-lint:
+=======
+  ansible-lint:
+>>>>>>> Update config file for CircleCI
     docker:
       - image: python:2.7
     working_directory: ~/repo
