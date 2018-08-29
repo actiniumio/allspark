@@ -68,6 +68,7 @@ jobs:
 =======
       - run: sudo apt-get -y update && sudo apt-get -y upgrade
       - run: git clone https://github.com/actiniumio/allspark.git .
+      - run: git checkout $CIRCLE_BRANCH
       - run: ls -ltra || true
 >>>>>>> 64c29d1... Debug Why block error ?
       - run: sudo apt-get install -y ansible
