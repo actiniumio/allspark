@@ -4,7 +4,7 @@ jobs:
     docker:
       - image: circleci/python:3.6.3
     environment:
-      - COMMIT_AUTHOR_EMAIL: "guiadco4geekhomeinside@gmail.com"
+      - COMMIT_AUTHOR_EMAIL: "bot.actinium@gmail.com"
     steps:
       - checkout
       - add_ssh_keys:
