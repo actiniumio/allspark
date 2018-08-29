@@ -4,7 +4,7 @@
 - include_tasks: "{{ prerequisites_file }}"
   with_first_found:
     - files:
-        - "{{ ansible_distribution }}-{{ ansible_distribution_major_version}}.yml"
+        - "{{ ansible_os_family }}.yml"
   loop_control:
     loop_var: prerequisites_file
 >>>>>>> e558990... Call change of the playbook system

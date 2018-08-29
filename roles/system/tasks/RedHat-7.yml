@@ -1,6 +1,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> c0a8e27... Add specific RedHat Playbook
 - name: yum - EPEL repository enabled ?
@@ -85,6 +86,8 @@
   package:
     name: "{{ item }}"
 =======
+=======
+>>>>>>> 6c48f47... Update Sys Playbook
 - name: Ensure old versions of Docker are not installed. | RedHat
   package:
 <<<<<<< HEAD
@@ -123,6 +126,7 @@
     state: present
 >>>>>>> 84ac31e... Update System Playbook
   become: yes
+<<<<<<< HEAD
 
 =======
 =======
@@ -180,3 +184,5 @@ when: user_task is changed
 =======
   when: user_task is changed
 >>>>>>> e2b3c07... Update Playbook
+=======
+>>>>>>> 6c48f47... Update Sys Playbook

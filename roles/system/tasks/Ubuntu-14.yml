@@ -1,6 +1,7 @@
 ---
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 # You can found this list on the docker official website : https://docs.docker.com/install/linux/docker-ce/ubuntu/
 
@@ -44,6 +45,9 @@
   become: yes
 =======
 - name: Ensure old versions of Docker are not installed
+=======
+- name: "{{ ansible_distribution }}-{{ ansible_distribution_major_version }} - Ensure old versions of Docker are not installed"
+>>>>>>> 6c48f47... Update Sys Playbook
   package:
     name: "{{ item }}"
     state: absent
@@ -53,7 +57,7 @@
     - docker.io
   become: true
 
-- name: "Ensure dependencies are installed on {{ ansible_distribution }}-{{ ansible_distribution_version }} {{ ansible_distribution_release }}"
+- name: "{{ ansible_distribution }}-{{ ansible_distribution_major_version }} {{ ansible_distribution_release }} - Ensure dependencies are installed"
   apt:
     name: "{{ item }}"
     state: present
@@ -61,6 +65,7 @@
   with_items:
       - "linux-image-extra-{{ ansible_kernel }}"
       - linux-image-extra-virtual
+<<<<<<< HEAD
       - apt-transport-https
       - ca-certificates
       - curl
@@ -144,3 +149,5 @@
   when: user_task is changed
 >>>>>>> 02c5ac2... Create Ubuntu 14.04 Playbook
 
+=======
+>>>>>>> 6c48f47... Update Sys Playbook
