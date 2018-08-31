@@ -30,9 +30,9 @@ haproxy_endpoints:
   - name: gitlab
     host: "gitlab.{{ allspark_root_domain }}"
     backends:
-    - port: 22
+    - port: "{{ gitlab_ssh_port }}"
       mode: tcp
-      exposed_port: 2222
+      exposed_port: "{{ gitlab_ssh_port }}"
     - port: 80
       mode: http
 
@@ -76,4 +76,4 @@ haproxy_endpoints:
     host: "mattermost.{{ allspark_root_domain }}"
     backends:
     - mode: http
-      port: 80
+      port: 8000
