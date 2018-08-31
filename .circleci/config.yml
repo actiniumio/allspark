@@ -39,9 +39,10 @@ jobs:
 
   build-changelog-cloud-function:
     machine: true
-    working_directory: .circleci/cloudfn
+    working_directory: ~/code/.circleci/cloudfn
     steps:
-      - checkout
+      - checkout:
+          path: ~/code
       - run:
           name: Building Changelog lambda
           command: npm i
