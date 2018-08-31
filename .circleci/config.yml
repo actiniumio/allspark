@@ -38,6 +38,7 @@ jobs:
       - run: PATH=$PATH:/root/.local/bin ansible-lint roles/**/tasks/* -c .circleci/.ansible-lint
 
   build-changelog-cloud-function:
+    machine: true
     working_directory: .circleci/cloudfn
     steps:
       - run:
@@ -51,6 +52,7 @@ jobs:
 
 
   deploy-changelog-cloud-function:
+    machine: true
     steps:
       - run:
           name: Activating GCloud compatible python version
