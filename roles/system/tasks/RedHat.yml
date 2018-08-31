@@ -16,10 +16,10 @@
   become: yes
 
 - name: "{{ ansible_distribution }}-{{ ansible_distribution_major_version }} - Install EPEL repository"
-    yum:
-      name: "{{ allspark_epel_repo_url }}"
-      state: present
-    become: yes
+  yum:
+    name: "{{ allspark_epel_repo_url }}"
+    state: present
+  become: yes
   when: not repo.stat.exists
 
 - name: "{{ ansible_distribution }}-{{ ansible_distribution_major_version }} - Install prerequisite for docker"
