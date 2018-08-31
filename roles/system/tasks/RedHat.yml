@@ -100,10 +100,10 @@
   register: repo
 
 - name: "{{ ansible_distribution }}-{{ ansible_distribution_major_version }} - Import EPEL GPG key"
-    rpm_key:
-      key: "{{ allspark_epel_gpg_url }}"
-      state: present
-    become: yes
+  rpm_key:
+    key: "{{ allspark_epel_gpg_url }}"
+    state: present
+  become: yes
 
 - name: "{{ ansible_distribution }}-{{ ansible_distribution_major_version }} - Install EPEL repository"
     yum:
