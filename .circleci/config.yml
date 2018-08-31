@@ -37,9 +37,32 @@ jobs:
       - run: PATH=$PATH:/root/.local/bin ansible-lint backup.yml -c .circleci/.ansible-lint
       - run: PATH=$PATH:/root/.local/bin ansible-lint roles/**/tasks/* -c .circleci/.ansible-lint
 
+  build-changelog-cloud-function:
+    working_directory: .circleci/cloudfn
+    steps:
+      - run:
+          name: Building Changelog lambda
+          command: npm i
+      - run:
+          name: Compressing lambda
+          command: zip -r changelog-lambda.zip .
+      - store_artifacts:
+          path: .
+
+
+  deploy-changelog-cloud-function:
+    steps:
+      - run:
+          name: Activating GCloud compatible python version
+          command: pyenv global 2.7.12
+
 workflows:
   version: 2
   test-to-master:
     jobs:
       - test-ansible-lint
       - build-docs
+  cloud-functions:
+    jobs:
+      - build-changelog-cloud-function
+      - deploy-changelog-cloud-function
