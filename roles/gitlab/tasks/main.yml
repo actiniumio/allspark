@@ -38,3 +38,5 @@
       - name: allspark
     labels:
       "heritage": "allspark"
+    exposed_ports:
+      - "{{ gitlab_ssh_port }}"
