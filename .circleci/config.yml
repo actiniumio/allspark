@@ -44,10 +44,10 @@ jobs:
       - checkout:
           path: ~/code
       - run: Installing changelog dependencies
-        command: |
-          sudo add-apt-repository ppa:ubuntu-toolchain-r/test
-          sudo apt-get update
-          sudo apt-get install libstdc++-4.9-dev
+        command: >
+          sudo add-apt-repository ppa:ubuntu-toolchain-r/test;
+          sudo apt-get update;
+          sudo apt-get install libstdc++-4.9-dev;
       - run:
           name: Building Changelog lambda
           command: npm i
