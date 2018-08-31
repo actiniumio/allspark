@@ -35,7 +35,7 @@ backend           {{ item.name }}-{{ backend.mode }}
   mode            {{ backend.mode }}
   balance         roundrobin
 
-{% if backend.mode == "http" %}
+{% if backend.mode == "http" and allspark_haproxy.selfsigned.enabled %}
   http-response   replace-value Location ^http://(.*)$ https://\1
   redirect        scheme https if !{ ssl_fc }
 {% endif %}
