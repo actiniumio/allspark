@@ -69,4 +69,6 @@ workflows:
   cloud-functions:
     jobs:
       - build-changelog-cloud-function
-      - deploy-changelog-cloud-function
+      - deploy-changelog-cloud-function:
+        requires:
+          - build-changelog-cloud-function
