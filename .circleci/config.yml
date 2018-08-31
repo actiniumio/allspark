@@ -41,6 +41,7 @@ jobs:
     machine: true
     working_directory: .circleci/cloudfn
     steps:
+      - checkout
       - run:
           name: Building Changelog lambda
           command: npm i
@@ -48,7 +49,7 @@ jobs:
           name: Compressing lambda
           command: zip -r changelog-lambda.zip .
       - store_artifacts:
-          path: .
+          path: ./changelog-lambda.zip
 
 
   deploy-changelog-cloud-function:
