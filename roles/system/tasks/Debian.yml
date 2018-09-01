@@ -1,7 +1,7 @@
 ---
 
 - name: "{{ ansible_distribution }}-{{ ansible_distribution_major_version }} {{ ansible_distribution_release }} - Install Specific OS Release dependency"
-  include_tasks: 
+  include_tasks:
     - "{{ ansible_distribution }}-{{ ansible_distribution_major_version}}.yml"
 
 # You can found this list on the docker official website : https://docs.docker.com/install/linux/docker-ce/ubuntu/
@@ -100,7 +100,6 @@
 # `meta: reset_connection`:
 ## ERROR! Cannot reset connection
 ## b'Control socket connect(/home/$USER/.ansible/cp/276d6f8b70): No such file or directory\r\n'
-#
 # So we use this trick to force ansible to reconnect
 - name: "{{ ansible_distribution }}-{{ ansible_distribution_major_version }} {{ ansible_distribution_release }} - Remove cp dir to force ssh reconnection"
   file:
