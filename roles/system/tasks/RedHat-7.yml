@@ -5,7 +5,7 @@
 
 - name: "{{ ansible_distribution }}-{{ ansible_distribution_major_version }} - Install Storage Drivers for docker"
   yum:
-    name: overlay2
+    name: device-mapper-persistant-data
     state: present
   become: yes
-
+  when: ansible_distribution_version > 7.4
