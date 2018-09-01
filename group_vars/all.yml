@@ -8,6 +8,10 @@ allspark_admin_user: admin
 
 allspark_docker_version: "18.06.0"
 
+allspark_ubuntu_repo: "https://download.docker.com/linux/ubuntu"
+allspark_ubuntu_docker_url: "https://download.docker.com/linux/ubuntu/gpg"
+allspark_ubuntu_docker_id: "9DC858229FC7DD38854AE2D88D81803C0EBFCD88"
+
 allspark_ldap:
   enabled: false
   organization: Allspark
