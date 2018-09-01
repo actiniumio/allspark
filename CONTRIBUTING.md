@@ -14,15 +14,34 @@ _e.g_:
 
 To add an OS compatibility
   - you need to add a valid yml on folder roles/system/tasks
-  - you need to named him like : "{{ ansible_distribution }}-{{ ansible_distribution_major_version}}.yml"
+  - you need to named it like : "{{ ansible_distribution }}-{{ ansible_distribution_major_version}}.yml"
   - for example:
     - Ubuntu-14.yml
     - CentOS-7.yml
-  - you need to validate him via vagrant
+  - you need to edit the Makefile, add you os like:
+    ```
+       test-<osmajorversion>:
+       vagrant up <osmajorversion> --provision
+    ```
+  - you need to edit the Vagrantfile
+    ```
+    config.vm.define "<osmajorversion>", autostart: false do |<osmajorversion>|
+      ubuntu14.vm.box = "actinium/<osmajorversion>"
+      ubuntu14.vm.network "forwarded_port", guest: 80, host: 8081, host_ip: "127.0.0.1"
+      ubuntu14.vm.provider "virtualbox" do |vb|
+        vb.memory = "2048"
+      end
+      ubuntu14.vm.provision "ansible" do |ansible|
+        ansible.verbose = "vvv"
+        ansible.playbook = "install.yml"
+      end
+    end
+    ```
+  - you need to validate it via vagrant
 
 >For the Red Hat Enterprise Linux, only the actinium team could validate the playbook
 
->If you don't found a box to test your compatibility, send a mail to ```bot.actinium@gmail.com```
+>If you don't found a box to test your compatibility, you can contribute [Here](https://app.vagrantup.com/actinium/)
 
 ### Docker images
 
