@@ -92,8 +92,8 @@ Vagrant.configure("2") do |config|
     centos.vm.provider "virtualbox" do |vb|
 =======
   config.vm.define "centos7", primary: true do |centos7|
-    centos7.vm.box = "centos/7"
-    centos7.vm.network "forwarded_port", guest: 80, host: 8081, host_ip: "127.0.0.1"
+    centos7.vm.box = "actinium/centos7"
+    centos7.vm.network "forwarded_port", guest: 80, host: 8080, host_ip: "127.0.0.1"
     centos7.vm.provider "virtualbox" do |vb|
 >>>>>>> bd69b91... Update Vagrant & Makefile to take part of the different system
       vb.memory = "2048"
@@ -104,8 +104,8 @@ Vagrant.configure("2") do |config|
     end
   end
   config.vm.define "ubuntu14", autostart: false do |ubuntu14|
-    ubuntu14.vm.box = "actinium/trusty64"
-    ubuntu14.vm.network "forwarded_port", guest: 80, host: 8081, host_ip: "127.0.0.1"
+    ubuntu14.vm.box = "actinium/ubuntu14"
+    ubuntu14.vm.network "forwarded_port", guest: 80, host: 8080, host_ip: "127.0.0.1"
     ubuntu14.vm.provider "virtualbox" do |vb|
       vb.memory = "2048"
     end
