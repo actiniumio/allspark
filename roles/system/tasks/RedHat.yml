@@ -39,9 +39,9 @@
   become: yes
 
 # Older versions of Docker are the same on CentOS/RedHat/Fedora
-# https://docs.docker.com/install/linux/docker-ce/centos/
-# The community use https://docs.docker.com/install/linux/docker-ce/centos/ for Redhat normaly Redhat support only Docker-ee see : https://docs.docker.com/install/linux/docker-ee/rhel/#prerequisites
-# https://docs.docker.com/install/linux/docker-ce/fedora/#prerequisites
+# CentOS : https://docs.docker.com/install/linux/docker-ce/centos/
+# The community use https://docs.docker.com/install/linux/docker-ce/centos/ for Redhat normaly Redhat support only Docker-ee see : https://docs.docker.com/install/linux/docker-ee/rhel/
+# Fedora: https://docs.docker.com/install/linux/docker-ce/fedora/
 
 - name: "{{ ansible_distribution }}-{{ ansible_distribution_major_version }} - Ensure old versions of Docker are not installed"
   yum:
