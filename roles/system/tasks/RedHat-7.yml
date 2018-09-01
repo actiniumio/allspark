@@ -1,16 +1,11 @@
-- name: Ensure old versions of Docker are not installed. | RedHat
-  package:
-    name: "{{ item }}"
-    state: absent
-  with_items:
-    - docker
-    - docker-common
-    - docker-engine
-    - docker-selinux
-    - docker-client
-    - docker-client-latest
-    - docker-latest
-    - docker-latest-logrotate
-    - docker-logrotate
-    - docker-engine-selinux
+---
+
+
+# You can found all RedHat presreauisite on the docker official website : https://docs.docker.com/install/linux/docker-ee/rhel/#prerequisites
+
+- name: "{{ ansible_distribution }}-{{ ansible_distribution_major_version }} - Install Storage Drivers for docker"
+  yum:
+    name: overlay2
+    state: present
   become: yes
+
