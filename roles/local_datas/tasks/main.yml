@@ -22,3 +22,7 @@
 - name: Generate random admin password
   shell: "echo -n $(< /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c26) > {{ allspark_root_directory}}/data/secrets/admin_password.txt"
   when: not admin_password_file.stat.exists
+
+- name: "HAProxy - Generate/Update defaults/main.yml to generate haproxy.cfg"
+  local_action: template src=roles/haproxy/templates/main.yml.j2 dest=roles/haproxy/defaults/main.yml
+
