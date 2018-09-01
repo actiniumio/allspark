@@ -101,7 +101,7 @@
 
 - name: "{{ ansible_distribution }}-{{ ansible_distribution_major_version }} - Check if Systemd is present"
   yum:
-    name: systemd 
+    name: systemd
     state: present
   changed_when: false
   register: systemd_is_not_present
