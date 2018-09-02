@@ -127,7 +127,7 @@
     - python-pip
   become: yes
 
-- name: "{{ ansible_distribution }}-{{ ansible_distribution_major_version }} - Install Storage driver for {{ ansible_distribution_version }} is < 7.4 for docker"
+- name: "{{ ansible_distribution }}-{{ ansible_distribution_major_version }} - Install Storage driver for {{ ansible_distribution }} is < 7.4 for docker"
   yum:
     name: device-mapper-persistent-data
     state: present
