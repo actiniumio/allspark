@@ -55,13 +55,11 @@
     - docker
     - docker-common
     - docker-engine
-    - docker-selinux
     - docker-client
     - docker-client-latest
     - docker-latest
     - docker-latest-logrotate
     - docker-logrotate
-    - docker-engine-selinux
   become: yes
 
 - name: "{{ ansible_distribution }}-{{ ansible_distribution_major_version }} - Install Docker"
