@@ -30,10 +30,11 @@
 
 - name: "{{ ansible_distribution }}-{{ ansible_distribution_major_version }} - Install Storage driver for {{ ansible_distribution_version }} is < 7.4 for docker"
   yum:
-    name: device-mapper-persistant-data
+    name: device-mapper-persistent-data
     state: present
   become: yes
-  when: "{{ ansible_distribution_version }} is < 7.4"
+  when:
+    - ansible_distribution_version is version('7.4', '<')
 
 - name: "{{ ansible_distribution }}-{{ ansible_distribution_major_version }} - Add Docker repo"
   get_url:
