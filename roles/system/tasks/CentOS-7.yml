@@ -1,9 +1,0 @@
----
-
-
-- name: "{{ ansible_distribution }}-{{ ansible_distribution_major_version }} - Install Storage Drivers for docker"
-  yum:
-    name: device-mapper-persistent-data
-    state: present
-  become: yes
-
