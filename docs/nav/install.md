@@ -25,6 +25,9 @@ If you are on a migration see the [operation pages](/operation.md)
 ansible-playbook -i hosts install.yml
 ```
 
+!!! warning
+    For CentOS/RedHat, before using the playbook, you need to besur to have your user on wheel groups
+
 At this point, you will be able to see component show up along with their access URL
 at `ingress.YOUR_ROOT_DOMAIN`.
 
