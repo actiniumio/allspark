@@ -4,6 +4,7 @@
 
 
 - name: "{{ ansible_distribution }}-{{ ansible_distribution_major_version }} {{ ansible_distribution_release }} - yum - EPEL repository enabled ? - Only for CentOS/RedHat"
+<<<<<<< HEAD
   stat: path={{ allspark_epel_repo_file }}
   register: repo
   become: yes
@@ -101,24 +102,31 @@
 >>>>>>> 84ac31e... Update System Playbook
 
 - name: "{{ ansible_distribution }}-{{ ansible_distribution_major_version }} - yum - EPEL repository enabled ?"
+=======
+>>>>>>> 2caf6d3... Update System Playbook
   stat: path={{ allspark_epel_repo_file }}
   register: repo
+  become: yes
 
-- name: "{{ ansible_distribution }}-{{ ansible_distribution_major_version }} - Import EPEL GPG key"
+- name: "{{ ansible_distribution }}-{{ ansible_distribution_major_version }} {{ ansible_distribution_release }} - Import EPEL GPG key"
   rpm_key:
     key: "{{ allspark_epel_gpg_url }}"
     state: present
   become: yes
+  when:
+    - ansible_distribution != "Fedora"
 
-- name: "{{ ansible_distribution }}-{{ ansible_distribution_major_version }} - Install EPEL repository"
+- name: "{{ ansible_distribution }}-{{ ansible_distribution_major_version }} {{ ansible_distribution_release }} - Install EPEL repository"
   yum:
     name: "{{ allspark_epel_repo_url }}"
     state: present
   become: yes
-  when: not repo.stat.exists
+  when: 
+    - not repo.stat.exists
+    - ansible_distribution != "Fedora"
 
-- name: "{{ ansible_distribution }}-{{ ansible_distribution_major_version }} - Install prerequisite for docker"
-  yum:
+- name: "{{ ansible_distribution }}-{{ ansible_distribution_major_version }} {{ ansible_distribution_release }} - Install prerequisite for docker"
+  package:
     name: "{{ item }}"
     state: present
   with_items:
@@ -127,25 +135,38 @@
     - python-pip
   become: yes
 
-- name: "{{ ansible_distribution }}-{{ ansible_distribution_major_version }} - Install Storage driver for {{ ansible_distribution }} is < 7.4 for docker"
-  yum:
+- name: "{{ ansible_distribution }}-{{ ansible_distribution_major_version }} {{ ansible_distribution_release }} - Install Storage driver for {{ ansible_distribution }} is < 7.4"
+  package:
     name: device-mapper-persistent-data
     state: present
   become: yes
   when:
     - ansible_distribution_version is version('7.4', '<')
+    - ansible_distribution != "Fedora"
 
-- name: "{{ ansible_distribution }}-{{ ansible_distribution_major_version }} - Add Docker repo"
+- name: "{{ ansible_distribution }}-{{ ansible_distribution_major_version }} {{ ansible_distribution_release }} - Add Docker repo - Only for CentOS/RedHat"
   get_url:
+<<<<<<< HEAD
     url: "{{ allspark_redhat_docker_repo }}
     dest: /etc/yum.repos.d/docer-ce.repo
+=======
+    url: "{{ allspark_redhat_docker_repo }}"
+    dest: /etc/yum.repos.d/docker-ce.repo
+>>>>>>> 2caf6d3... Update System Playbook
   become: yes
+  when:
+    - ansible_distribution != "Fedora"
+
+- name: "{{ ansible_distribution }}-{{ ansible_distribution_major_version }} {{ ansible_distribution_release }} - Install Specific OS Release dependency"
+  include_tasks: "{{ ansible_distribution }}-{{ ansible_distribution_major_version}}.yml"
 
 # Older versions of Docker are the same on CentOS/RedHat/Fedora
-# https://docs.docker.com/install/linux/docker-ce/centos/
-# The community use https://docs.docker.com/install/linux/docker-ce/centos/ for Redhat normaly Redhat support only Docker-ee see : https://docs.docker.com/install/linux/docker-ee/rhel/#prerequisites
-# https://docs.docker.com/install/linux/docker-ce/fedora/#prerequisites
+# CentOS : https://docs.docker.com/install/linux/docker-ce/centos/
+# RedHat : The community use https://docs.docker.com/install/linux/docker-ce/centos/ for Redhat 
+#          Normally Redhat support only Docker-ee see : https://docs.docker.com/install/linux/docker-ee/rhel/#prerequisites
+# Fedora: https://docs.docker.com/install/linux/docker-ce/fedora/#prerequisites
 
+<<<<<<< HEAD
 - name: "{{ ansible_distribution }}-{{ ansible_distribution_major_version }} - Ensure old versions of Docker are not installed"
 <<<<<<< HEAD
   package:
@@ -153,6 +174,10 @@
 =======
   yum:
 >>>>>>> 84ac31e... Update System Playbook
+=======
+- name: "{{ ansible_distribution }}-{{ ansible_distribution_major_version }} {{ ansible_distribution_release }} - Ensure dependencies are installed"
+  package:
+>>>>>>> 2caf6d3... Update System Playbook
     name: "{{ item }}"
     state: absent
   with_items:
@@ -183,13 +208,19 @@
 >>>>>>> 74c5c53... Fix indepotency with docker resolve #69
   become: yes
 
+<<<<<<< HEAD
 - name: "{{ ansible_distribution }}-{{ ansible_distribution_major_version }} - Install Docker"
   yum:
 >>>>>>> 6c48f47... Update Sys Playbook
+=======
+- name: "{{ ansible_distribution }}-{{ ansible_distribution_major_version }} {{ ansible_distribution_release }} - Install Docker Community Edition"
+  package:
+>>>>>>> 2caf6d3... Update System Playbook
     name: "docker-ce-{{ allspark_docker_version }}*"
     state: present
   become: yes
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 - name: "{{ ansible_distribution }}-{{ ansible_distribution_major_version }} {{ ansible_distribution_release }} - Start Docker service"
   systemd:
@@ -199,12 +230,16 @@
   service:
 >>>>>>> 6c48f47... Update Sys Playbook
 =======
+=======
+- name: "{{ ansible_distribution }}-{{ ansible_distribution_major_version }} {{ ansible_distribution_release }} - Start Docker service"
+>>>>>>> 2caf6d3... Update System Playbook
   systemd:
 >>>>>>> 42d523c... Correction apply from review
     name: docker
     state: started
     enabled: yes
   become: yes
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 =======
@@ -260,3 +295,5 @@
 >>>>>>> 84ac31e... Update System Playbook
 =======
 >>>>>>> 42d523c... Correction apply from review
+=======
+>>>>>>> 2caf6d3... Update System Playbook

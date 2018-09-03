@@ -25,6 +25,9 @@
   include_tasks: "{{ ansible_os_family }}.yml"
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 2caf6d3... Update System Playbook
 - name: "{{ ansible_distribution }}-{{ ansible_distribution_major_version }} {{ ansible_distribution_release }} - Add user to docker group"
   user:
     name: "{{ ansible_user }}"
@@ -50,6 +53,7 @@
   delegate_to: localhost
   changed_when: false
   when: user_task is changed
+<<<<<<< HEAD
 =======
 - name: Docker - Ensuring daemon is started
   service: state=started name=docker
@@ -71,6 +75,9 @@
 
 =======
 >>>>>>> 42d523c... Correction apply from review
+=======
+
+>>>>>>> 2caf6d3... Update System Playbook
 - name: FS - Ensuring Allspark directory
   file:
     path: "{{ allspark_root_directory }}"
