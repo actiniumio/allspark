@@ -121,7 +121,7 @@
     name: "{{ allspark_epel_repo_url }}"
     state: present
   become: yes
-  when: 
+  when:
     - not repo.stat.exists
     - ansible_distribution != "Fedora"
 
@@ -162,7 +162,7 @@
 
 # Older versions of Docker are the same on CentOS/RedHat/Fedora
 # CentOS : https://docs.docker.com/install/linux/docker-ce/centos/
-# RedHat : The community use https://docs.docker.com/install/linux/docker-ce/centos/ for Redhat 
+# RedHat : The community use https://docs.docker.com/install/linux/docker-ce/centos/ for Redhat
 #          Normally Redhat support only Docker-ee see : https://docs.docker.com/install/linux/docker-ee/rhel/#prerequisites
 # Fedora: https://docs.docker.com/install/linux/docker-ce/fedora/#prerequisites
 
