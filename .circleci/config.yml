@@ -21,6 +21,7 @@ jobs:
           command: PATH=$PATH:/home/circleci/.local/bin/ .circleci/deploy-ghpages.sh docs
 
   create-relase:
+    machine: true
     filters:
       tags:
         only: /v[0-9]+(\.[0-9]+)*/
