@@ -97,10 +97,10 @@ frontend https-in
 {% if item.enabled %}
 {% for backend in item.backends %}
 {% if backend.mode == "tcp" %}
-frontend {{ item.name }}-tcp-in
-  acl             match_{{ item.name }} hdr_dom(host) -i {{ item.host }}
+# {{ item.name }} - {{ item.host }}
+frontend tcp-in-{{ backend.exposed_port }}
   log             127.0.0.1 local0 debug
-  use_backend     {{ item.name }}-{{ backend.mode }} if match_{{ item.name }}
+  use_backend     {{ item.name }}-{{ backend.mode }}
   bind            :{{ backend.exposed_port }}
 
 {% endif %}
