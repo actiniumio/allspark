@@ -22,6 +22,8 @@ jobs:
 
   create-release:
     machine: true
+    environment:
+      - COMMIT_AUTHOR_EMAIL: "bot.actinium@gmail.com"
     steps:
       - checkout
       - run:
