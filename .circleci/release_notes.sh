@@ -39,7 +39,6 @@ git checkout $CIRCLE_BRANCH
   --generate \
   -m \
   --override \
-  -B \
   --tags=$tag \
   -L duplicate,invalid,need_infos,question,stale,wontfix \
   -I duplicate,invalid,need_infos,question,stale,wontfix \
