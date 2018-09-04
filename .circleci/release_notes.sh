@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -xe # Exit with nonzero exit code if anything fails
+set -e # Exit with nonzero exit code if anything fails
 
 npm \
   i \
