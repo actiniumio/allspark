@@ -2,12 +2,17 @@
 
 set -e # Exit with nonzero exit code if anything fails
 
+REPO=`git config remote.origin.url`
+git clone $REPO
+cd allspark
+
+
 npm \
   i \
   --prefix ./dependencies \
   github-release-notes
 
-export PATH=$PATH:`pwd`/node_modules/.bin
+export PATH=$PATH:`pwd`/dependencies/node_modules/.bin
 
 tag=`git describe --tags`
 milestone_name="$tag"
@@ -31,8 +36,6 @@ fi
 
 git config --global user.email "bot.actinium@gmail.com"
 git config --global user.name "Actinium Bot"
-
-git checkout master
 
 ./dependencies/node_modules/.bin/gren \
   changelog \
