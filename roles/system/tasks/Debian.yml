@@ -53,7 +53,7 @@
     name: curl
     state: present
   become: yes
-  when: 
+  when:
     - add_repository_key is failed
     - ansible_distribution != "Ubuntu"
 
@@ -61,7 +61,7 @@
   shell: "curl -sSL {{ allspark_debian_docker_url }} | sudo apt-key add -"
   args:
     warn: no
-  when: 
+  when:
     - add_repository_key is failed
     - ansible_distribution != "Ubuntu"
   become: yes
