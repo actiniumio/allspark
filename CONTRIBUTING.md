@@ -13,7 +13,7 @@ _e.g_:
 ### OS Compatibility
 
 To add an OS compatibility
-  - you need to add a valid yml on folder roles/system/tasks
+  - you need to add a valid yml on folder ```roles/system/tasks```
   - you need to named it like : "{{ ansible_distribution }}-{{ ansible_distribution_major_version}}.yml"
   - for example:
     - Ubuntu-14.yml
@@ -27,7 +27,7 @@ To add an OS compatibility
     ```
     config.vm.define "<osmajorversion>", autostart: false do |<osmajorversion>|
       ubuntu14.vm.box = "actinium/<osmajorversion>"
-      ubuntu14.vm.network "forwarded_port", guest: 80, host: 8081, host_ip: "127.0.0.1"
+      ubuntu14.vm.network "forwarded_port", guest: 80, host: 8080, host_ip: "127.0.0.1"
       ubuntu14.vm.provider "virtualbox" do |vb|
         vb.memory = "2048"
       end
@@ -39,7 +39,7 @@ To add an OS compatibility
     ```
   - you need to validate it via vagrant
 
->For the Red Hat Enterprise Linux, only the actinium team could validate the playbook
+>For the Red Hat Enterprise Linux, only the Actinium team could validate the playbook
 
 >If you don't found a box to test your compatibility, you can contribute [Here](https://app.vagrantup.com/actinium/)
 
@@ -87,13 +87,13 @@ vagrant box add centos/7
 # It needs to be online when running this command.
 make test
 
-# The make test command launch the default system ( CentOS 7)
+# The make test command launch the default system (CentOS 7)
 
 # If you want to test in another system, juste run this command:
 
 make test-ubuntu14
 
-# It's alway the {{ ansible_distribution }}{{ ansible_distribution_major_version }}
+# It's always the {{ ansible_distribution }}{{ ansible_distribution_major_version }}
 
 # Stop & destroy the VM
 make clean
