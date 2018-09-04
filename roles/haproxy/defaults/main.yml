@@ -1,0 +1,79 @@
+haproxy_log_requests: false
+
+haproxy_http_port: 80
+haproxy_https_port: 443
+
+haproxy_endpoints:
+  -
+    # Runtime name of the container
+    # (defined by the `docker_container` module `name` parameter)
+    name: "portainer"
+    # The host on which the service will be exposed
+    host: "infra.{{ allspark_root_domain }}"
+
+    # List of object with the following properties:
+    # - mode: http|tcp
+    # - port: the listening container port to expose
+    # - exposed_port: The port exposed on the host machine (only for tcp mode)
+    backends:
+      # # Sample HTTP backend
+      # - port: 8080
+      #   mode: http
+      # # Sample TCP backend
+      # - port: 6578
+      #   mode: tcp
+      #   exposed_port: 6578
+
+      - port: 9000
+        mode: http
+
+  - name: prometheus
+    host: "metrics.{{ allspark_root_domain }}"
+    backends:
+    - mode: http
+      port: 9090
+
+  - name: grafana
+    host: "monitoring.{{ allspark_root_domain }}"
+    backends:
+    - mode: http
+      port: 3000
+
+  - name: gitlab
+    host: "gitlab.{{ allspark_root_domain }}"
+    backends:
+    - port: "{{ gitlab_ssh_port }}"
+      mode: tcp
+      exposed_port: "{{ gitlab_ssh_port }}"
+    - port: 80
+      mode: http
+
+  - name: jenkins
+    host: "jenkins.{{ allspark_root_domain }}"
+    backends:
+    - mode: http
+      port: 8080
+
+  - name: ldap_management
+    host: "users.{{ allspark_root_domain }}"
+    backends:
+    - mode: http
+      port: 80
+
+  - name: sonarqube
+    host: "sonarqube.{{ allspark_root_domain }}"
+    backends:
+    - mode: http
+      port: 9090
+
+  - name: rocketchat
+    host: "chat.{{ allspark_root_domain }}"
+    backends:
+    - mode: http
+      port: 3000
+
+  - name: mattermost
+    host: "mattermost.{{ allspark_root_domain }}"
+    backends:
+    - mode: http
+      port: 8000
