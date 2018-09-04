@@ -20,7 +20,7 @@ jobs:
           name: Deploy
           command: PATH=$PATH:/home/circleci/.local/bin/ .circleci/deploy-ghpages.sh docs
 
-  create-relase:
+  create-release:
     machine: true
     filters:
       tags:
