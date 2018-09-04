@@ -1,0 +1,44 @@
+---
+
+
+# You can found this list on the docker official website : https://docs.docker.com/install/linux/docker-ce/ubuntu/
+
+- name: "{{ ansible_distribution }}-{{ ansible_distribution_major_version }} {{ ansible_distribution_release }} - Ensure Storages dependencies are installed"
+  apt:
+    name: "{{ linuximage }}"
+    state: present
+    update_cache: yes
+  vars:
+    linuximage:
+    - "linux-image-extra-{{ ansible_kernel }}"
+    - linux-image-extra-virtual
+  become: yes
+
+- name: "{{ ansible_distribution }}-{{ ansible_distribution_major_version }} {{ ansible_distribution_release }} - Add Docker apt key"
+  apt_key:
+    url: "{{ allspark_ubuntu_docker_url }}"
+    state: present
+  register: add_repository_key
+  ignore_errors: true
+  become: yes
+
+- name: "{{ ansible_distribution }}-{{ ansible_distribution_major_version }} {{ ansible_distribution_release }} - Standard Add repo Failed - install curl to use alternative method"
+  package:
+    name: curl
+    state: present
+  become: yes
+  when: add_repository_key is failed
+
+- name: "{{ ansible_distribution }}-{{ ansible_distribution_major_version }} {{ ansible_distribution_release }} - Add Docker apt key (alternative for older systems without SNI)"
+  shell: "curl -sSL {{ allspark_ubuntu_docker_url }} | sudo apt-key add -"
+  args:
+    warn: no
+  when: add_repository_key is failed
+  become: yes
+
+- name: "{{ ansible_distribution }}-{{ ansible_distribution_major_version }} {{ ansible_distribution_release }} - Add Docker repository"
+  apt_repository:
+    repo: "deb [arch=amd64] {{ allspark_ubuntu_repo }} {{ ansible_distribution_release }} stable"
+    state: present
+  become: yes
+

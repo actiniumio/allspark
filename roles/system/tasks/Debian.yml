@@ -1,0 +1,91 @@
+---
+
+
+# Ubuntu : You can found this list on the docker official website : https://docs.docker.com/install/linux/docker-ce/ubuntu/
+
+- name: "{{ ansible_distribution }}-{{ ansible_distribution_major_version }} {{ ansible_distribution_release }} - Ensure old versions of Docker are not installed"
+  package:
+    name: "{{ oldrelease }}"
+    state: absent
+  vars:
+    oldrelease:
+    - docker
+    - docker-engine
+    - docker.io
+  become: yes
+
+- name: "{{ ansible_distribution }}-{{ ansible_distribution_major_version }} {{ ansible_distribution_release }} - Ensure dependencies are installed"
+  package:
+    name: "{{ dependency }}"
+    state: present
+    update_cache: yes
+    autoclean: yes
+    autoremove: yes
+  vars:
+    dependency:
+    - apt-transport-https
+    - ca-certificates
+    - software-properties-common
+    - python-pip
+  become: yes
+
+- name: "{{ ansible_distribution }}-{{ ansible_distribution_major_version }} {{ ansible_distribution_release }} - Update pip"
+  pip:
+    name: pip
+    extra_args: -U
+  become: yes
+
+- name: "{{ ansible_distribution }}-{{ ansible_distribution_major_version }} {{ ansible_distribution_release }} - Install Specific OS Release dependencies"
+  include_tasks: "{{ ansible_distribution }}-{{ ansible_distribution_major_version}}.yml"
+
+- name: "{{ ansible_distribution }}-{{ ansible_distribution_major_version }} {{ ansible_distribution_release }} - Add Docker apt key"
+  apt_key:
+    url: "{{ allspark_debian_docker_url }}"
+    state: present
+  register: add_repository_key
+  ignore_errors: true
+  become: yes
+  when:
+    - ansible_distribution != "Ubuntu"
+
+- name: "{{ ansible_distribution }}-{{ ansible_distribution_major_version }} {{ ansible_distribution_release }} - Standard Add repo Failed - install curl to use alternative method"
+  package:
+    name: curl
+    state: present
+  become: yes
+  when:
+    - add_repository_key is failed
+    - ansible_distribution != "Ubuntu"
+
+- name: "{{ ansible_distribution }}-{{ ansible_distribution_major_version }} {{ ansible_distribution_release }} - Add Docker apt key (alternative for older systems without SNI)"
+  shell: "curl -sSL {{ allspark_debian_docker_url }} | sudo apt-key add -"
+  args:
+    warn: no
+  when:
+    - add_repository_key is failed
+    - ansible_distribution != "Ubuntu"
+  become: yes
+
+- name: "{{ ansible_distribution }}-{{ ansible_distribution_major_version }} {{ ansible_distribution_release }} - Add Docker repository"
+  apt_repository:
+    repo: "deb [arch=amd64] {{ allspark_debian_repo }} {{ ansible_distribution_release }} stable"
+    state: present
+  when:
+    - ansible_distribution != "Ubuntu"
+  become: yes
+
+- name: "{{ ansible_distribution }}-{{ ansible_distribution_major_version }} {{ ansible_distribution_release }} - Install Docker Community Edition"
+  package:
+    pkg: "docker-ce={{ allspark_docker_version }}*"
+    state: present
+    update_cache: yes
+    autoclean: yes
+    autoremove: yes
+  become: yes
+
+- name: "{{ ansible_distribution }}-{{ ansible_distribution_major_version }} {{ ansible_distribution_release }} - Start Docker service"
+  service:
+    name: docker
+    state: started
+    enabled: yes
+  become: yes

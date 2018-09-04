@@ -40,7 +40,18 @@ clean:
 	@echo "Tearing down development Vagrant box."
 	@(which vagrant >/dev/null && vagrant destroy -f) || echo "Vagrant not installed, skipping VM destruction."
 
-test:
-	vagrant up --provision
+test-centos7:
+	vagrant up centos7 --provision
 
-.PHONY: clean install test doc-dev
+test-ubuntu14:
+	vagrant up ubuntu14 --provision
+
+test-fedoraserver28:
+	vagrant up fedoraserver28 --provision
+
+test-fedoraatomic28:
+	vagrant up fedoraatomic28 --provision
+
+test: test-centos7
+
+.PHONY: clean install test doc-dev test-centos7 test-ubuntu14

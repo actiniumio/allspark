@@ -1,0 +1,18 @@
+---
+
+
+- name: "{{ ansible_distribution }}-{{ ansible_distribution_major_version }} {{ ansible_distribution_release }} - Install OS Specific driver"
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - libselinux-python
+    - dnf-plugins-core
+  become: yes
+
+- name: "{{ ansible_distribution }}-{{ ansible_distribution_major_version }} {{ ansible_distribution_release }} - Add Docker repository"
+  get_url:
+    url: "{{ allspark_fedora_docker_repo }}"
+    dest: "{{ allspark_docker_repo_file }}"
+  become: yes
+

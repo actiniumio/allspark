@@ -10,6 +10,38 @@ _e.g_:
  - run: PATH=$PATH:/root/.local/bin ansible-lint mynewplaybook.yml -c .circleci/.ansible-lint
 ```
 
+### OS Compatibility
+
+To add an OS compatibility
+  - you need to add a valid yml on folder ```roles/system/tasks```
+  - you need to named it like : "{{ ansible_distribution }}-{{ ansible_distribution_major_version}}.yml"
+  - for example:
+    - Ubuntu-14.yml
+    - CentOS-7.yml
+  - you need to edit the Makefile, add you os like:
+    ```
+       test-<osmajorversion>:
+       vagrant up <osmajorversion> --provision
+    ```
+  - you need to edit the Vagrantfile
+    ```
+    config.vm.define "<osmajorversion>", autostart: false do |<osmajorversion>|
+      ubuntu14.vm.box = "actinium/<osmajorversion>"
+      ubuntu14.vm.network "forwarded_port", guest: 80, host: 8080, host_ip: "127.0.0.1"
+      ubuntu14.vm.provider "virtualbox" do |vb|
+        vb.memory = "2048"
+      end
+      ubuntu14.vm.provision "ansible" do |ansible|
+        ansible.verbose = "vvv"
+        ansible.playbook = "install.yml"
+      end
+    end
+    ```
+  - you need to validate it via vagrant
+
+>For the Red Hat Enterprise Linux, only the Actinium team could validate the playbook
+
+>If you don't found a box to test your compatibility, you can contribute [Here](https://app.vagrantup.com/actinium/)
 
 ### Docker images
 
@@ -54,6 +86,14 @@ vagrant box add centos/7
 # Create a virtual machine, run the install.yml playbook on it
 # It needs to be online when running this command.
 make test
+
+# The make test command launch the default system (CentOS 7)
+
+# If you want to test in another system, juste run this command:
+
+make test-ubuntu14
+
+# It's always the {{ ansible_distribution }}{{ ansible_distribution_major_version }}
 
 # Stop & destroy the VM
 make clean
