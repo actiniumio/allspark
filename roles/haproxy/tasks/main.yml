@@ -38,11 +38,13 @@
         "{{ haproxy_https_port }}:{{ haproxy_https_port }}",
         {% endif %}
         {% for domain in haproxy_endpoints %}
-          {% for backend in domain.backends %}
-            {% if backend.mode != "http" %}
-            "{{ backend.exposed_port }}:{{ backend.exposed_port }}",
-            {% endif %}
-          {% endfor %}
+          {% if domain.enabled %}
+            {% for backend in domain.backends %}
+              {% if backend.mode != "http" %}
+              "{{ backend.exposed_port }}:{{ backend.exposed_port }}",
+              {% endif %}
+            {% endfor %}
+          {% endif %}
         {% endfor %}
       ]
     networks:

@@ -30,6 +30,7 @@ resolvers docker_resolver
     nameserver dns 127.0.0.11:53
 
 {% for item in haproxy_endpoints %}
+{% if item.enabled %}
 {% for backend in item.backends %}
 backend           {{ item.name }}-{{ backend.mode }}
   mode            {{ backend.mode }}
@@ -42,6 +43,7 @@ backend           {{ item.name }}-{{ backend.mode }}
 
   server          {{ item.host }} {{ item.name }}:{{ backend.port }} check inter 10s resolvers docker_resolver resolve-prefer ipv4
 {% endfor %}
+{% endif %}
 {% endfor %}
 
 frontend http-in
@@ -57,12 +59,14 @@ frontend http-in
   http-request    redirect location https://%[req.hdr(Host)]:{{ haproxy_https_port }}%[capture.req.uri] if is_http
 {% else %}
 {% for item in haproxy_endpoints %}
+{% if item.enabled %}
 {% for backend in item.backends %}
 {% if backend.mode == "http" %}
   acl             match_{{ item.name }} hdr_dom(host) -i {{ item.host }}
   use_backend     {{ item.name }}-{{ backend.mode }} if match_{{ item.name }}
 {% endif %}
 {% endfor %}
+{% endif %}
 {% endfor %}
 {% endif %}
 
@@ -76,18 +80,21 @@ frontend https-in
   log             127.0.0.1 local0 debug
   http-request    add-header X-Forwarded-Proto https if { ssl_fc }
 {% for item in haproxy_endpoints %}
+{% if item.enabled %}
 {% for backend in item.backends %}
 {% if backend.mode == "http" %}
   acl             match_{{ item.name }} hdr_dom(host) -i {{ item.host }}
   use_backend     {{ item.name }}-{{ backend.mode }} if match_{{ item.name }}
 {% endif %}
 {% endfor %}
+{% endif %}
 {% endfor %}
 {% endif %}
 
 
 
 {% for item in haproxy_endpoints %}
+{% if item.enabled %}
 {% for backend in item.backends %}
 {% if backend.mode == "tcp" %}
 frontend {{ item.name }}-tcp-in
@@ -98,4 +105,5 @@ frontend {{ item.name }}-tcp-in
 
 {% endif %}
 {% endfor %}
+{% endif %}
 {% endfor %}

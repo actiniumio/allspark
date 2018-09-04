@@ -10,7 +10,8 @@ haproxy_endpoints:
     name: "portainer"
     # The host on which the service will be exposed
     host: "infra.{{ allspark_root_domain }}"
-
+    # An alias on the enabled feature toggle
+    enabled: "{{ allspark_portainer.enabled }}"
     # List of object with the following properties:
     # - mode: http|tcp
     # - port: the listening container port to expose
@@ -23,26 +24,31 @@ haproxy_endpoints:
       # - port: 6578
       #   mode: tcp
       #   exposed_port: 6578
-
       - port: 9000
         mode: http
 
   - name: prometheus
     host: "metrics.{{ allspark_root_domain }}"
+    enabled: "{{ allspark_monitoring.enabled }}"
     backends:
     - mode: http
       port: 9090
 
   - name: grafana
     host: "monitoring.{{ allspark_root_domain }}"
+    enabled: "{{ allspark_monitoring.enabled }}"
     backends:
     - mode: http
       port: 3000
 
   - name: gitlab
     host: "gitlab.{{ allspark_root_domain }}"
+    enabled: "{{ allspark_gitlab.enabled }}"
     backends:
-    - port: "{{ gitlab_ssh_port }}"
+      # Port 22 here is because of a bug in the gitlab container :
+      # even thus the gitlab_shell_ssh_port variable was set to 2223,
+      # the git server is still launched on port 22.
+    - port: 22
       mode: tcp
       exposed_port: "{{ gitlab_ssh_port }}"
     - port: 80
@@ -50,29 +56,34 @@ haproxy_endpoints:
 
   - name: jenkins
     host: "jenkins.{{ allspark_root_domain }}"
+    enabled: "{{ allspark_jenkins.enabled }}"
     backends:
     - mode: http
       port: 8080
 
   - name: ldap_management
     host: "users.{{ allspark_root_domain }}"
+    enabled: "{{ allspark_ldap.enabled }}"
     backends:
     - mode: http
       port: 80
 
   - name: sonarqube
     host: "sonarqube.{{ allspark_root_domain }}"
+    enabled: "{{ allspark_sonarqube.enabled }}"
     backends:
     - mode: http
       port: 9090
 
   - name: rocketchat
     host: "chat.{{ allspark_root_domain }}"
+    enabled: "{{ allspark_rocketchat.enabled }}"
     backends:
     - mode: http
       port: 3000
 
   - name: mattermost
+    enabled: "{{ allspark_mattermost.enabled }}"
     host: "mattermost.{{ allspark_root_domain }}"
     backends:
     - mode: http
