@@ -29,7 +29,7 @@ jobs:
       - checkout
       - run:
           name: Install dependencies
-          command: sudo apt-get install -y jq
+          command: curl -L https://github.com/stedolan/jq/releases/download/jq-1.5/jq-linux64 && chmod +x jq-linux64 && sudo mv jq-linux64 /usr/bin
       - deploy:
           name: Generate release notes
           command: .circleci/release_notes.sh
