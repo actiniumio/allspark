@@ -6,6 +6,7 @@
   docker_container:
     name: portainer
     image: "{{ downloads.portainer.image }}:{{ downloads.portainer.tag }}"
+    state: "{{ allspark_portainer.enabled and 'started' or 'absent'}}"
     volumes:
       - "allspark_portainer_data:/data"
       - "{{ allspark_root_directory }}/data/secrets/admin_password.txt:/data/secrets/portainer-pass"
