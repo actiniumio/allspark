@@ -47,12 +47,13 @@ git checkout $CIRCLE_BRANCH
   -g label \
   -M '{{tag_name}}'
 
+git add CHANGELOG.md
+
 diffs=`git diff-index --quiet HEAD; echo $?`
 
 if [ $diffs != 0 ]
 then
   echo "Changelog updated, pushing to the repository."
-  git add CHANGELOG.md
   git commit -m "Updated CHANGELOG for milestone $milestone_name"
   git push origin $CIRCLE_BRANCH
 else
