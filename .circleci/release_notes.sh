@@ -32,6 +32,9 @@ else
   echo "Milestone $milestone_name closed."
 fi
 
+git config --global user.email "bot.actinium@gmail.com"
+git config --global user.name "Actinium Bot"
+
 git checkout $CIRCLE_BRANCH
 
 ./dependencies/node_modules/.bin/gren \
