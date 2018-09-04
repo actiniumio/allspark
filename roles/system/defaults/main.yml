@@ -4,6 +4,8 @@ allspark_epel_repo_url: "https://dl.fedoraproject.org/pub/epel/epel-release-late
 allspark_epel_gpg_url: "https://dl.fedoraproject.org/pub/epel/RPM-GPG-KEY-EPEL-{{ ansible_distribution_major_version }}"
 allspark_redhat_docker_repo: "https://download.docker.com/linux/centos/docker-ce.repo"
 allspark_fedora_docker_repo: "https://download.docker.com/linux/fedora/docker-ce.repo"
+allspark_epel_repo_file: "/etc/yum.repos.d/docker.repo"
+
 
 ## Debian / Ubuntu specific system configuration
 allspark_ubuntu_repo: "https://download.docker.com/linux/ubuntu"
