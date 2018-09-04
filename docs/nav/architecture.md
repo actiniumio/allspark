@@ -20,6 +20,16 @@
 | Volumerize    | Backup and Restore solution for Docker volume backups  |
 | MatterMost    | Default Instant Chat (Slack like)                      |
 
+
+## OS Compatibility
+
+Allspark is compatible with:
+  - CentOS 7 or above
+  - RedHat 7 or above
+  - Fedora Server/Atomic 28 or above
+  - Ubuntu 14.04 or above
+  - Debian 8 or above
+
 ## Playbooks
 - `release.yml`
 
