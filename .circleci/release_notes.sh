@@ -10,10 +10,7 @@ npm \
 export PATH=$PATH:`pwd`/node_modules/.bin
 
 tag=`git describe --tags`
-branch="$CIRCLE_BRANCH"
 milestone_name="$tag"
-
-
 
 milestone_id=`curl https://api.github.com/repos/actiniumio/allspark/milestones | jq ".[] | select(.title | contains(\"$milestone_name\")) | .number"`
 
@@ -35,7 +32,7 @@ fi
 git config --global user.email "bot.actinium@gmail.com"
 git config --global user.name "Actinium Bot"
 
-git checkout $CIRCLE_BRANCH
+git checkout master
 
 ./dependencies/node_modules/.bin/gren \
   changelog \
@@ -58,7 +55,7 @@ if [ $diffs != 0 ]
 then
   echo "Changelog updated, pushing to the repository."
   git commit -m "Updated CHANGELOG for milestone $milestone_name"
-  git push origin $CIRCLE_BRANCH
+  git push origin master
 else
   echo "Nothing changed in this release. Skipping push."
 fi
