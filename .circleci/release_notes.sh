@@ -2,20 +2,13 @@
 
 set -e # Exit with nonzero exit code if anything fails
 
-REPO=`git config remote.origin.url`
-git clone $REPO
-cd allspark
-
-
-npm \
-  i \
-  --prefix ./dependencies \
-  github-release-notes
-
 export PATH=$PATH:`pwd`/dependencies/node_modules/.bin
 
 tag=`git describe --tags`
 milestone_name="$tag"
+
+REPO=`git config remote.origin.url`
+git clone $REPO
 
 milestone_id=`curl https://api.github.com/repos/actiniumio/allspark/milestones | jq ".[] | select(.title | contains(\"$milestone_name\")) | .number"`
 
@@ -34,6 +27,12 @@ else
   echo "Milestone $milestone_name closed."
 fi
 
+
+npm \
+  i \
+  --prefix ./dependencies \
+  github-release-notes
+
 git config --global user.email "bot.actinium@gmail.com"
 git config --global user.name "Actinium Bot"
 
@@ -49,6 +48,9 @@ git config --global user.name "Actinium Bot"
   -p v \
   -g label \
   -M '{{tag_name}}'
+
+mv CHANGELOG.md allspark
+cd allspark
 
 git add CHANGELOG.md
 
