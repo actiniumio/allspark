@@ -27,7 +27,7 @@ else
     'https://api.github.com/repos/actiniumio/allspark/milestones/$milestone_id' \
     --data "{\"title\": \"$milestone_name\", \"state\": \"closed\"}" \
     -X PATCH \
-    -H 'Authorization: token f4258ce8d5c2184f399500340b9541f544983d71' \
+    -H "Authorization: token $GREN_GITHUB_TOKEN"  \
     -H 'Content-Type: application/json'
   echo "Milestone $milestone_name closed."
 fi
