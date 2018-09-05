@@ -47,6 +47,8 @@
           {% endif %}
         {% endfor %}
       ]
+    purge_networks: true
     networks:
       - name: allspark
+      - name: bridge
     restart_policy: always
