@@ -4,6 +4,8 @@
   shell: "cat {{ allspark_root_directory}}/data/secrets/admin_password.txt"
   register: admin_password
   changed_when: False
+  tags:
+  - skip_ansible_lint
 
 - name: Creating users volume
   docker_volume:
