@@ -63,7 +63,7 @@ jobs:
       - run: git clone https://github.com/actiniumio/allspark.git .
       - run: git checkout $CIRCLE_BRANCH
       - run: sudo ansible-playbook -i hosts install.yml -vvv
-      - run: ansible --version || true
+      - run: sudo ansible --version || true
       - run: pip --version
       - run: pip freeze
       - run: sudo docker ps -a
