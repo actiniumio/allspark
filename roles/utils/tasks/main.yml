@@ -62,11 +62,15 @@
 - name: Generate random admin mattermost db password
   shell: "echo -n $(< /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c26) > {{ allspark_root_directory}}/data/secrets/admin_password_mattermostdb.txt"
   when: not admin_password_mattermost_file.stat.exists
+  tags:
+  - skip_ansible_lint
 
 - name: Register mattermost admin password
   shell: "cat {{ allspark_root_directory}}/data/secrets/admin_password_mattermostdb.txt"
   register: allspark_admin_password_mattermostdb
   changed_when: false
+  tags:
+  - skip_ansible_lint
 
 - name: Test [AtRestEncryptKey] existence
   stat: path="{{ allspark_root_directory}}/data/secrets/AtRestEncryptKey.txt"
@@ -75,24 +79,34 @@
 - name: Generate random [AtRestEncryptKey]
   shell: "echo -n $(< date +%s | sha256sum | base64 | head -c 32) > {{ allspark_root_directory}}/data/secrets/AtRestEncryptKey.txt"
   when: not AtRestEncryptKey_file.stat.exists
+  tags:
+  - skip_ansible_lint
 
 - name: Register random [AtRestEncryptKey]
   shell: "cat {{ allspark_root_directory}}/data/secrets/AtRestEncryptKey.txt"
   register: allspark_AtRestEncryptKey
   changed_when: false
+  tags:
+  - skip_ansible_lint
 
 - name: Test [PublicLinkSalt] existence
   stat: path="{{ allspark_root_directory}}/data/secrets/PublicLinkSalt.txt"
   register: PublicLinkSalt_file
+  tags:
+  - skip_ansible_lint
 
 - name: Generate random [PublicLinkSalt]
   shell: "echo -n $(< date +%s | sha256sum | base64 | head -c 32) > {{ allspark_root_directory}}/data/secrets/PublicLinkSalt.txt"
   when: not PublicLinkSalt_file.stat.exists
+  tags:
+  - skip_ansible_lint
 
 - name: Register random [PublicLinkSalt]
   shell: "cat {{ allspark_root_directory}}/data/secrets/PublicLinkSalt.txt"
   register: allspark_PublicLinkSalt
   changed_when: false
+  tags:
+  - skip_ansible_lint
 
 - name: Test [InviteSalt] existence
   stat: path="{{ allspark_root_directory}}/data/secrets/InviteSalt.txt"
@@ -101,11 +115,15 @@
 - name: Generate random [InviteSalt]
   shell: "echo -n $(< date +%s | sha256sum | base64 | head -c 32) > {{ allspark_root_directory}}/data/secrets/InviteSalt.txt"
   when: not InviteSalt_file.stat.exists
+  tags:
+  - skip_ansible_lint
 
 - name: Register random [InviteSalt]
   shell: "cat {{ allspark_root_directory}}/data/secrets/InviteSalt.txt"
   register: allspark_InviteSalt
   changed_when: false
+  tags:
+  - skip_ansible_lint
 
 - name: MatterMost config directory
   file:
