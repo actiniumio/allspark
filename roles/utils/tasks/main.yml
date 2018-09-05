@@ -12,6 +12,7 @@
       - "{{ allspark_root_directory }}/data/secrets/admin_password.txt:/data/secrets/portainer-pass"
       - "/var/run/docker.sock:/var/run/docker.sock"
     command: "--admin-password-file /data/secrets/portainer-pass --no-analytics --host unix:///var/run/docker.sock"
+    purge_networks: true
     networks:
       - name: allspark
     labels:
@@ -31,6 +32,7 @@
     name: rocketchat_database
     image: "{{ downloads.rocketchat_mongodb.image }}:{{ downloads.rocketchat_mongodb.tag }}"
     state: "{{ allspark_rocketchat.enabled and 'started' or 'absent'}}"
+    purge_networks: true
     networks:
       - name: allspark
     volumes:
@@ -49,6 +51,7 @@
       ROOT_URL: "http://chat.{{ allspark_root_domain }}"
     volumes:
       - "allspark_rocketchat_avatars:/app/uploads"
+    purge_networks: true
     networks:
       - name: allspark
     labels:
@@ -171,6 +174,7 @@
       POSTGRES_PASSWORD: "{{ allspark_admin_password_mattermostdb.stdout }}"
       POSTGRES_DB: "mattermostdb"
       POSTGRES_INITDB_ARGS: "--data-checksums"
+    purge_networks: true
     networks:
       - name: allspark
     volumes:
@@ -194,6 +198,7 @@
       - "allspark_mattermost_logs:/mattermost/logs"
       - "allspark_mattermost_config:/mattermost/config"
       - "{{ allspark_root_directory }}/config/mattermost/config.json:/mattermost/config/config.json"
+    purge_networks: true
     networks:
       - name: allspark
     labels:
