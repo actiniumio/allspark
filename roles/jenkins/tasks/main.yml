@@ -19,6 +19,7 @@
     name: jenkins
     image: "{{ downloads.jenkins.image }}:{{ downloads.jenkins.tag }}"
     state: "{{ allspark_jenkins.enabled and 'started' or 'absent'}}"
+    purge_networks: true
     networks:
       - name: allspark
     env:

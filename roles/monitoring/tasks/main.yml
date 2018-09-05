@@ -13,6 +13,7 @@
         "/var/run:/var/run:rw",
         "/:/rootfs:ro"
       ]
+    purge_networks: true
     networks:
       - name: allspark
     restart_policy: always
@@ -33,6 +34,7 @@
       - '--path.sysfs=/host/sys'
       - --collector.filesystem.ignored-mount-points
       - "^/(sys|proc|dev|host|etc|rootfs/var/lib/docker/containers|rootfs/var/lib/docker/overlay2|rootfs/run/docker/netns|rootfs/var/lib/docker/aufs|rootfs/var/lib/docker/devicemapper|rootfs/var/lib/docker/plugins|rootfs/run/user)($$|/)"
+    purge_networks: true
     networks:
       - name: allspark
     restart_policy: always
@@ -69,6 +71,7 @@
       - '--storage.tsdb.path=/prometheus'
       - '--web.console.libraries=/usr/share/prometheus/console_libraries'
       - '--web.console.templates=/usr/share/prometheus/consoles'
+    purge_networks: true
     networks:
       - name: allspark
     restart_policy: always
@@ -100,6 +103,7 @@
     env_file: "{{ allspark_root_directory }}/config/grafana/config.monitoring"
     entrypoint: /etc/grafana/allspark_init.sh
     restart_policy: always
+    purge_networks: true
     networks:
       - name: allspark
     labels:

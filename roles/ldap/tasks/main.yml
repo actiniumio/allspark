@@ -21,6 +21,7 @@
     hostname: ldap_backend
     image: "{{ downloads.openldap.image }}:{{ downloads.openldap.tag }}"
     state: "{{ allspark_ldap.enabled and 'started' or 'absent'}}"
+    purge_networks: true
     networks:
       - name: allspark
     env:
@@ -37,6 +38,7 @@
     name: ldap_management
     image: "{{ downloads.phpldapadmin.image }}:{{ downloads.phpldapadmin.tag }}"
     state: "{{ allspark_ldap.enabled and 'started' or 'absent'}}"
+    purge_networks: true
     networks:
       - name: allspark
     env:

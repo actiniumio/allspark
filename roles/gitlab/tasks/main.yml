@@ -34,6 +34,7 @@
       - "{{ allspark_root_directory }}/data/secrets/gitlab_runner_registration_token.txt:/run/secrets/gitlab_runner_registration_token.txt"
       - "{{ allspark_root_directory }}/data/secrets/admin_password.txt:/run/secrets/admin_password.txt"
     restart_policy: always
+    purge_networks: true
     networks:
       - name: allspark
     labels:
