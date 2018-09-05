@@ -1,0 +1,54 @@
+- name: "HAProxy - Configuration directory"
+  file:
+    state: directory
+    path: "{{ allspark_root_directory }}/config/haproxy"
+
+- name: "HAProxy - Certificates"
+  include_tasks: "certificates.yml"
+  when: allspark_haproxy.selfsigned.enabled
+
+
+- name: "HAProxy - Configuration"
+  template:
+    src: templates/haproxy.cfg.j2
+    dest: "{{ allspark_root_directory }}/config/haproxy/haproxy.cfg"
+  register: config_tpl
+
+- name: "HAProxy - Container"
+  docker_container:
+    name: haproxy
+    state: started
+    restart: "{{ config_tpl is changed }}"
+    image: "{{ downloads.haproxy.image }}:{{ downloads.haproxy.tag }}"
+    entrypoint: "sh -c '/sbin/syslogd -O /proc/1/fd/1 && haproxy -f /etc/haproxy.cfg'"
+    volumes: >-
+      [
+        "{{ allspark_root_directory }}/config/haproxy/haproxy.cfg:/etc/haproxy.cfg",
+        {% if allspark_haproxy.selfsigned.enabled %}
+        "{{ allspark_root_directory }}/config/haproxy/crt-list.txt:/etc/ssl/crt-list.txt",
+        {% for domain in haproxy_endpoints %}
+        "{{ allspark_root_directory }}/data/secrets/haproxy/certificates/{{ domain.host }}.combined.pem:/etc/ssl/{{ domain.host }}.pem",
+        {% endfor %}
+        {% endif %}
+      ]
+    ports: >-
+      [
+        "{{ haproxy_http_port }}:{{ haproxy_http_port }}",
+        {% if allspark_haproxy.selfsigned.enabled %}
+        "{{ haproxy_https_port }}:{{ haproxy_https_port }}",
+        {% endif %}
+        {% for domain in haproxy_endpoints %}
+          {% if domain.enabled %}
+            {% for backend in domain.backends %}
+              {% if backend.mode != "http" %}
+              "{{ backend.exposed_port }}:{{ backend.exposed_port }}",
+              {% endif %}
+            {% endfor %}
+          {% endif %}
+        {% endfor %}
+      ]
+    purge_networks: true
+    networks:
+      - name: allspark
+      - name: bridge
+    restart_policy: always

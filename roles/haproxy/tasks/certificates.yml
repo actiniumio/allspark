@@ -1,0 +1,50 @@
+- name: "HAProxy - Certificates directory"
+  file:
+    state: directory
+    path: "{{ item }}"
+  with_items:
+    - "{{ allspark_root_directory }}/data/secrets/haproxy/private_keys/"
+    - "{{ allspark_root_directory }}/data/secrets/haproxy/csrs/"
+    - "{{ allspark_root_directory }}/data/secrets/haproxy/certificates/"
+    - "{{ allspark_root_directory }}/data/ssl/certificates"
+
+- name: "HAProxy - Certificate authority private key [RSA 2048]"
+  openssl_privatekey:
+    path: "{{ allspark_root_directory }}/data/secrets/haproxy/private_keys/ca.key"
+    type: RSA
+    size: 2048
+  register: priv
+
+- name: "HAProxy - Certificate authority CSR"
+  openssl_csr:
+    path: "{{ allspark_root_directory }}/data/secrets/haproxy/csrs/ca.csr"
+    privatekey_path: "{{ allspark_root_directory }}/data/secrets/haproxy/private_keys/ca.key"
+    common_name: "Allspark CA"
+    key_usage:
+    - cRLSign
+    - digitalSignature
+    - keyCertSign
+  register: csr
+
+- name: "HAProxy - Certificate status"
+  stat: path="{{ allspark_root_directory}}/data/ssl/certificates/ca.crt"
+  changed_when: false
+  register: crt_file
+
+- name: "HAProxy - Certificate"
+  openssl_certificate:
+    path: "{{ allspark_root_directory }}/data/ssl/certificates/ca.crt"
+    privatekey_path: "{{ allspark_root_directory }}/data/secrets/haproxy/private_keys/ca.key"
+    csr_path: "{{ allspark_root_directory }}/data/secrets/haproxy/csrs/ca.csr"
+    provider: selfsigned
+  when: not crt_file.stat.exists or priv is changed or csr is changed
+  register: cert
+
+- name: "Endpoints certificates"
+  include_tasks: "selfsign_domain.yml"
+  with_items: "{{ haproxy_endpoints }}"
+
+- name: HAProxy - Certificates list
+  template:
+    src: templates/crt-list.txt.j2
+    dest: "{{ allspark_root_directory }}/config/haproxy/crt-list.txt"

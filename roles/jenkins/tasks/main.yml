@@ -30,9 +30,5 @@
       - "{{ allspark_root_directory}}/data/secrets/admin_password.txt:/run/secrets/jenkins-pass"
       - "{{ allspark_root_directory}}/data/secrets/admin_user.txt:/run/secrets/jenkins-user"
     labels:
-      "traefik.backend": "jenkins"
-      "traefik.port": "8080"
-      "traefik.frontend.rule": "Host:jenkins.{{ allspark_root_domain }}"
-      "traefik.enable": "true"
       "heritage": "allspark"
     restart_policy: always
