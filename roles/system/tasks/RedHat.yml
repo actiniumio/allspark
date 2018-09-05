@@ -70,6 +70,8 @@
 
 - name: "{{ ansible_distribution }}-{{ ansible_distribution_major_version }} {{ ansible_distribution_release }} - Install Specific OS Release dependency"
   include_tasks: "{{ ansible_distribution }}-{{ ansible_distribution_major_version}}.yml"
+  when:
+    - ansible_distribution == "Fedora"
 
 # Older versions of Docker are the same on CentOS/RedHat/Fedora
 # CentOS : https://docs.docker.com/install/linux/docker-ce/centos/
