@@ -4,7 +4,11 @@
     - system
     - pip
     - { role: download, tags: [ "download", "prepare" ] }
-    - infra
+    - local_datas
+    - network
+    - haproxy
+    - ldap
+    - utils
     - monitoring
     - gitlab
     - jenkins

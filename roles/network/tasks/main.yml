@@ -1,6 +1,3 @@
 - name: Docker network creation
   docker_network:
     name: "allspark"
-
-- include_role:
-    name: haproxy
