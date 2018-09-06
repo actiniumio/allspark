@@ -160,14 +160,18 @@
     - docker-common
     - docker-engine
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
     - docker-selinux
 >>>>>>> 6c48f47... Update Sys Playbook
+=======
+>>>>>>> 74c5c53... Fix indepotency with docker resolve #69
     - docker-client
     - docker-client-latest
     - docker-latest
     - docker-latest-logrotate
     - docker-logrotate
+<<<<<<< HEAD
 <<<<<<< HEAD
   become: yes
 
@@ -175,6 +179,8 @@
   package:
 =======
     - docker-engine-selinux
+=======
+>>>>>>> 74c5c53... Fix indepotency with docker resolve #69
   become: yes
 
 - name: "{{ ansible_distribution }}-{{ ansible_distribution_major_version }} - Install Docker"
