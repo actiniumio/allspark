@@ -69,6 +69,7 @@ jobs:
       - run: sudo apt-get -y update && sudo apt-get -y upgrade
       - run: git clone https://github.com/actiniumio/allspark.git .
       - run: git checkout $CIRCLE_BRANCH
+<<<<<<< HEAD
       - run: ls -ltra || true
 >>>>>>> 64c29d1... Debug Why block error ?
       - run: sudo apt-get install -y ansible
@@ -78,6 +79,18 @@ jobs:
 =======
       - run: sudo ansible --version || true
 >>>>>>> 321fc57... Update Conf - Final
+<<<<<<< HEAD
+=======
+=======
+      - run: git clone https://github.com/guiadco/geekhomeinside.git ~/repo
+      - run: sudo apt-get install -y ansible
+      - run: sudo ansible-playbook -i hosts install.yml -vvv
+>>>>>>> 6205a53... Test Playbook on CircleCI
+=======
+      - run: sudo ansible-playbook -i hosts install.yml -vvv
+      - run: sudo ansible --version || true
+>>>>>>> 07be3c5... Update Conf - Final
+>>>>>>> a0cb150... rebase
       - run: pip --version
       - run: pip freeze
       - run: sudo docker ps -a
