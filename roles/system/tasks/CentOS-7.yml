@@ -7,11 +7,13 @@
     rpm_key:
       key: "{{ allspark_epel_gpg_url }}"
       state: present
+    become: yes
 
   - name: install EPEL repository
     yum:
       name: "{{ allspark_epel_repo_url }}"
       state: present
+    become: yes
   when: not repo.stat.exists
 
 - name: "Install {{ ansible_distribution }} prerequisite for docker"
@@ -24,11 +26,13 @@
     - lvm2 
     - python-pip
     state: present
+  become: yes
 
 - name: Add Docker repo
   get_url:
     url: https://download.docker.com/linux/centos/docker-ce.repo
     dest: /etc/yum.repos.d/docer-ce.repo
+  become: yes
 
 - name: Ensure old versions of Docker are not installed. | CentOS
   package:
@@ -46,23 +50,27 @@
     - docker-logrotate
     - docker-engine-selinux
   when: ansible_os_family == 'RedHat'
+  become: yes
 
 - name: Install [Docker]
   yum:
     name: "docker-ce-{{ allspark_docker_version }}*"
     state: present
+  become: yes
 
 - name: Start Docker service
   service:
     name: docker
     state: started
     enabled: yes
+  become: yes
 
 - name: Add user to docker group
   user:
     name: "{{ ansible_user }}"
     groups: docker
     append: true
+  become: yes
   register: user_task
 
 # - name: Reset ssh connection

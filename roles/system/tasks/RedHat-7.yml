@@ -14,12 +14,16 @@
       state: present
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     become: yes
 =======
     become: true
 >>>>>>> c0a8e27... Add specific RedHat Playbook
 =======
 >>>>>>> 6928f75... Update RedHat 7 Playbook
+=======
+    become: yes
+>>>>>>> 97cfcad... Update System Playbook for RedHat family
 
   - name: install EPEL repository
     yum:
@@ -27,6 +31,9 @@
       state: present
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 97cfcad... Update System Playbook for RedHat family
     become: yes
   when: not repo.stat.exists
 
@@ -58,12 +65,18 @@
     - lvm2 
     - python-pip
     state: present
+<<<<<<< HEAD
 
 >>>>>>> c0a8e27... Add specific RedHat Playbook
+=======
+  become: yes
+  
+>>>>>>> 97cfcad... Update System Playbook for RedHat family
 - name: Add Docker repo
   get_url:
     url: https://download.docker.com/linux/centos/docker-ce.repo
     dest: /etc/yum.repos.d/docer-ce.repo
+  become: yes
 
 <<<<<<< HEAD
 =======
@@ -97,6 +110,7 @@
     - docker-logrotate
     - docker-engine-selinux
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 ---
 
@@ -114,23 +128,29 @@
 =======
 >>>>>>> 6928f75... Update RedHat 7 Playbook
   when: ansible_os_family == 'RedHat'
+=======
+  become: yes
+>>>>>>> 97cfcad... Update System Playbook for RedHat family
 
 - name: Install [Docker]
   yum:
     name: "docker-ce-{{ allspark_docker_version }}*"
     state: present
+  become: yes
 
 - name: Start Docker service
   service:
     name: docker
     state: started
     enabled: yes
+  become: yes
 
 - name: Add user to docker group
   user:
     name: "{{ ansible_user }}"
     groups: docker
     append: true
+  become: yes
   register: user_task
 
 # - name: Reset ssh connection
