@@ -48,6 +48,7 @@ test-centos7:
 test-ubuntu:
 	vagrant up ubuntu14 --provision
 
+<<<<<<< HEAD
 test-rhel7:
 <<<<<<< HEAD
         vagrant up rhel7 --provision
@@ -68,6 +69,8 @@ test-fedoraserver28:
 test-fedoraatomic28:
 	vagrant up fedoraatomic28 --provision
 
+=======
+>>>>>>> 6854c14... Update Makefile
 test: test-centos7
 
 .PHONY: clean install test doc-dev test-centos7 test-ubuntu14
