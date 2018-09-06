@@ -14,6 +14,7 @@ _e.g_:
 
 To add an OS compatibility
 <<<<<<< HEAD
+<<<<<<< HEAD
   - you need to add a valid yml on folder roles/system/tasks
 <<<<<<< HEAD
   - you need to named him like : "{{ ansible_distribution }}-{{ ansible_distribution_major_version}}.yml"
@@ -59,6 +60,16 @@ if you don't found a box to test your compatibility, send a mail to ```bot.actin
 
 >If you don't found a box to test your compatibility, you can contribute [Here](https://app.vagrantup.com/actinium/)
 >>>>>>> 41f76a5... Update Contributing
+=======
+  - you need to add a valid yml on folder roles/system/tasks
+  - you need to named him like : "{{ ansible_distribution }}-{{ ansible_distribution_major_version}}.yml"
+  - for exemple:
+    - Ubuntu-14.yml
+    - CentOS-7.yml
+  - you need to validate him via vagrant
+
+if you don't found a box to test your compatibility, send a mail to ```bot.actinium@gmail.com```
+>>>>>>> decc4fd... Update CONTRIBUTING
 
 ### Docker images
 
