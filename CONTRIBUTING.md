@@ -68,8 +68,13 @@ if you don't found a box to test your compatibility, send a mail to ```bot.actin
     - CentOS-7.yml
   - you need to validate him via vagrant
 
+<<<<<<< HEAD
 if you don't found a box to test your compatibility, send a mail to ```bot.actinium@gmail.com```
 >>>>>>> decc4fd... Update CONTRIBUTING
+=======
+# PS: for the Red Hat Enterprise Linux, only the actinium team could validate the playbook
+# If you don't found a box to test your compatibility, send a mail to ```bot.actinium@gmail.com```
+>>>>>>> b91728c... Update CONTRIBUTING
 
 ### Docker images
 
@@ -152,6 +157,7 @@ vagrant box add centos/7
 make test
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 # The make test command launch the default system (CentOS 7)
 
@@ -162,6 +168,15 @@ make test-ubuntu14
 # It's always the {{ ansible_distribution }}{{ ansible_distribution_major_version }}
 
 >>>>>>> 98d8990... Update from review
+=======
+```Warning : 
+the ```make test``` command launch the default system ( CentOS 7)
+# If you want to test in another system, juste run this command:
+make test-ubuntu14
+
+# It's alway the {{ ansible_distribution }}{{ ansible_distribution_major_version }}
+```
+>>>>>>> b91728c... Update CONTRIBUTING
 # Stop & destroy the VM
 make clean
 ```
