@@ -42,6 +42,15 @@ clean:
 
 test-centos7:
 	vagrant up centos7 --provision
+<<<<<<< HEAD
+=======
+
+test-ubuntu:
+        vagrant up ubuntu14 --provision
+
+test-rhel7:
+        vagrant up rhel7 --provision
+>>>>>>> bd69b91... Update Vagrant & Makefile to take part of the different system
 
 test-ubuntu:
         vagrant up ubuntu14 --provision

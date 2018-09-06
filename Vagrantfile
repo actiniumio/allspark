@@ -3,6 +3,7 @@
 
 Vagrant.configure("2") do |config|
 <<<<<<< HEAD
+<<<<<<< HEAD
   config.vm.define "centos7", primary: true do |centos7|
     centos7.vm.box = "actinium/centos7"
     config.vm.network "forwarded_port", guest: 8080, host: 8080, host_ip: "127.0.0.1"
@@ -89,27 +90,37 @@ Vagrant.configure("2") do |config|
     centos.vm.box = "centos/7"
     centos.vm.network "forwarded_port", guest: 80, host: 8081, host_ip: "127.0.0.1"
     centos.vm.provider "virtualbox" do |vb|
+=======
+  config.vm.define "centos7", primary: true do |centos7|
+    centos7.vm.box = "centos/7"
+    centos7.vm.network "forwarded_port", guest: 80, host: 8081, host_ip: "127.0.0.1"
+    centos7.vm.provider "virtualbox" do |vb|
+>>>>>>> bd69b91... Update Vagrant & Makefile to take part of the different system
       vb.memory = "2048"
     end
-    centos.vm.provision "ansible" do |ansible|
+    centos7.vm.provision "ansible" do |ansible|
       ansible.verbose = "vvv"
       ansible.playbook = "install.yml"
     end
   end
-  config.vm.define "ubuntu", autostart: false do |ubuntu|
-    ubuntu.vm.box = "actinium/trusty64"
-    ubuntu.vm.network "forwarded_port", guest: 80, host: 8081, host_ip: "127.0.0.1"
-    ubuntu.vm.provider "virtualbox" do |vb|
+  config.vm.define "ubuntu14", autostart: false do |ubuntu14|
+    ubuntu14.vm.box = "actinium/trusty64"
+    ubuntu14.vm.network "forwarded_port", guest: 80, host: 8081, host_ip: "127.0.0.1"
+    ubuntu14.vm.provider "virtualbox" do |vb|
       vb.memory = "2048"
     end
-    ubuntu.vm.provision "ansible" do |ansible|
+    ubuntu14.vm.provision "ansible" do |ansible|
       ansible.verbose = "vvv"
       ansible.playbook = "install.yml"
 >>>>>>> 243d67f... Update Vagrantfile with actinium/trusty64 box
     end
   end
   config.vm.define "rhel7", autostart: false do |rhel7|
+<<<<<<< HEAD
     rhel7.vm.box = "generic/rhel7"
+=======
+    rhel7.vm.box = "roboxes/rhel7"
+>>>>>>> bd69b91... Update Vagrant & Makefile to take part of the different system
     rhel7.vm.network "forwarded_port", guest: 80, host: 8081, host_ip: "127.0.0.1"
     rhel7.vm.provider "virtualbox" do |vb|
       vb.memory = "2048"
