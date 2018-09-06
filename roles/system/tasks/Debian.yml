@@ -9,7 +9,7 @@
   include_tasks: "{{ ansible_distribution }}-{{ ansible_distribution_major_version}}.yml"
 >>>>>>> 7fe2af1... Update System Playbook
 
-# You can found this list on the docker official website : https://docs.docker.com/install/linux/docker-ce/ubuntu/
+# Ubuntu : You can found this list on the docker official website : https://docs.docker.com/install/linux/docker-ce/ubuntu/
 
 - name: "{{ ansible_distribution }}-{{ ansible_distribution_major_version }} {{ ansible_distribution_release }} - Ensure old versions of Docker are not installed"
   package:
@@ -23,7 +23,7 @@
   become: yes
 
 - name: "{{ ansible_distribution }}-{{ ansible_distribution_major_version }} {{ ansible_distribution_release }} - Ensure dependencies are installed"
-  apt:
+  package:
     name: "{{ dependency }}"
     state: present
     update_cache: yes
@@ -53,7 +53,7 @@
   become: yes
 
 - name: "{{ ansible_distribution }}-{{ ansible_distribution_major_version }} {{ ansible_distribution_release }} - Standart Add repo Failed - Intsall curl to use alternative method"
-  apt:
+  package:
     name: curl
     state: present
   become: yes
@@ -77,8 +77,8 @@
     state: present
   become: yes
 
-- name: "{{ ansible_distribution }}-{{ ansible_distribution_major_version }} {{ ansible_distribution_release }} - Install Docker"
-  apt:
+- name: "{{ ansible_distribution }}-{{ ansible_distribution_major_version }} {{ ansible_distribution_release }} - Install Docker Community Edition"
+  package:
     pkg: "docker-ce={{ allspark_docker_version }}*"
     state: present
     update_cache: yes
@@ -92,6 +92,7 @@
     state: started
     enabled: yes
   become: yes
+<<<<<<< HEAD
 
 - name: "{{ ansible_distribution }}-{{ ansible_distribution_major_version }} {{ ansible_distribution_release }} - Add user to docker group"
   user:
@@ -119,3 +120,5 @@
   delegate_to: localhost
   changed_when: false
   when: user_task is changed
+=======
+>>>>>>> 2caf6d3... Update System Playbook
