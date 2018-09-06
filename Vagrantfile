@@ -24,6 +24,7 @@ Vagrant.configure("2") do |config|
       ansible.playbook = "install.yml"
     end
   end
+<<<<<<< HEAD
   config.vm.define "rhel7", autostart: false do |rhel7|
 <<<<<<< HEAD
     rhel7.vm.box = "generic/rhel7"
@@ -35,6 +36,27 @@ Vagrant.configure("2") do |config|
       vb.memory = "2048"
     end
     rhel7.vm.provision "ansible" do |ansible|
+=======
+  config.vm.define "fedoraserver28", autostart: false do |fedoraserver28|
+    fedoraserver28.vm.box = "actinium/fedoraserver28"
+    fedoraserver28.vm.network "forwarded_port", guest: 80, host: 8080, host_ip: "127.0.0.1"
+    fedoraserver28.vm.provider "virtualbox" do |vb|
+      vb.memory = "2048"
+    end
+    fedoraserver28.vm.provision "ansible" do |ansible|
+      ansible.verbose = "vvv"
+      ansible.playbook = "install.yml"
+    end
+  end
+  config.vm.define "fedoraatomic28", autostart: false do |fedoraatomic28|
+    fedoraatomic28.vm.box = "actinium/fedoraatomic28"
+    fedoraatomic28.vm.network "forwarded_port", guest: 80, host: 8080, host_ip: "127.0.0.1"
+    fedoraatomic28.vm.provider "virtualbox" do |vb|
+      vb.memory = "2048"
+    end
+    fedoraatomic28.vm.provision "ansible" do |ansible|
+      ansible.become = true
+>>>>>>> 7a87dd7... Take part of the new boxes
       ansible.verbose = "vvv"
       ansible.playbook = "install.yml"
     end
