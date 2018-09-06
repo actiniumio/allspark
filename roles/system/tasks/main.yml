@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 ---
 =======
 - include_tasks: "{{ prerequisites_file }}"
@@ -8,6 +9,14 @@
   loop_control:
     loop_var: prerequisites_file
 >>>>>>> e558990... Call change of the playbook system
+=======
+---
+
+
+- name: "{{ ansible_distribution }}-{{ ansible_distribution_major_version }} {{ ansible_distribution_release }} - Install Specific OS Family dependency"
+  include_tasks:
+    - "{{ ansible_os_family }}.yml"
+>>>>>>> 84ac31e... Update System Playbook
 
 <<<<<<< HEAD
 
@@ -43,13 +52,17 @@
 - name: Docker - Ensuring daemon is started
   service: state=started name=docker
   become: true
-  when: ansible_distribution == 'Ubuntu' and ansible_distribution_major_version == '14'
+  when: systemd_is_not_present is true
 
 - name: Docker - Ensuring daemon is started
   systemd: state=started name=docker
   become: true
+<<<<<<< HEAD
   when: ansible_distribution == 'Centos' or ansible_distribution == 'RedHat'
 >>>>>>> cf5123d... Update main task for OS Compatibilitty
+=======
+  when: systemd_is_not_present is false
+>>>>>>> 84ac31e... Update System Playbook
 
 - name: FS - Ensuring Allspark directory
   file:

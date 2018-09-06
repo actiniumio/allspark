@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 ---
 
 
@@ -94,6 +95,10 @@
         - "{{ ansible_distribution }}-{{ ansible_distribution_major_version}}.yml"
   loop_control:
     loop_var: specification_os
+=======
+---
+
+>>>>>>> 84ac31e... Update System Playbook
 
 - name: "{{ ansible_distribution }}-{{ ansible_distribution_major_version }} - yum - EPEL repository enabled ?"
   stat: path={{ allspark_epel_repo_file }}
@@ -112,16 +117,18 @@
   become: yes
   when: not repo.stat.exists
 
+- name: "{{ ansible_distribution }}-{{ ansible_distribution_major_version }} {{ ansible_distribution_release }} - Install Specific OS dependency"
+  include_tasks:
+    - "{{ ansible_distribution }}-{{ ansible_distribution_major_version}}.yml"
+
 - name: "{{ ansible_distribution }}-{{ ansible_distribution_major_version }} - Install prerequisite for docker"
   yum:
-    name: "{{ packages }}"
-  vars:
-    packages:
+    name: "{{ items }}"
+    state: present
+  with_items:
     - yum-utils
-    - device-mapper-persistent-data
     - lvm2
     - python-pip
-    state: present
   become: yes
 
 - name: "{{ ansible_distribution }}-{{ ansible_distribution_major_version }} - Add Docker repo"
@@ -130,9 +137,17 @@
     dest: /etc/yum.repos.d/docer-ce.repo
   become: yes
 
+# Older versions of Docker are the same on CentOS/RedHat/Fedora
+# https://docs.docker.com/install/linux/docker-ce/centos/
+# The community use https://docs.docker.com/install/linux/docker-ce/centos/ for Redhat normaly Redhat support only Docker-ee see : https://docs.docker.com/install/linux/docker-ee/rhel/#prerequisites
+# https://docs.docker.com/install/linux/docker-ce/fedora/#prerequisites
 - name: "{{ ansible_distribution }}-{{ ansible_distribution_major_version }} - Ensure old versions of Docker are not installed"
+<<<<<<< HEAD
   package:
 >>>>>>> 6c48f47... Update Sys Playbook
+=======
+  yum:
+>>>>>>> 84ac31e... Update System Playbook
     name: "{{ item }}"
     state: absent
   with_items:
@@ -208,6 +223,9 @@
   when: user_task is changed
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 84ac31e... Update System Playbook
 
 - name: "{{ ansible_distribution }}-{{ ansible_distribution_major_version }} - Check if Systemd is present"
   yum:
@@ -215,9 +233,12 @@
     state: present
   changed_when: false
   register: systemd_is_not_present
+<<<<<<< HEAD
 =======
 >>>>>>> 42d523c... Correction apply from review
 =======
 >>>>>>> 2caf6d3... Update System Playbook
 =======
 >>>>>>> 6c48f47... Update Sys Playbook
+=======
+>>>>>>> 84ac31e... Update System Playbook

@@ -2,6 +2,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> c0a8e27... Add specific RedHat Playbook
 - name: yum - EPEL repository enabled ?
@@ -115,6 +116,8 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 =======
+=======
+>>>>>>> 84ac31e... Update System Playbook
 ---
 
 
@@ -124,6 +127,7 @@
   yum:
     name: overlay2
     state: present
+<<<<<<< HEAD
 >>>>>>> 84ac31e... Update System Playbook
   become: yes
 <<<<<<< HEAD
@@ -186,3 +190,7 @@ when: user_task is changed
 >>>>>>> e2b3c07... Update Playbook
 =======
 >>>>>>> 6c48f47... Update Sys Playbook
+=======
+  become: yes
+
+>>>>>>> 84ac31e... Update System Playbook
