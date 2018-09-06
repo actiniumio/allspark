@@ -69,12 +69,18 @@ if you don't found a box to test your compatibility, send a mail to ```bot.actin
   - you need to validate him via vagrant
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 if you don't found a box to test your compatibility, send a mail to ```bot.actinium@gmail.com```
 >>>>>>> decc4fd... Update CONTRIBUTING
 =======
 # PS: for the Red Hat Enterprise Linux, only the actinium team could validate the playbook
 # If you don't found a box to test your compatibility, send a mail to ```bot.actinium@gmail.com```
 >>>>>>> b91728c... Update CONTRIBUTING
+=======
+!!!Warning
+   PS: for the Red Hat Enterprise Linux, only the actinium team could validate the playbook
+   If you don't found a box to test your compatibility, send a mail to ```bot.actinium@gmail.com```
+>>>>>>> 866de24... Update CONTRIBUTING
 
 ### Docker images
 
@@ -158,6 +164,7 @@ make test
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 # The make test command launch the default system (CentOS 7)
 
@@ -173,6 +180,12 @@ make test-ubuntu14
 the ```make test``` command launch the default system ( CentOS 7)
 # If you want to test in another system, juste run this command:
 make test-ubuntu14
+=======
+!!!Warning
+   the ```make test``` command launch the default system ( CentOS 7)
+   # If you want to test in another system, juste run this command:
+   make test-ubuntu14
+>>>>>>> 866de24... Update CONTRIBUTING
 
 # It's alway the {{ ansible_distribution }}{{ ansible_distribution_major_version }}
 ```
