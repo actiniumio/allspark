@@ -26,7 +26,7 @@ ansible-playbook -i hosts install.yml
 ```
 
 !!! warning
-    Before using the playbook, you need to be sure to have your deployment user on wheel groups
+    Before using the playbook, you need to be sure to have your deployment user in the wheel groups
 
 At this point, you will be able to see component show up along with their access URL
 at `ingress.YOUR_ROOT_DOMAIN`.
