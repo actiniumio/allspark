@@ -13,18 +13,9 @@ _e.g_:
 ### OS Compatibility
 
 To add an OS compatibility
-<<<<<<< HEAD
-  - you need to add a valid yml on folder roles/system/tasks
-<<<<<<< HEAD
-  - you need to named him like : "{{ ansible_distribution }}-{{ ansible_distribution_major_version}}.yml"
-  - for exemple:
-=======
-=======
   - you need to add a valid yml on folder ```roles/system/tasks```
->>>>>>> 98d8990... Update from review
   - you need to named it like : "{{ ansible_distribution }}-{{ ansible_distribution_major_version}}.yml"
   - for example:
->>>>>>> 41f76a5... Update Contributing
     - Ubuntu-14.yml
     - CentOS-7.yml
   - you need to edit the Makefile, add you os like:
@@ -48,17 +39,9 @@ To add an OS compatibility
     ```
   - you need to validate it via vagrant
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-if you don't found a box to test your compatibility, send a mail to ```bot.actinium@gmail.com```
-=======
->For the Red Hat Enterprise Linux, only the actinium team could validate the playbook
-=======
 >For the Red Hat Enterprise Linux, only the Actinium team could validate the playbook
->>>>>>> 98d8990... Update from review
 
 >If you don't found a box to test your compatibility, you can contribute [Here](https://app.vagrantup.com/actinium/)
->>>>>>> 41f76a5... Update Contributing
 
 ### Docker images
 
@@ -140,8 +123,6 @@ vagrant box add centos/7
 # It needs to be online when running this command.
 make test
 
-<<<<<<< HEAD
-=======
 # The make test command launch the default system (CentOS 7)
 
 # If you want to test in another system, juste run this command:
@@ -150,7 +131,6 @@ make test-ubuntu14
 
 # It's always the {{ ansible_distribution }}{{ ansible_distribution_major_version }}
 
->>>>>>> 98d8990... Update from review
 # Stop & destroy the VM
 make clean
 ```

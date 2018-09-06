@@ -43,11 +43,8 @@ clean:
 test-centos7:
 	vagrant up centos7 --provision
 
-test-ubuntu:
-        vagrant up ubuntu14 --provision
-
-test-rhel7:
-        vagrant up rhel7 --provision
+test-ubuntu14:
+	vagrant up ubuntu14 --provision
 
 test-fedoraserver28:
 	vagrant up fedoraserver28 --provision

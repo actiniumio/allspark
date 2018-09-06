@@ -1,17 +1,6 @@
 ---
 
 
-<<<<<<< HEAD
-- name: "{{ ansible_distribution }}-{{ ansible_distribution_major_version }} {{ ansible_distribution_release }} - Install Specific OS Release dependency"
-<<<<<<< HEAD
-  include_tasks: 
-    - "{{ ansible_distribution }}-{{ ansible_distribution_major_version}}.yml"
-=======
-  include_tasks: "{{ ansible_distribution }}-{{ ansible_distribution_major_version}}.yml"
->>>>>>> 7fe2af1... Update System Playbook
-
-=======
->>>>>>> 98d8990... Update from review
 # Ubuntu : You can found this list on the docker official website : https://docs.docker.com/install/linux/docker-ce/ubuntu/
 
 - name: "{{ ansible_distribution }}-{{ ansible_distribution_major_version }} {{ ansible_distribution_release }} - Ensure old versions of Docker are not installed"
@@ -53,12 +42,7 @@
 
 - name: "{{ ansible_distribution }}-{{ ansible_distribution_major_version }} {{ ansible_distribution_release }} - Add Docker apt key"
   apt_key:
-<<<<<<< HEAD
-    url: "{{ allspark_ubuntu_docker_url }}"
-    id: "{{ allspark_ubuntu_docker_id }}"
-=======
     url: "{{ allspark_debian_docker_url }}"
->>>>>>> 98d8990... Update from review
     state: present
   register: add_repository_key
   ignore_errors: true
@@ -66,12 +50,12 @@
   when:
     - ansible_distribution != "Ubuntu"
 
-- name: "{{ ansible_distribution }}-{{ ansible_distribution_major_version }} {{ ansible_distribution_release }} - Standart Add repo Failed - Intsall curl to use alternative method"
+- name: "{{ ansible_distribution }}-{{ ansible_distribution_major_version }} {{ ansible_distribution_release }} - Standard Add repo Failed - install curl to use alternative method"
   package:
     name: curl
     state: present
   become: yes
-  when: 
+  when:
     - add_repository_key is failed
     - ansible_distribution != "Ubuntu"
 
@@ -79,7 +63,7 @@
   shell: "curl -sSL {{ allspark_debian_docker_url }} | sudo apt-key add -"
   args:
     warn: no
-  when: 
+  when:
     - add_repository_key is failed
     - ansible_distribution != "Ubuntu"
   become: yes
@@ -107,7 +91,6 @@
     state: started
     enabled: yes
   become: yes
-<<<<<<< HEAD
 
 - name: "{{ ansible_distribution }}-{{ ansible_distribution_major_version }} {{ ansible_distribution_release }} - Add user to docker group"
   user:
@@ -135,5 +118,3 @@
   delegate_to: localhost
   changed_when: false
   when: user_task is changed
-=======
->>>>>>> 2caf6d3... Update System Playbook

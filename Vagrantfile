@@ -36,19 +36,6 @@ Vagrant.configure("2") do |config|
       }
     end
   end
-<<<<<<< HEAD
-  config.vm.define "rhel7", autostart: false do |rhel7|
-<<<<<<< HEAD
-    rhel7.vm.box = "generic/rhel7"
-=======
-    rhel7.vm.box = "roboxes/rhel7"
->>>>>>> bd69b91... Update Vagrant & Makefile to take part of the different system
-    rhel7.vm.network "forwarded_port", guest: 80, host: 8081, host_ip: "127.0.0.1"
-    rhel7.vm.provider "virtualbox" do |vb|
-      vb.memory = "2048"
-    end
-    rhel7.vm.provision "ansible" do |ansible|
-=======
   config.vm.define "fedoraserver28", autostart: false do |fedoraserver28|
     fedoraserver28.vm.box = "actinium/fedoraserver28"
     config.vm.network "forwarded_port", guest: 8080, host: 8080, host_ip: "127.0.0.1"
@@ -76,7 +63,6 @@ Vagrant.configure("2") do |config|
     end
     fedoraatomic28.vm.provision "ansible" do |ansible|
       ansible.become = true
->>>>>>> 7a87dd7... Take part of the new boxes
       ansible.verbose = "vvv"
       ansible.playbook = "install.yml"
       ansible.extra_vars = {
