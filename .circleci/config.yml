@@ -33,7 +33,7 @@ jobs:
           name: Generate release notes
           command: .circleci/release_notes.sh
 
-  test-ansible-lint:
+  ansible-lint:
     docker:
       - image: python:2.7
     working_directory: ~/repo
@@ -50,11 +50,30 @@ jobs:
       - run: PATH=$PATH:/root/.local/bin ansible-lint backup.yml -c .circleci/.ansible-lint
       - run: PATH=$PATH:/root/.local/bin ansible-lint roles/**/tasks/* -c .circleci/.ansible-lint
 
+  test-install:
+    machine: true
+    working_directory: ~/repo
+    steps:
+      - add_ssh_keys:
+          fingerprints:
+            - "3e:42:39:0c:71:79:a2:20:13:68:de:3a:a7:0d:a9:b5"
+      - run: sudo apt-get -y update
+      - run: sudo apt-add-repository ppa:ansible/ansible
+      - run: git clone https://github.com/actiniumio/allspark.git .
+      - run: git checkout $CIRCLE_BRANCH
+      - run: sudo apt-get install -y ansible
+      - run: sudo ansible --version || true
+      - run: sudo ansible-playbook -i hosts install.yml -vvv
+      - run: pip --version
+      - run: pip freeze
+      - run: sudo docker ps -a
+      - run: sudo docker volume ls
+
 workflows:
   version: 2
   test-to-master:
     jobs:
-      - test-ansible-lint
+      - ansible-lint
       - build-docs
       - create-release:
           filters:
@@ -62,3 +81,4 @@ workflows:
               ignore: /.*/
             tags:
               only: /[0-9]+(\.[0-9]+)*/
+      - test-install

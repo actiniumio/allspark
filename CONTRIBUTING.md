@@ -131,6 +131,13 @@ make test-ubuntu14
 
 # It's always the {{ ansible_distribution }}{{ ansible_distribution_major_version }}
 
+!!!Warning
+   the ```make test``` command launch the default system ( CentOS 7)
+   # If you want to test in another system, juste run this command:
+   make test-ubuntu14
+
+# It's alway the {{ ansible_distribution }}{{ ansible_distribution_major_version }}
+```
 # Stop & destroy the VM
 make clean
 ```

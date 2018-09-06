@@ -42,16 +42,38 @@ clean:
 
 test-centos7:
 	vagrant up centos7 --provision
+<<<<<<< HEAD
+=======
+
+test-ubuntu:
+	vagrant up ubuntu14 --provision
+
+<<<<<<< HEAD
+<<<<<<< HEAD
+test-rhel7:
+<<<<<<< HEAD
+        vagrant up rhel7 --provision
+>>>>>>> bd69b91... Update Vagrant & Makefile to take part of the different system
+=======
+	vagrant up rhel7 --provision
+>>>>>>> 34c6c3b... Update Makefile
 
 test-ubuntu14:
 	vagrant up ubuntu14 --provision
 
+=======
+>>>>>>> 7a87dd7... Take part of the new boxes
 test-fedoraserver28:
 	vagrant up fedoraserver28 --provision
 
 test-fedoraatomic28:
 	vagrant up fedoraatomic28 --provision
 
+<<<<<<< HEAD
+=======
+>>>>>>> 6854c14... Update Makefile
+=======
+>>>>>>> 7a87dd7... Take part of the new boxes
 test: test-centos7
 
 .PHONY: clean install test doc-dev test-centos7 test-ubuntu14

@@ -13,6 +13,14 @@
 - name: "{{ ansible_distribution }}-{{ ansible_distribution_major_version }} {{ ansible_distribution_release }} - Add Docker repository"
   get_url:
     url: "{{ allspark_fedora_docker_repo }}"
+<<<<<<< HEAD
+<<<<<<< HEAD
     dest: "{{ allspark_docker_repo_file }}"
+=======
+    dest: /etc/yum.repos.d/docker-ce.repo
+>>>>>>> 2caf6d3... Update System Playbook
+=======
+    dest: "{{ allspark_docker_repo_file }}"
+>>>>>>> 9b3c961... Vars Docker repo file
   become: yes
 
