@@ -10,6 +10,7 @@ allspark_redhat_docker_repo: "https://download.docker.com/linux/centos/docker-ce
 allspark_fedora_docker_repo: "https://download.docker.com/linux/fedora/docker-ce.repo"
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 allspark_docker_repo_file: "/etc/yum.repos.d/docker.repo"
 
 
@@ -24,6 +25,9 @@ allspark_debian_docker_url: "https://download.docker.com/linux/debian/gpg"
 >>>>>>> 2caf6d3... Update System Playbook
 =======
 allspark_epel_repo_file: "/etc/yum.repos.d/docker.repo"
+=======
+allspark_docker_repo_file: "/etc/yum.repos.d/docker.repo"
+>>>>>>> 140d13b... Fix error docker repo file vars
 
 >>>>>>> 9b3c961... Vars Docker repo file
 
