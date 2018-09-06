@@ -177,7 +177,7 @@
 
 - name: "{{ ansible_distribution }}-{{ ansible_distribution_major_version }} {{ ansible_distribution_release }} - Add Docker repository"
   apt_repository:
-    repo: "deb [arch=amd64] {{ allspark_ubuntu_repo }} {{ ansible_distribution_release }} stable"
+    repo: "deb [arch={{ ansible_architecture }}] {{ allspark_ubuntu_repo }} {{ ansible_distribution_release }} stable"
     state: present
     update_cache: yes
   become: true
@@ -194,12 +194,16 @@
   service:
     name: docker
 <<<<<<< HEAD
+<<<<<<< HEAD
     state: started
     enabled: yes
   become: yes
 <<<<<<< HEAD
 =======
     state: restarted
+=======
+    state: started
+>>>>>>> 42d523c... Correction apply from review
     enabled: yes
   become: true
 >>>>>>> 6c48f47... Update Sys Playbook
@@ -236,6 +240,7 @@
   when: user_task is changed
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 2caf6d3... Update System Playbook
 =======
@@ -250,3 +255,5 @@
   register: systemd_is_not_present
 
 >>>>>>> 84ac31e... Update System Playbook
+=======
+>>>>>>> 42d523c... Correction apply from review

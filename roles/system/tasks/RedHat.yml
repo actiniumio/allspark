@@ -133,7 +133,7 @@
 
 - name: "{{ ansible_distribution }}-{{ ansible_distribution_major_version }} - Add Docker repo"
   get_url:
-    url: https://download.docker.com/linux/centos/docker-ce.repo
+    url: "{{ allspark_redhat_docker_repo }}
     dest: /etc/yum.repos.d/docer-ce.repo
   become: yes
 
@@ -184,8 +184,12 @@
   systemd:
 =======
 - name: "{{ ansible_distribution }}-{{ ansible_distribution_major_version }} - Start Docker service"
+<<<<<<< HEAD
   service:
 >>>>>>> 6c48f47... Update Sys Playbook
+=======
+  systemd:
+>>>>>>> 42d523c... Correction apply from review
     name: docker
     state: started
     enabled: yes
@@ -224,6 +228,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 84ac31e... Update System Playbook
 
@@ -242,3 +247,5 @@
 >>>>>>> 6c48f47... Update Sys Playbook
 =======
 >>>>>>> 84ac31e... Update System Playbook
+=======
+>>>>>>> 42d523c... Correction apply from review
