@@ -20,7 +20,6 @@ jobs:
           name: Deploy
           command: PATH=$PATH:/home/circleci/.local/bin/ .circleci/deploy-ghpages.sh docs
 
-<<<<<<< HEAD
   create-release:
     machine: true
     environment:
@@ -34,10 +33,7 @@ jobs:
           name: Generate release notes
           command: .circleci/release_notes.sh
 
-  test-ansible-lint:
-=======
   ansible-lint:
->>>>>>> Update config file for CircleCI
     docker:
       - image: python:2.7
     working_directory: ~/repo
@@ -61,36 +57,13 @@ jobs:
       - add_ssh_keys:
           fingerprints:
             - "3e:42:39:0c:71:79:a2:20:13:68:de:3a:a7:0d:a9:b5"
-      - run: sudo apt-get -y update && sudo apt-get -y upgrade
+      - run: sudo apt-get -y update
       - run: sudo apt-add-repository ppa:ansible/ansible
-<<<<<<< HEAD
-      - run: git clone https://github.com/guiadco/geekhomeinside.git ~/repo
-=======
-      - run: sudo apt-get -y update && sudo apt-get -y upgrade
       - run: git clone https://github.com/actiniumio/allspark.git .
       - run: git checkout $CIRCLE_BRANCH
-<<<<<<< HEAD
-      - run: ls -ltra || true
->>>>>>> 64c29d1... Debug Why block error ?
       - run: sudo apt-get install -y ansible
-      - run: ansible --version || true
-      - run: sudo ansible-playbook -i hosts install.yml -vvv
-<<<<<<< HEAD
-=======
       - run: sudo ansible --version || true
->>>>>>> 321fc57... Update Conf - Final
-<<<<<<< HEAD
-=======
-=======
-      - run: git clone https://github.com/guiadco/geekhomeinside.git ~/repo
-      - run: sudo apt-get install -y ansible
       - run: sudo ansible-playbook -i hosts install.yml -vvv
->>>>>>> 6205a53... Test Playbook on CircleCI
-=======
-      - run: sudo ansible-playbook -i hosts install.yml -vvv
-      - run: sudo ansible --version || true
->>>>>>> 07be3c5... Update Conf - Final
->>>>>>> a0cb150... rebase
       - run: pip --version
       - run: pip freeze
       - run: sudo docker ps -a
@@ -102,13 +75,10 @@ workflows:
     jobs:
       - ansible-lint
       - build-docs
-<<<<<<< HEAD
       - create-release:
           filters:
             branches:
               ignore: /.*/
             tags:
               only: /[0-9]+(\.[0-9]+)*/
-=======
       - test-install
->>>>>>> Test Playbook on CircleCI

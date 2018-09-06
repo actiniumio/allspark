@@ -58,11 +58,8 @@ test-rhel7:
 	vagrant up rhel7 --provision
 >>>>>>> 34c6c3b... Update Makefile
 
-test-ubuntu:
-        vagrant up ubuntu14 --provision
-
-test-rhel7:
-        vagrant up rhel7 --provision
+test-ubuntu14:
+	vagrant up ubuntu14 --provision
 
 =======
 >>>>>>> 7a87dd7... Take part of the new boxes
