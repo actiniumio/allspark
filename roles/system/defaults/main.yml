@@ -9,6 +9,7 @@ allspark_epel_gpg_url: "https://dl.fedoraproject.org/pub/epel/RPM-GPG-KEY-EPEL-{
 allspark_redhat_docker_repo: "https://download.docker.com/linux/centos/docker-ce.repo"
 allspark_fedora_docker_repo: "https://download.docker.com/linux/fedora/docker-ce.repo"
 <<<<<<< HEAD
+<<<<<<< HEAD
 allspark_docker_repo_file: "/etc/yum.repos.d/docker.repo"
 
 
@@ -21,6 +22,10 @@ allspark_debian_docker_url: "https://download.docker.com/linux/debian/gpg"
 # Ubuntu Vars
 =======
 >>>>>>> 2caf6d3... Update System Playbook
+=======
+allspark_epel_repo_file: "/etc/yum.repos.d/docker.repo"
+
+>>>>>>> 9b3c961... Vars Docker repo file
 
 ## Debian / Ubuntu specific system configuration
 allspark_ubuntu_repo: "https://download.docker.com/linux/ubuntu"

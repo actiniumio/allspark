@@ -151,8 +151,12 @@
     dest: /etc/yum.repos.d/docer-ce.repo
 =======
     url: "{{ allspark_redhat_docker_repo }}"
+<<<<<<< HEAD
     dest: /etc/yum.repos.d/docker-ce.repo
 >>>>>>> 2caf6d3... Update System Playbook
+=======
+    dest: "{{ allspark_epel_repo_file }}"
+>>>>>>> 9b3c961... Vars Docker repo file
   become: yes
   when:
     - ansible_distribution != "Fedora"
