@@ -30,7 +30,7 @@
     url: https://download.docker.com/linux/centos/docker-ce.repo
     dest: /etc/yum.repos.d/docer-ce.repo
 
-- name: Ensure old versions of Docker are not installed. | RedHat
+- name: Ensure old versions of Docker are not installed. | CentOS
   package:
     name: "{{ item }}"
     state: absent
@@ -82,4 +82,4 @@
     state: absent
   delegate_to: localhost
   changed_when: false
-when: user_task is changed
+  when: user_task is changed

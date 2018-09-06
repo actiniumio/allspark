@@ -151,8 +151,12 @@
   delegate_to: localhost
   changed_when: false
 <<<<<<< HEAD
+<<<<<<< HEAD
   when: user_task is changed
 >>>>>>> c0a8e27... Add specific RedHat Playbook
 =======
 when: user_task is changed
 >>>>>>> 6928f75... Update RedHat 7 Playbook
+=======
+  when: user_task is changed
+>>>>>>> e2b3c07... Update Playbook
