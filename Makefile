@@ -46,11 +46,15 @@ test-centos7:
 =======
 
 test-ubuntu:
-        vagrant up ubuntu14 --provision
+	vagrant up ubuntu14 --provision
 
 test-rhel7:
+<<<<<<< HEAD
         vagrant up rhel7 --provision
 >>>>>>> bd69b91... Update Vagrant & Makefile to take part of the different system
+=======
+	vagrant up rhel7 --provision
+>>>>>>> 34c6c3b... Update Makefile
 
 test-ubuntu:
         vagrant up ubuntu14 --provision
