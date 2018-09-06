@@ -29,6 +29,7 @@ ansible-playbook -i hosts install.yml
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     Before using the playbook, you need to be sure to have your deployment user in the wheel groups
 =======
     For CentOS/RedHat, before using the playbook, you need to besur to have your user on wheel groups
@@ -39,6 +40,9 @@ ansible-playbook -i hosts install.yml
 =======
     Before using the playbook, you need to be sure to have your deployment user on wheel groups
 >>>>>>> 0b3655f... Update from Review
+=======
+    Before using the playbook, you need to be sure to have your deployment user in the wheel groups
+>>>>>>> 98d8990... Update from review
 
 At this point, you will be able to see component show up along with their access URL
 at `ingress.YOUR_ROOT_DOMAIN`.

@@ -15,6 +15,7 @@ _e.g_:
 To add an OS compatibility
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   - you need to add a valid yml on folder roles/system/tasks
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -26,6 +27,9 @@ To add an OS compatibility
 >>>>>>> 98d8990... Update from review
 =======
 >>>>>>> 41f76a5... Update Contributing
+=======
+  - you need to add a valid yml on folder ```roles/system/tasks```
+>>>>>>> 98d8990... Update from review
   - you need to named it like : "{{ ansible_distribution }}-{{ ansible_distribution_major_version}}.yml"
   - for example:
 >>>>>>> 41f76a5... Update Contributing
@@ -41,10 +45,14 @@ To add an OS compatibility
     config.vm.define "<osmajorversion>", autostart: false do |<osmajorversion>|
       ubuntu14.vm.box = "actinium/<osmajorversion>"
 <<<<<<< HEAD
+<<<<<<< HEAD
       ubuntu14.vm.network "forwarded_port", guest: 80, host: 8080, host_ip: "127.0.0.1"
 =======
       ubuntu14.vm.network "forwarded_port", guest: 80, host: 8081, host_ip: "127.0.0.1"
 >>>>>>> 41f76a5... Update Contributing
+=======
+      ubuntu14.vm.network "forwarded_port", guest: 80, host: 8080, host_ip: "127.0.0.1"
+>>>>>>> 98d8990... Update from review
       ubuntu14.vm.provider "virtualbox" do |vb|
         vb.memory = "2048"
       end
@@ -59,11 +67,15 @@ To add an OS compatibility
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 if you don't found a box to test your compatibility, send a mail to ```bot.actinium@gmail.com```
 =======
 =======
 >>>>>>> 41f76a5... Update Contributing
 >For the Red Hat Enterprise Linux, only the actinium team could validate the playbook
+=======
+>For the Red Hat Enterprise Linux, only the Actinium team could validate the playbook
+>>>>>>> 98d8990... Update from review
 =======
 >For the Red Hat Enterprise Linux, only the Actinium team could validate the playbook
 >>>>>>> 98d8990... Update from review
@@ -178,7 +190,10 @@ make test
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> 98d8990... Update from review
 # The make test command launch the default system (CentOS 7)
 
 # If you want to test in another system, juste run this command:
@@ -186,6 +201,7 @@ make test
 make test-ubuntu14
 
 # It's always the {{ ansible_distribution }}{{ ansible_distribution_major_version }}
+<<<<<<< HEAD
 
 >>>>>>> 98d8990... Update from review
 =======
@@ -199,6 +215,8 @@ make test-ubuntu14
    # If you want to test in another system, juste run this command:
    make test-ubuntu14
 >>>>>>> 866de24... Update CONTRIBUTING
+=======
+>>>>>>> 98d8990... Update from review
 
 # It's alway the {{ ansible_distribution }}{{ ansible_distribution_major_version }}
 ```

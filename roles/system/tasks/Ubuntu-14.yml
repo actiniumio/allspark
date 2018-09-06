@@ -44,6 +44,7 @@
     repo: "deb [arch=amd64] {{ allspark_ubuntu_repo }} {{ ansible_distribution_release }} stable"
     state: present
   become: yes
+<<<<<<< HEAD
 =======
 - name: Ensure old versions of Docker are not installed
 =======
@@ -165,3 +166,6 @@
     - linux-image-extra-virtual
   become: yes
 >>>>>>> 7fe2af1... Update System Playbook
+=======
+
+>>>>>>> 98d8990... Update from review
