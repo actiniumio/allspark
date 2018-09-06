@@ -15,6 +15,7 @@ allspark_debian_repo: "https://download.docker.com/linux/debian"
 allspark_debian_docker_url: "https://download.docker.com/linux/debian/gpg"
 =======
 # Ubuntu Vars
+
 allspark_ubuntu_repo: "https://download.docker.com/linux/ubuntu"
 allspark_ubuntu_docker_url: "https://download.docker.com/linux/ubuntu/gpg"
 allspark_ubuntu_docker_id: "9DC858229FC7DD38854AE2D88D81803C0EBFCD88"

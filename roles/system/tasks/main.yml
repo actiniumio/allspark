@@ -14,6 +14,7 @@
 
 
 - name: "{{ ansible_distribution }}-{{ ansible_distribution_major_version }} {{ ansible_distribution_release }} - Install Specific OS Family dependency"
+<<<<<<< HEAD
   include_tasks:
     - "{{ ansible_os_family }}.yml"
 >>>>>>> 84ac31e... Update System Playbook
@@ -64,6 +65,9 @@
 =======
   when: systemd_is_not_present is false
 >>>>>>> 84ac31e... Update System Playbook
+=======
+  include_tasks: "{{ ansible_os_family }}.yml"
+>>>>>>> 7fe2af1... Update System Playbook
 
 =======
 >>>>>>> 42d523c... Correction apply from review

@@ -4,6 +4,7 @@
 
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 - name: "{{ ansible_distribution }}-{{ ansible_distribution_major_version }} {{ ansible_distribution_release }} - Install Specific OS Release dependency"
 <<<<<<< HEAD
   include_tasks: 
@@ -56,23 +57,30 @@
 - name: "{{ ansible_distribution }}-{{ ansible_distribution_major_version }} {{ ansible_distribution_release }} - Install Specific OS Release dependency"
   include_tasks: 
     - "{{ ansible_distribution }}-{{ ansible_distribution_major_version}}.yml"
+=======
+- name: "{{ ansible_distribution }}-{{ ansible_distribution_major_version }} {{ ansible_distribution_release }} - Install Specific OS Release dependency"
+  include_tasks: "{{ ansible_distribution }}-{{ ansible_distribution_major_version}}.yml"
+>>>>>>> 7fe2af1... Update System Playbook
 
 # You can found this list on the docker official website : https://docs.docker.com/install/linux/docker-ce/ubuntu/
+
 - name: "{{ ansible_distribution }}-{{ ansible_distribution_major_version }} {{ ansible_distribution_release }} - Ensure old versions of Docker are not installed"
 >>>>>>> 84ac31e... Update System Playbook
   package:
-    name: "{{ item }}"
+    name: "{{ oldrelease }}"
     state: absent
-  with_items:
+  vars:
+    oldrelease:
     - docker
     - docker-engine
     - docker.io
-  become: true
+  become: yes
 
 - name: "{{ ansible_distribution }}-{{ ansible_distribution_major_version }} {{ ansible_distribution_release }} - Ensure dependencies are installed"
   apt:
-    name: "{{ item }}"
+    name: "{{ dependency }}"
     state: present
+<<<<<<< HEAD
     update-cache: yes
   with_items:
       - apt-transport-https
@@ -81,11 +89,24 @@
       - python-pip
   become: true
 >>>>>>> 6c48f47... Update Sys Playbook
+=======
+    update_cache: yes
+    autoclean: yes
+    autoremove: yes
+  vars:
+    dependency:
+    - apt-transport-https
+    - ca-certificates
+    - software-properties-common
+    - python-pip
+  become: yes
+>>>>>>> 7fe2af1... Update System Playbook
 
 - name: "{{ ansible_distribution }}-{{ ansible_distribution_major_version }} {{ ansible_distribution_release }} - Update pip"
   pip:
     name: pip
     extra_args: -U
+<<<<<<< HEAD
 <<<<<<< HEAD
   become: yes
 
@@ -145,6 +166,9 @@
   become: yes
 =======
   become: true
+=======
+  become: yes
+>>>>>>> 7fe2af1... Update System Playbook
 
 - name: "{{ ansible_distribution }}-{{ ansible_distribution_major_version }} {{ ansible_distribution_release }} - Add Docker apt key"
   apt_key:
@@ -153,42 +177,46 @@
     state: present
   register: add_repository_key
   ignore_errors: true
-  become: true
+  become: yes
 
 - name: "{{ ansible_distribution }}-{{ ansible_distribution_major_version }} {{ ansible_distribution_release }} - Standart Add repo Failed - Intsall curl to use alternative method"
   apt:
     name: curl
     state: present
-    update-cache: yes
-  become: true
+  become: yes
   when: add_repository_key is failed
 
 - name: "{{ ansible_distribution }}-{{ ansible_distribution_major_version }} {{ ansible_distribution_release }} - Ensure curl is present (on older systems without SNI)"
   package: name=curl state=present
   when: add_repository_key is failed
-  become: true
+  become: yes
 
 - name: "{{ ansible_distribution }}-{{ ansible_distribution_major_version }} {{ ansible_distribution_release }} - Add Docker apt key (alternative for older systems without SNI)"
   shell: "curl -sSL {{ allspark_ubuntu_docker_url }} | sudo apt-key add -"
   args:
     warn: no
   when: add_repository_key is failed
-  become: true
+  become: yes
 
 - name: "{{ ansible_distribution }}-{{ ansible_distribution_major_version }} {{ ansible_distribution_release }} - Add Docker repository"
   apt_repository:
-    repo: "deb [arch={{ ansible_architecture }}] {{ allspark_ubuntu_repo }} {{ ansible_distribution_release }} stable"
+    repo: "deb [arch=amd64] {{ allspark_ubuntu_repo }} {{ ansible_distribution_release }} stable"
     state: present
-    update_cache: yes
-  become: true
+  become: yes
 
 - name: "{{ ansible_distribution }}-{{ ansible_distribution_major_version }} {{ ansible_distribution_release }} - Install Docker"
   apt:
     pkg: "docker-ce={{ allspark_docker_version }}*"
     state: present
     update_cache: yes
+<<<<<<< HEAD
   become: true
 >>>>>>> 6c48f47... Update Sys Playbook
+=======
+    autoclean: yes
+    autoremove: yes
+  become: yes
+>>>>>>> 7fe2af1... Update System Playbook
 
 - name: "{{ ansible_distribution }}-{{ ansible_distribution_major_version }} {{ ansible_distribution_release }} - Start Docker service"
   service:
@@ -199,6 +227,7 @@
     enabled: yes
   become: yes
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
     state: restarted
 =======
@@ -207,6 +236,8 @@
     enabled: yes
   become: true
 >>>>>>> 6c48f47... Update Sys Playbook
+=======
+>>>>>>> 7fe2af1... Update System Playbook
 
 - name: "{{ ansible_distribution }}-{{ ansible_distribution_major_version }} {{ ansible_distribution_release }} - Add user to docker group"
   user:
@@ -215,10 +246,14 @@
     append: true
   register: user_task
 <<<<<<< HEAD
+<<<<<<< HEAD
   become: yes
 =======
   become: true
 >>>>>>> 6c48f47... Update Sys Playbook
+=======
+  become: yes
+>>>>>>> 7fe2af1... Update System Playbook
 
 # - name: Reset ssh connection
 #   meta: reset_connection

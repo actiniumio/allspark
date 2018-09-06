@@ -64,8 +64,9 @@
 
 - name: "{{ ansible_distribution }}-{{ ansible_distribution_major_version }} {{ ansible_distribution_release }} - Ensure Storages dependencies are installed"
   apt:
-    name: "{{ item }}"
+    name: "{{ linuximage }}"
     state: present
+<<<<<<< HEAD
     update-cache: yes
   with_items:
       - "linux-image-extra-{{ ansible_kernel }}"
@@ -156,3 +157,11 @@
 
 =======
 >>>>>>> 6c48f47... Update Sys Playbook
+=======
+    update_cache: yes
+  vars:
+    linuximage:
+    - "linux-image-extra-{{ ansible_kernel }}"
+    - linux-image-extra-virtual
+  become: yes
+>>>>>>> 7fe2af1... Update System Playbook
