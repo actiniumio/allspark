@@ -52,6 +52,9 @@ test-fedoraserver28:
 test-fedoraatomic28:
 	vagrant up fedoraatomic28 --provision
 
+lint:
+	./.circleci/lint.sh
+
 test: test-centos7
 
-.PHONY: clean install test doc-dev test-centos7 test-ubuntu14
+.PHONY: clean install lint test doc-dev test-centos7 test-ubuntu14 test-fedoraatomic28 test-fedoraserver28
