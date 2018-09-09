@@ -107,3 +107,10 @@ frontend tcp-in-{{ backend.exposed_port }}
 {% endfor %}
 {% endif %}
 {% endfor %}
+
+listen stats
+  bind :9000
+  mode http
+  stats enable
+  stats hide-version
+  stats uri /metrics
