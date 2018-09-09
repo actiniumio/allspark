@@ -42,13 +42,9 @@ jobs:
       - add_ssh_keys:
           fingerprints:
             - "3e:42:39:0c:71:79:a2:20:13:68:de:3a:a7:0d:a9:b5"
-      - run: pip install --user -r ./.circleci/requirements.txt
-      - run: PATH=$PATH:/root/.local/bin ansible-lint install.yml -c .circleci/.ansible-lint
-      - run: PATH=$PATH:/root/.local/bin ansible-lint setup.yml -c .circleci/.ansible-lint
-      - run: PATH=$PATH:/root/.local/bin ansible-lint release.yml -c .circleci/.ansible-lint
-      - run: PATH=$PATH:/root/.local/bin ansible-lint restore.yml -c .circleci/.ansible-lint
-      - run: PATH=$PATH:/root/.local/bin ansible-lint backup.yml -c .circleci/.ansible-lint
-      - run: PATH=$PATH:/root/.local/bin ansible-lint roles/**/tasks/* -c .circleci/.ansible-lint
+      - run:
+          name: Lint playbooks and roles
+          command: ./.circleci/lint.sh
 
 workflows:
   version: 2
