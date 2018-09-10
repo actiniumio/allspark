@@ -5,15 +5,17 @@
     state: "{{ allspark_monitoring.enabled and 'started' or 'absent' }}"
     volumes: >-
       [
-        {%- if not (ansible_distribution == 'CentOS' or ansible_distribution == 'RedHat') -%}
-        {# Disabled because of this issue : https://github.com/google/cadvisor/issues/1890 #}
-        "/sys:/sys:ro",
+        {%- if (ansible_distribution == 'CentOS' or ansible_distribution == 'RedHat') -%}
+        {# CentOS/RHEL specific mount point : https://github.com/google/cadvisor/blob/master/docs/running.md#centos-fedora-and-rhel #}
+        "/cgroup:/cgroup:ro",
         {%- endif -%}
+        "/sys:/sys:ro",
         "/var/lib/docker/:/var/lib/docker:ro",
         "/var/run:/var/run:rw",
         "/:/rootfs:ro"
       ]
     purge_networks: true
+    privileged: "{%- if not (ansible_distribution == 'CentOS' or ansible_distribution == 'RedHat') -%}false{%- else -%}true{%- endif -%}"
     networks:
       - name: allspark
     restart_policy: always
