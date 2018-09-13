@@ -2,6 +2,9 @@
   file:
     state: directory
     path: "{{ allspark_root_directory }}/{{item}}"
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    mode: 750
   with_items:
     - config
     - data

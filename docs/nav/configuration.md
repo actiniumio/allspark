@@ -1,5 +1,15 @@
 # Configuration
 
+## Hosts
+- Edit the file `hosts` to fit with
+your needs, like:
+  - Define the ansible_user (In this example we use a account named admin_devops)
+
+```yaml
+[all]
+localhost ansible_connection=ssh ansible_user=admin_devops
+```
+
 ## Group_vars
 - Edit the file `group_vars/all.yml` to fit with
 your needs, like:

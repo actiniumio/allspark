@@ -4,6 +4,17 @@
 
 ### On the allspark machine
 - Docker ( tested with version 18.06.0 )
+- Copy your ssh key to tyhe remote server (with an empty passphrase)
+
+## Generate SSH Key
+```bash
+$ ssh-keygen
+```
+
+## Copy SSH Key
+```bash
+ssh-copy-id -i ~/.ssh/id_rsa admin_devops@localhost
+```
 
 ### On the control machine
 - Ansible ( tested with version 2.5.5 )
@@ -43,7 +54,7 @@ ansible-playbook -i hosts release.yml
 
 ```ini tab="hosts"
 [all]
-localhost ansible_connection=local
+localhost ansible_connection=ssh ansible_user=admin_devops
 ```
 
 it will generate a `.tar.gz` file at `allspark_release_destination`.
@@ -63,7 +74,7 @@ ansible-playbook -i hosts install.yml
 
 ```ini tab="hosts"
 [all]
-localhost ansible_connection=local
+localhost ansible_connection=ssh ansible_user=admin_devops
 ```
 
 !!! warning
