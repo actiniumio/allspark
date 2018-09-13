@@ -5,7 +5,7 @@
 - name: Generate portainer password
   template:
     src: "{{ allspark_root_directory }}/data/secrets/admin_password.txt"
-    dest: "{{ allspark_root_directory }}/data/secrets/portainer_password.txt"
+    dest: "{{ allspark_root_directory }}/data/secrets/portainer_password_i.txt"
   register: portainer_password
 
 ## Portainer change the contents of it's configuration file at runtime
