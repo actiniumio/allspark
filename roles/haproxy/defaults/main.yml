@@ -73,7 +73,7 @@ haproxy_endpoints:
     enabled: "{{ allspark_sonarqube.enabled }}"
     backends:
     - mode: http
-      port: 9090
+      port: 9000
 
   - name: rocketchat
     host: "chat.{{ allspark_root_domain }}"
