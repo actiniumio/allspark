@@ -1,4 +1,5 @@
 - name: Restore an instance Allspark from release
   hosts: all
   roles:
+    - { role: download, tags: [ "download", "prepare" ] }
     - { role: backup, allspark_operation: 'restore', allspark_restore_dry_run: false }
