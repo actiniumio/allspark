@@ -300,19 +300,6 @@
     Group_vars
   </a>
   
-    <nav class="md-nav">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#https" title="HTTPS" class="md-nav__link">
-    HTTPS
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
         <li class="md-nav__item">
@@ -406,19 +393,6 @@
     Group_vars
   </a>
   
-    <nav class="md-nav">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#https" title="HTTPS" class="md-nav__link">
-    HTTPS
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
         <li class="md-nav__item">
@@ -456,29 +430,25 @@ your needs, like:</li>
     (each component will be exposed as a subdomain).</li>
 <li>The <code class="codehilite">allspark_docker_version</code> to choose the docker version you want.</li>
 <li>Enable or disable component using their <code class="codehilite">enabled</code> boolean toggle.</li>
+<li>Enable or disable certificates option using their <code class="codehilite">enable</code> boolean Toggle.<ul>
+<li>You can set all you want for the self-signed use.</li>
 </ul>
-<div class="codehilite"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">allspark_monitoring</span><span class="p p-Indicator">:</span>
-  <span class="l l-Scalar l-Scalar-Plain">enabled</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+</li>
+</ul>
+<div class="codehilite"><pre><span></span><span class="n">allspark_monitoring</span><span class="o">:</span>
+  <span class="n">enabled</span><span class="o">:</span> <span class="kc">true</span>
+
+<span class="n">allspark_haproxy</span><span class="o">:</span>
+  <span class="n">selfsigned</span><span class="o">:</span>
+    <span class="n">enabled</span><span class="o">:</span> <span class="kc">false</span>
+    <span class="err">#</span> <span class="n">For</span> <span class="n">example</span> <span class="n">country</span><span class="o">:</span> <span class="n">FR</span>
+    <span class="n">country</span><span class="o">:</span> <span class="n">XX</span>
+    <span class="n">state</span><span class="o">:</span> <span class="n">state</span>
+    <span class="n">location</span><span class="o">:</span> <span class="n">city</span>
+    <span class="n">organisation</span><span class="o">:</span> <span class="n">myteam</span>
+    <span class="n">organizational_unit</span><span class="o">:</span> <span class="n">myorganizational_unit</span>
 </pre></div>
 
-<h3 id="https">HTTPS</h3>
-<p>In order to provide HTTPS, you can either :</p>
-<ul>
-<li>Enable self signed certificates by activating the <code class="codehilite">allspark_haproxy.ssl.enabled</code> and <code class="codehilite">allspark_haproxy.ssl.selfsigned.enabled</code> flags.</li>
-<li>Import a certificate from your control machine : enable <code class="codehilite">allspark_haproxy.ssl.enabled</code>,
-set the <code class="codehilite">allspark_haproxy.ssl.certificates_directory</code> variable to a folder on the control machine
-containing PEM certificates named like their endpoint (e.g: <code class="codehilite">infra.allspark.localhost.pem</code>)</li>
-</ul>
-<p>You can also do a mix of both, imported certificates will be picked over generated ones,
-allowing you to import certificates for some of the endpoints and let Allspark generate
-the missing ones.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>For wildcard and UCC certificates signing multiple domains, simply copy the file (or create a symbolic link pointing to it) to mirror the new endpoint
-e.g:
-<div class="codehilite"><pre><span></span>cp infra.allspark.localhost.pem chat.allspark.localhost
-</pre></div></p>
-</div>
 <h2 id="downloads">Downloads</h2>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
