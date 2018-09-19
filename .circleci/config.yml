@@ -58,10 +58,10 @@ jobs:
           fingerprints:
             - "3e:42:39:0c:71:79:a2:20:13:68:de:3a:a7:0d:a9:b5"
       - run: 
-	name: Update Cache
+        name: Update Cache
         command: sudo apt-get -y update
       - run: 
-	name: Add Ansible PPA
+        name: Add Ansible PPA
         command: sudo apt-add-repository ppa:ansible/ansible
       - run: 
         name: Clone the repository
@@ -70,13 +70,13 @@ jobs:
         name: Update Cache
         command: sudo apt-get -y update
       - run: 
-	name: Move to your current BRANCH
+        name: Move to your current BRANCH
         command: git checkout $CIRCLE_BRANCH
       - run: 
-	name: Install Ansible latest version
+        name: Install Ansible latest version
         command: sudo apt-get install -y ansible
       - run: 
-	name: Run Allspark Playbook with verbose mode
+        name: Run Allspark Playbook with verbose mode
         command: ansible-playbook -i hosts install.yml -vvv
       - run: 
         name: See your container's install
