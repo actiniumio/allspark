@@ -5,22 +5,9 @@
 - name: Generate portainer password
   template:
     src: "{{ allspark_root_directory }}/data/secrets/admin_password.txt"
-    dest: "{{ allspark_root_directory }}/data/secrets/portainer_password_i.txt"
-  register: portainer_password
-
-## Portainer change the contents of it's configuration file at runtime
-## To avoid indepotency break using only the template module on this file,
-## we first copy it to config_i.json and then override runtime config
-## only if this task changed.
-- name: Copy Portainer runtime password
-  copy:
-    remote_src: yes
-    src: "{{ allspark_root_directory }}/data/secrets/portainer_password_i.txt"
     dest: "{{ allspark_root_directory }}/data/secrets/portainer_password.txt"
     owner: 1000
     group: 1000
-  become: true
-  when: portainer_password is changed
 
 - name: Setup Portainer as infra service
   docker_container:
