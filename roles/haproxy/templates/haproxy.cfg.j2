@@ -4,7 +4,7 @@
 global
   log         /dev/log local0 debug
   maxconn     4000
-  {% if allspark_haproxy.selfsigned.enabled -%}
+  {% if allspark_haproxy.ssl.enabled -%}
   ca-base /etc/ssl
   crt-base /etc/ssl
   tune.ssl.default-dh-param 2048
@@ -36,7 +36,7 @@ backend           {{ item.name }}-{{ backend.mode }}
   mode            {{ backend.mode }}
   balance         roundrobin
 
-{% if backend.mode == "http" and allspark_haproxy.selfsigned.enabled %}
+{% if backend.mode == "http" and allspark_haproxy.ssl.enabled %}
   http-response   replace-value Location ^http://(.*)$ https://\1
   redirect        scheme https if !{ ssl_fc }
 {% endif %}
@@ -53,7 +53,7 @@ frontend http-in
 
   bind            :{{ haproxy_http_port }}
   log             127.0.0.1 local0 debug
-{% if allspark_haproxy.selfsigned.enabled %}
+{% if allspark_haproxy.ssl.enabled %}
   acl             is_http dst_port {{ haproxy_http_port }}
   http-request    replace-value Host (.*):{{ haproxy_http_port }} \1 if is_http
   http-request    redirect location https://%[req.hdr(Host)]:{{ haproxy_https_port }}%[capture.req.uri] if is_http
@@ -71,7 +71,7 @@ frontend http-in
 {% endif %}
 
 
-{% if allspark_haproxy.selfsigned.enabled %}
+{% if allspark_haproxy.ssl.enabled %}
 frontend https-in
   mode            http
   option          forwardfor
