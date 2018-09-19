@@ -57,15 +57,33 @@ jobs:
       - add_ssh_keys:
           fingerprints:
             - "3e:42:39:0c:71:79:a2:20:13:68:de:3a:a7:0d:a9:b5"
-      - run: sudo apt-get -y update
-      - run: sudo apt-add-repository ppa:ansible/ansible
-      - run: git clone https://github.com/actiniumio/allspark.git .
-      - run: sudo apt-get -y update
-      - run: git checkout $CIRCLE_BRANCH
-      - run: sudo apt-get install -y ansible
-      - run: ansible-playbook -i hosts install.yml -vvv
-      - run: sudo docker ps -a
-      - run: sudo docker volume ls
+      - run: 
+	name: Update Cache
+        command: sudo apt-get -y update
+      - run: 
+	name: Add Ansible PPA
+        command: sudo apt-add-repository ppa:ansible/ansible
+      - run: 
+        name: Clone the repository
+        command: git clone https://github.com/actiniumio/allspark.git .
+      - run: 
+        name: Update Cache
+        command: sudo apt-get -y update
+      - run: 
+	name: Move to your current BRANCH
+        command: git checkout $CIRCLE_BRANCH
+      - run: 
+	name: Install Ansible latest version
+        command: sudo apt-get install -y ansible
+      - run: 
+	name: Run Allspark Playbook with verbose mode
+        command: ansible-playbook -i hosts install.yml -vvv
+      - run: 
+        name: See your container's install
+        name: docker ps -a
+      - run: 
+        name: See your volume's install
+        command: docker volume ls
 
 workflows:
   version: 2
