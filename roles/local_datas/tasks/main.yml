@@ -4,7 +4,7 @@
     path: "{{ allspark_root_directory }}/{{item}}"
     owner: "{{ ansible_user }}"
     group: "{{ ansible_user }}"
-    mode: 0750
+    mode: 0700
   with_items:
     - config
     - data
