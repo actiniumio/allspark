@@ -4,17 +4,10 @@
 
 ### On the allspark machine
 - Docker ( tested with version 18.06.0 )
-- Copy your ssh key to tyhe remote server (with an empty passphrase)
+- Copy your ssh key to the remote server (with an empty passphrase)
 
-## Generate SSH Key
-```bash
-$ ssh-keygen
-```
-
-## Copy SSH Key
-```bash
-ssh-copy-id -i ~/.ssh/id_rsa admin_devops@localhost
-```
+## Generate & Copy SSH Key
+See the [here](https://www.ssh.com/ssh/copy-id)
 
 ### On the control machine
 - Ansible ( tested with version 2.5.5 )
