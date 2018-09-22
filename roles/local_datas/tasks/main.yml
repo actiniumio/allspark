@@ -1,13 +1,22 @@
-- name: allspark data directory creation
+- name: allspark data/config directory creation
   file:
     state: directory
     path: "{{ allspark_root_directory }}/{{item}}"
     owner: "{{ ansible_user }}"
     group: "{{ ansible_user }}"
-    mode: 0700
+    mode: 0640
   with_items:
     - config
     - data
+
+-  name: allspark secrets directory creation
+  file:
+    state: directory
+    path: "{{ allspark_root_directory }}/{{item}}"
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    mode: 0600
+  with_items:
     - data/secrets
 
 - name: Test admin user existence
