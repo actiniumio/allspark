@@ -6,6 +6,7 @@
   copy:
     src: "{{ allspark_root_directory }}/data/secrets/admin_password.txt"
     dest: "{{ allspark_root_directory }}/data/secrets/portainer_password.txt"
+    remote_src: yes
 
 - name: Setup Portainer as infra service
   docker_container:
@@ -17,7 +18,6 @@
       - "{{ allspark_root_directory }}/data/secrets/portainer_password.txt:/data/secrets/portainer-pass"
       - "/var/run/docker.sock:/var/run/docker.sock"
     command: "--admin-password-file /data/secrets/portainer-pass --no-analytics --host unix:///var/run/docker.sock"
-    user: "{{ ansible_user }}:{{ ansible_user }}"
     purge_networks: true
     networks:
       - name: allspark
