@@ -1,4 +1,5 @@
 - name: Package an Allspark instance to a release
   hosts: all
   roles:
+    - download
     - { role: backup, allspark_operation: 'backup' }

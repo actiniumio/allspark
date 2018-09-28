@@ -5,8 +5,7 @@
 
 - name: "HAProxy - Certificates"
   include_tasks: "certificates.yml"
-  when: allspark_haproxy.selfsigned.enabled
-
+  when: allspark_haproxy.ssl.enabled
 
 - name: "HAProxy - Configuration"
   template:
@@ -24,7 +23,7 @@
     volumes: >-
       [
         "{{ allspark_root_directory }}/config/haproxy/haproxy.cfg:/etc/haproxy.cfg",
-        {% if allspark_haproxy.selfsigned.enabled %}
+        {% if allspark_haproxy.ssl.enabled %}
         "{{ allspark_root_directory }}/config/haproxy/crt-list.txt:/etc/ssl/crt-list.txt",
         {% for domain in haproxy_endpoints %}
         "{{ allspark_root_directory }}/data/secrets/haproxy/certificates/{{ domain.host }}.combined.pem:/etc/ssl/{{ domain.host }}.pem",
@@ -34,7 +33,7 @@
     ports: >-
       [
         "{{ haproxy_http_port }}:{{ haproxy_http_port }}",
-        {% if allspark_haproxy.selfsigned.enabled %}
+        {% if allspark_haproxy.ssl.enabled %}
         "{{ haproxy_https_port }}:{{ haproxy_https_port }}",
         {% endif %}
         {% for domain in haproxy_endpoints %}

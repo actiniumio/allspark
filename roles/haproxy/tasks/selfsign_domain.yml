@@ -1,20 +1,39 @@
+- name: "{{ item.name }} - Stat local user provided certificate"
+  stat: path="{{ allspark_haproxy.ssl.certificates_directory }}/{{ item.host }}.pem"
+  changed_when: false
+  delegate_to: localhost
+  register: local_cert_file
+
+- name: "{{ item.name }} - Import certificate"
+  copy:
+    src: "{{ allspark_haproxy.ssl.certificates_directory }}/{{ item.host }}.pem"
+    dest: "{{ allspark_root_directory }}/data/secrets/haproxy/certificates/imported/{{ item.host }}.combined.pem"
+  when: local_cert_file.stat.exists
+
+- name: "{{ item.name }} - Stat remote user provided certificate"
+  changed_when: false
+  stat: path="{{ allspark_root_directory }}/data/secrets/haproxy/certificates/imported/{{ item.host }}.combined.pem"
+  register: remote_cert_file
+
 - name: "{{ item.name }} - Private key [RSA 2048]"
   openssl_privatekey:
     path: "{{ allspark_root_directory }}/data/secrets/haproxy/private_keys/{{ item.host }}.key"
     type: RSA
     size: 2048
   register: priv
+  when: not remote_cert_file.stat.exists
+
 
 - name: "{{ item.name }} - CSR"
   openssl_csr:
     path: "{{ allspark_root_directory }}/data/secrets/haproxy/csrs/{{ item.host }}.csr"
     privatekey_path: "{{ allspark_root_directory }}/data/secrets/haproxy/private_keys/{{ item.host }}.key"
     common_name: "{{ item.host }}"
-    country_name: "{{ allspark_haproxy.selfsigned.country }}"
-    state_or_province_name: "{{ allspark_haproxy.selfsigned.state }}"
-    locality_name: "{{ allspark_haproxy.selfsigned.location }}"
-    organization_name: "{{ allspark_haproxy.selfsigned.organisation }}"
-    organizational_unit_name: "{{ allspark_haproxy.selfsigned.organizational_unit }}"
+    country_name: "{{ allspark_haproxy.ssl.selfsigned.country }}"
+    state_or_province_name: "{{ allspark_haproxy.ssl.selfsigned.state }}"
+    locality_name: "{{ allspark_haproxy.ssl.selfsigned.location }}"
+    organization_name: "{{ allspark_haproxy.ssl.selfsigned.organisation }}"
+    organizational_unit_name: "{{ allspark_haproxy.ssl.selfsigned.organizational_unit }}"
     subject_alt_name: "DNS:{{ item.host }}"
     key_usage:
     - keyAgreement
@@ -22,13 +41,15 @@
     - digitalSignature
     - nonRepudiation
   register: csr
+  when: not remote_cert_file.stat.exists
 
-- name: "{{ item.name }} Certificate status"
+- name: "{{ item.name }} - Certificate status"
   stat: path="{{ allspark_root_directory}}/data/ssl/certificates/{{ item.host }}.crt"
   changed_when: false
   register: crt_file
+  when: not remote_cert_file.stat.exists
 
-- name: "{{ item.name }} Certificate"
+- name: "{{ item.name }} - Certificate"
   shell: >-
     openssl x509 -req \
       -in {{ allspark_root_directory }}/data/secrets/haproxy/csrs/{{ item.host }}.csr \
@@ -38,19 +59,25 @@
       -out {{ allspark_root_directory }}/data/ssl/certificates/{{ item.host }}.crt \
       -days 1825 \
       -sha256
-  when: not crt_file.stat.exists or priv is changed or csr is changed
   register: cert
+  when: not remote_cert_file.stat.exists and (not crt_file.stat.exists or priv is changed or csr is changed)
 
-- name: "{{ item.name }} Combined certificate status"
+- name: "{{ item.name }} - Combined certificate status"
   stat: path="{{ allspark_root_directory}}/data/secrets/haproxy/certificates/{{ item.host }}.combined.pem"
   changed_when: false
   register: combined_file
 
-- name: "{{ item.name }} Combined certificate"
+- name: "{{ item.name }} - Generate combined certificate"
   shell: >-
     cat
     {{ allspark_root_directory }}/data/secrets/haproxy/private_keys/{{ item.host }}.key
     {{ allspark_root_directory}}/data/ssl/certificates/{{ item.host }}.crt
     {{ allspark_root_directory }}/data/ssl/certificates/ca.crt
-    > {{ allspark_root_directory}}/data/secrets/haproxy/certificates/{{ item.host }}.combined.pem
-  when: not combined_file.stat.exists or priv is changed or cert is changed
+    > {{ allspark_root_directory}}/data/secrets/haproxy/certificates/generated/{{ item.host }}.combined.pem
+  when: not remote_cert_file.stat.exists and (not combined_file.stat.exists or priv is changed or cert is changed)
+
+- name: "{{ item.name }} - Certificate symlink"
+  file:
+    src: "{%- if remote_cert_file.stat.exists -%}imported{%- else -%}generated{%- endif -%}/{{ item.host }}.combined.pem"
+    dest: "{{ allspark_root_directory}}/data/secrets/haproxy/certificates/{{ item.host }}.combined.pem"
+    state: link
