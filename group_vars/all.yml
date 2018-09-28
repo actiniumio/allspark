@@ -16,14 +16,25 @@ allspark_monitoring:
   enabled: true
 
 allspark_haproxy:
-  selfsigned:
+  ssl:
     enabled: false
-    # For example country: FR
-    country: XX
-    state: state
-    location: city
-    organisation: myteam
-    organizational_unit: myorganizational_unit
+    # If SSL is enabled, you can set the directory from which
+    # endpoints certificates will be imported with this variable.
+    # Files in the local directory should be PEM formatted certificates
+    # named like their endpoint (e.g: `infra.allspark.localhost.pem`)
+    certificates_directory:
+    # If selfsigned certificates are enabled, any certificate missing
+    # for an endpoint will be created on the fly.
+    # If selfsigned is disabled and a certificate is missing, the
+    # install won't be able to complete successfully.
+    selfsigned:
+      enabled: false
+      # For example country: FR
+      country: XX
+      state: state
+      location: city
+      organisation: myteam
+      organizational_unit: myorganizational_unit
 
 
 allspark_rocketchat:

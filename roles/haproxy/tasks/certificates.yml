@@ -1,3 +1,14 @@
+- name: "HAProxy - Stat local user provided certificate directory"
+  stat: path="{{ allspark_haproxy.ssl.certificates_directory }}"
+  delegate_to: localhost
+  register: local_cert_dir
+
+# Check that certificates_directory is a valid directory on the control machine.
+- name: "HAProxy - Preflight checks"
+  fail: msg="allspark_haproxy.ssl.certificates_directory is invalid and self signed certificates are disabled."
+  when: (local_cert_dir.stat.isdir is not defined or not local_cert_dir.stat.isdir) and not allspark_haproxy.ssl.selfsigned.enabled
+
+
 - name: "HAProxy - Certificates directory"
   file:
     state: directory
@@ -6,6 +17,8 @@
     - "{{ allspark_root_directory }}/data/secrets/haproxy/private_keys/"
     - "{{ allspark_root_directory }}/data/secrets/haproxy/csrs/"
     - "{{ allspark_root_directory }}/data/secrets/haproxy/certificates/"
+    - "{{ allspark_root_directory }}/data/secrets/haproxy/certificates/generated"
+    - "{{ allspark_root_directory }}/data/secrets/haproxy/certificates/imported"
     - "{{ allspark_root_directory }}/data/ssl/certificates"
 
 - name: "HAProxy - Certificate authority private key [RSA 2048]"
@@ -14,6 +27,7 @@
     type: RSA
     size: 2048
   register: priv
+  when: allspark_haproxy.ssl.selfsigned.enabled
 
 - name: "HAProxy - Certificate authority CSR"
   openssl_csr:
@@ -25,11 +39,13 @@
     - digitalSignature
     - keyCertSign
   register: csr
+  when: allspark_haproxy.ssl.selfsigned.enabled
 
 - name: "HAProxy - Certificate status"
   stat: path="{{ allspark_root_directory}}/data/ssl/certificates/ca.crt"
   changed_when: false
   register: crt_file
+  when: allspark_haproxy.ssl.selfsigned.enabled
 
 - name: "HAProxy - Certificate"
   openssl_certificate:
@@ -37,8 +53,8 @@
     privatekey_path: "{{ allspark_root_directory }}/data/secrets/haproxy/private_keys/ca.key"
     csr_path: "{{ allspark_root_directory }}/data/secrets/haproxy/csrs/ca.csr"
     provider: selfsigned
-  when: not crt_file.stat.exists or priv is changed or csr is changed
   register: cert
+  when: allspark_haproxy.ssl.selfsigned.enabled and not crt_file.stat.exists or priv is changed or csr is changed
 
 - name: "Endpoints certificates"
   include_tasks: "selfsign_domain.yml"
