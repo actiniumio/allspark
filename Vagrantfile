@@ -7,8 +7,10 @@ allspark_boxes = {
   "fedoraserver28" => "actinium/fedoraserver28",
   "fedoraatomic28" => "actinium/fedoraatomic28",
 }
+ecosystem_boxes = {
 
-
+  "keycloack" => ""
+}
 
 Vagrant.configure("2") do |config|
   $x=0
@@ -16,9 +18,9 @@ Vagrant.configure("2") do |config|
 
     config.vm.define "#{allspark_box}", primary: true do |b|
 
-      config.vm.network "forwarded_port", guest: 8080, host: 8080 + $x, host_ip: "127.0.0.1"
-      config.vm.network "forwarded_port", guest: 8443, host: 8443 + $x, host_ip: "127.0.0.1"
-      config.vm.network "forwarded_port", guest: 2223, host: 2223 + $x, host_ip: "127.0.0.1"
+      config.vm.network "forwarded_port", guest: 8080 + $x, host: 8080 + $x, host_ip: "127.0.0.1"
+      config.vm.network "forwarded_port", guest: 8443 + $x, host: 8443 + $x, host_ip: "127.0.0.1"
+      config.vm.network "forwarded_port", guest: 2223 + $x, host: 2223 + $x, host_ip: "127.0.0.1"
 
       b.vm.box = allspark_boxes[allspark_box]
       b.vm.provider "virtualbox" do |vb|
@@ -28,8 +30,10 @@ Vagrant.configure("2") do |config|
         ansible.verbose = "vvv"
         ansible.playbook = "install.yml"
         ansible.extra_vars = {
-          haproxy_http_port:  8080,
-          haproxy_https_port: 8443
+          haproxy_http_port:  8080 + $x,
+          haproxy_https_port: 8443 + $x,
+          gitlab_ssh_port: 2223 + $x
+
         }
       end
     end
