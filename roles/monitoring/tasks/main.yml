@@ -107,7 +107,7 @@
 - name: Setup Prometheus metrics collector
   docker_container:
     name: prometheus_alertmanager
-    image: "{{ downloads.prometheus_alertmanager.image }}:{{ downloads.prometheus_alertmanager3.tag }}"
+    image: "{{ downloads.prometheus_alertmanager.image }}:{{ downloads.prometheus_alertmanager.tag }}"
     state: "{{ allspark_monitoring.enabled and 'started' or 'absent' }}"
     volumes:
       - "{{ allspark_root_directory }}/config/prometheus/alertmanager.yml:/etc/alertmanager/alertmanager.yml"
