@@ -10,18 +10,7 @@ global:
       monitor: 'allspark'
 
 # Load and evaluate rules in this file every 'evaluation_interval' seconds.
-rule_files:
-  # - 'alert.rules'
-  # - "first.rules"
-  # - "second.rules"
-
-# alert
-# alerting:
-#   alertmanagers:
-#   - scheme: http
-#     static_configs:
-#     - targets:
-#       - "alertmanager:9093"
+rule_files: []
 
 # A scrape configuration containing exactly one endpoint to scrape:
 # Here it's Prometheus itself.
@@ -43,3 +32,10 @@ scrape_configs:
   - job_name: 'node-exporter'
     static_configs:
       - targets: ['node-exporter:9100']
+
+alerting:
+  alertmanagers:
+    - scheme: http
+      static_configs:
+        - targets:
+          - "alert_manager:9093"

@@ -93,6 +93,32 @@
     labels:
       "heritage": "allspark"
 
+- name: Generate Alertmanager configuration
+  template:
+    src: templates/alertmanager.yml.j2
+    dest: "{{ allspark_root_directory }}/config/prometheus/alertmanager.yml"
+  when: allspark_monitoring.enabled
+
+- name: Create Alertmanager volume
+  docker_volume:
+    name: "allspark_alertmanager_data"
+  when: allspark_monitoring.enabled
+
+- name: Setup Prometheus metrics collector
+  docker_container:
+    name: prometheus_alertmanager
+    image: "{{ downloads.prometheus_alertmanager.image }}:{{ downloads.prometheus_alertmanager3.tag }}"
+    state: "{{ allspark_monitoring.enabled and 'started' or 'absent' }}"
+    volumes:
+      - "{{ allspark_root_directory }}/config/prometheus/alertmanager.yml:/etc/alertmanager/alertmanager.yml"
+      - allspark_alertmanager_data:/alertmanager
+    purge_networks: true
+    networks:
+      - name: allspark
+    restart_policy: always
+    labels:
+      "heritage": "allspark"
+
 # TODO: Skip this when grafana is disabled
 # Not possible to just skip the task as some files are needed for the container
 # setup task (even with state: absent)
