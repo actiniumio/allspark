@@ -179,6 +179,7 @@
       POSTGRES_DB: "mattermostdb"
       POSTGRES_INITDB_ARGS: "--data-checksums"
     purge_networks: true
+    user: postgres
     networks:
       - name: allspark_mattermost_database
     volumes:

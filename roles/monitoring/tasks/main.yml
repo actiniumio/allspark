@@ -28,6 +28,7 @@
     image: "{{ downloads.haproxy_exporter.image }}:{{ downloads.haproxy_exporter.tag }}"
     state: "{{ allspark_monitoring.enabled and 'started' or 'absent' }}"
     purge_networks: true
+    user: "1000:1000"
     command: --haproxy.scrape-uri="http://haproxy:9000/metrics?stats;csv"
     networks:
       - name: allspark
