@@ -71,12 +71,12 @@ jobs:
           command: ansible-playbook -i hosts install.yml -vvv
       - run:
           name: Launch Docker Security Bench
-          command: docker run -it --net host --pid host --userns host --cap-add audit_control \
-            -e DOCKER_CONTENT_TRUST=$DOCKER_CONTENT_TRUST \
-            -v /var/lib:/var/lib \
-            -v /var/run/docker.sock:/var/run/docker.sock \
-            -v /usr/lib/systemd:/usr/lib/systemd \
-            -v /etc:/etc --label docker_bench_security \
+          command: docker run -it --net host --pid host --userns host --cap-add audit_control
+            -e DOCKER_CONTENT_TRUST=$DOCKER_CONTENT_TRUST
+            -v /var/lib:/var/lib
+            -v /var/run/docker.sock:/var/run/docker.sock
+            -v /etc/init.d:/etc/init.d
+            -v /etc:/etc --label docker_bench_security
             docker/docker-bench-security
       - run:
           name: See your container's install
