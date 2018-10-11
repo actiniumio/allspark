@@ -50,7 +50,6 @@ jobs:
     machine: true
     working_directory: ~/repo
     steps:
-      - checkout
       - add_ssh_keys:
           fingerprints:
             - "3e:42:39:0c:71:79:a2:20:13:68:de:3a:a7:0d:a9:b5"
@@ -61,14 +60,29 @@ jobs:
           name: Add Ansible PPA
           command: sudo apt-add-repository ppa:ansible/ansible
       - run:
+          name: Clone the repository
+          command: git clone https://github.com/actiniumio/allspark.git .
+      - run:
           name: Update Cache
           command: sudo apt-get -y update
+      - run:
+          name: Move to your current BRANCH
+          command: git checkout $CIRCLE_BRANCH
       - run:
           name: Install Ansible latest version
           command: sudo apt-get install -y ansible
       - run:
           name: Run Allspark Playbook with verbose mode
           command: ansible-playbook -i hosts install.yml -vvv
+      - run:
+          name: Launch Docker Security Bench
+          command: docker run -it --net host --pid host --userns host --cap-add audit_control \
+            -e DOCKER_CONTENT_TRUST=$DOCKER_CONTENT_TRUST \
+            -v /var/lib:/var/lib \
+            -v /var/run/docker.sock:/var/run/docker.sock \
+            -v /usr/lib/systemd:/usr/lib/systemd \
+            -v /etc:/etc --label docker_bench_security \
+            docker/docker-bench-security
       - run:
           name: See your container's install
           command: docker ps -a

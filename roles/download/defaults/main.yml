@@ -13,8 +13,7 @@ portainer_image: portainer/portainer
 openldap_image: osixia/openldap
 phpldapadmin_image: osixia/phpldapadmin
 gitlab_runner_image: gitlab/gitlab-runner
-jenkins_image: actiniumio/jenkins
-jenkins_slave_image: jenkins/jnlp-slave
+jenkins_image: jenkins/jenkins
 centos_image: centos
 volumerize_image: blacklabelops/volumerize
 mattermost_image: mattermost/mattermost-prod-app
@@ -38,7 +37,6 @@ openldap_tag: 1.2.0
 phpldapadmin_tag: 0.7.1
 gitlab_runner_tag: latest
 jenkins_tag: latest
-jenkins_slave_tag: latest
 centos_tag: 7
 volumerize_tag: latest
 mattermost_tag: latest
@@ -70,10 +68,6 @@ downloads:
     enabled: "{{ allspark_jenkins.enabled }}"
     image: "{{ jenkins_image }}"
     tag: "{{ jenkins_tag }}"
-  jenkins_slave:
-    enabled: "{{ allspark_jenkins.enabled }}"
-    image: "{{ jenkins_slave_image }}"
-    tag: "{{ jenkins_slave_tag }}"
   node_exporter:
     enabled: "{{ allspark_monitoring.enabled }}"
     image: "{{ node_exporter_image }}"
