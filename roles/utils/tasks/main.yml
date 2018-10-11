@@ -133,10 +133,6 @@
     state: directory
     path: "{{ allspark_root_directory }}/config/mattermost"
 
-- name: MatterMost database network
-  docker_network:
-    name: allspark_mattermost_database
-
 - name: Generate Mattermost config
   template:
     src: templates/config.json.j2
@@ -180,7 +176,7 @@
       POSTGRES_INITDB_ARGS: "--data-checksums"
     purge_networks: true
     networks:
-      - name: allspark_mattermost_database
+      - name: allspark
     volumes:
       - "allspark_mattermost_postgres_data:/var/lib/postgresql/data"
     restart_policy: always
@@ -205,7 +201,6 @@
     purge_networks: true
     networks:
       - name: allspark
-      - name: allspark_mattermost_database
     labels:
       "heritage": "allspark"
     restart_policy: always
