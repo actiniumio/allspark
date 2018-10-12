@@ -68,7 +68,7 @@ jobs:
           command: sudo apt-get install -y ansible
       - run:
           name: Run Allspark Playbook with verbose mode
-          command: ansible-playbook -i hosts install.yml -vvv
+          command: ansible-playbook -i .circleci/hosts install.yml -vvv
       - run:
           name: See your container's install
           command: docker ps -a
