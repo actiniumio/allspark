@@ -19,6 +19,7 @@ centos_image: centos
 volumerize_image: blacklabelops/volumerize
 mattermost_image: mattermost/mattermost-prod-app
 mattermost_postgresql_image: postgres
+prometheus_alertmanager_image: prom/alertmanager
 
 # Tags
 gitlab_tag: latest
@@ -43,6 +44,7 @@ centos_tag: 7
 volumerize_tag: latest
 mattermost_tag: latest
 mattermost_postgresql_tag: latest
+prometheus_alertmanager_tag: latest
 
 # Downloads
 downloads:
@@ -126,6 +128,10 @@ downloads:
     enabled: "{{ allspark_mattermost.enabled }}"
     image: "{{ mattermost_postgresql_image }}"
     tag: "{{ mattermost_postgresql_tag }}"
+  prometheus_alertmanager:
+    enabled: "{{ allspark_monitoring.enabled }}"
+    image: "{{ prometheus_alertmanager_image }}"
+    tag: "{{ prometheus_alertmanager_tag }}"
 
 # Misc
 
