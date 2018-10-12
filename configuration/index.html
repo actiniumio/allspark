@@ -296,6 +296,13 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#hosts" title="Hosts" class="md-nav__link">
+    Hosts
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#group_vars" title="Group_vars" class="md-nav__link">
     Group_vars
   </a>
@@ -402,6 +409,13 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#hosts" title="Hosts" class="md-nav__link">
+    Hosts
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#group_vars" title="Group_vars" class="md-nav__link">
     Group_vars
   </a>
@@ -448,6 +462,16 @@
                 
                 
                 <h1 id="configuration">Configuration</h1>
+<h2 id="hosts">Hosts</h2>
+<ul>
+<li>Edit the file <code class="codehilite">hosts</code> to fit with
+your needs, like:</li>
+<li>Define the ansible_user (In this example we use a account named allspark)</li>
+</ul>
+<div class="codehilite"><pre><span></span><span class="p p-Indicator">[</span><span class="nv">all</span><span class="p p-Indicator">]</span>
+<span class="l l-Scalar l-Scalar-Plain">localhost ansible_connection=ssh ansible_user=allspark</span>
+</pre></div>
+
 <h2 id="group_vars">Group_vars</h2>
 <ul>
 <li>Edit the file <code class="codehilite">group_vars/all.yml</code> to fit with

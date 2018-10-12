@@ -298,6 +298,19 @@
   
 </li>
         
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#generate-copy-ssh-key" title="Generate &amp; Copy SSH Key" class="md-nav__link">
+    Generate &amp; Copy SSH Key
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
           <li class="md-nav__item">
   <a href="#on-the-control-machine" title="On the control machine" class="md-nav__link">
     On the control machine
@@ -463,6 +476,19 @@
   
 </li>
         
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#generate-copy-ssh-key" title="Generate &amp; Copy SSH Key" class="md-nav__link">
+    Generate &amp; Copy SSH Key
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
           <li class="md-nav__item">
   <a href="#on-the-control-machine" title="On the control machine" class="md-nav__link">
     On the control machine
@@ -546,7 +572,10 @@
 <h3 id="on-the-allspark-machine">On the allspark machine</h3>
 <ul>
 <li>Docker ( tested with version 18.06.0 )</li>
+<li>Copy your ssh key to the remote server (with an empty passphrase)</li>
 </ul>
+<h2 id="generate-copy-ssh-key">Generate &amp; Copy SSH Key</h2>
+<p>See the <a href="https://www.ssh.com/ssh/copy-id">here</a></p>
 <h3 id="on-the-control-machine">On the control machine</h3>
 <ul>
 <li>Ansible ( tested with version 2.5.5 )</li>
@@ -585,7 +614,7 @@ at <code class="codehilite">ingress.YOUR_ROOT_DOMAIN</code>.</p>
 <input name="__tabs_1" type="radio" id="__tab_1_1" />
 <label for="__tab_1_1">hosts</label>
 <div class="superfences-content"><div class="codehilite"><pre><span></span><span class="k">[all]</span>
-<span class="na">localhost ansible_connection</span><span class="o">=</span><span class="s">local</span>
+<span class="na">localhost ansible_connection</span><span class="o">=</span><span class="s">ssh ansible_user=allspark</span>
 </pre></div></div>
 </div>
 <p>it will generate a <code class="codehilite"><span class="na">.tar.gz</span></code> file at <code class="codehilite">allspark_release_destination</code>.
@@ -606,7 +635,7 @@ ansible-playbook -i hosts install.yml
 <input name="__tabs_2" type="radio" id="__tab_2_1" />
 <label for="__tab_2_1">hosts</label>
 <div class="superfences-content"><div class="codehilite"><pre><span></span><span class="k">[all]</span>
-<span class="na">localhost ansible_connection</span><span class="o">=</span><span class="s">local</span>
+<span class="na">localhost ansible_connection</span><span class="o">=</span><span class="s">ssh ansible_user=allspark</span>
 </pre></div></div>
 </div>
 <div class="admonition warning">
