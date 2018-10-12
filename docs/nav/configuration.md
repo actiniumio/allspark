@@ -3,11 +3,11 @@
 ## Hosts
 - Edit the file `hosts` to fit with
 your needs, like:
-  - Define the ansible_user (In this example we use a account named admin_devops)
+  - Define the ansible_user (In this example we use a account named allspark)
 
 ```yaml
 [all]
-localhost ansible_connection=ssh ansible_user=admin_devops
+localhost ansible_connection=ssh ansible_user=allspark
 ```
 
 ## Group_vars

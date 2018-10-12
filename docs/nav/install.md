@@ -47,7 +47,7 @@ ansible-playbook -i hosts release.yml
 
 ```ini tab="hosts"
 [all]
-localhost ansible_connection=ssh ansible_user=admin_devops
+localhost ansible_connection=ssh ansible_user=allspark
 ```
 
 it will generate a `.tar.gz` file at `allspark_release_destination`.
@@ -67,7 +67,7 @@ ansible-playbook -i hosts install.yml
 
 ```ini tab="hosts"
 [all]
-localhost ansible_connection=ssh ansible_user=admin_devops
+localhost ansible_connection=ssh ansible_user=allspark
 ```
 
 !!! warning

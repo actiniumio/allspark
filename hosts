@@ -1,2 +1,2 @@
 [all]
-localhost ansible_connection=ssh ansible_user=admin_devops
+localhost ansible_connection=ssh ansible_user=allspark
