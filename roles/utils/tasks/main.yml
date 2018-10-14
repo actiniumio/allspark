@@ -132,6 +132,8 @@
   file:
     state: directory
     path: "{{ allspark_root_directory }}/config/mattermost"
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
 
 - name: MatterMost database network
   docker_network:
