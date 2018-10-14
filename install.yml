@@ -2,9 +2,9 @@
   hosts: all
   roles:
     - system
+    - local_datas
     - pip
     - { role: download, tags: [ "download", "prepare" ] }
-    - local_datas
     - network
     - haproxy
     - ldap

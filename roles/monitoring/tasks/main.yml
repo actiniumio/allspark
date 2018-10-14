@@ -61,6 +61,8 @@
   file:
     state: directory
     path: "{{ allspark_root_directory }}/config/prometheus"
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
   when: allspark_monitoring.enabled
 
 - name: Generate Prometheus configuration
