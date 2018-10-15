@@ -1,1 +1,6 @@
 allspark_restore_dry_run: false
+allspark_backup_create_archive: true
+
+# See https://docs.ansible.com/ansible/2.5/modules/archive_module.html
+# for a list of available formats
+allspark_backup_format: tar.gz

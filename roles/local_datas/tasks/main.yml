@@ -17,6 +17,7 @@
   with_items:
     - config
     - data
+  become: yes
 
 - name: allspark secrets directory creation
   file:
