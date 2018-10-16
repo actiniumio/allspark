@@ -1,6 +1,11 @@
 global:
   resolve_timeout: 5m
 
-route: {}
-receivers: []
+route:
+  receiver: default
+
+receivers:
+  - name: default
+    email_configs:
+      from: alerts@{{ allspark_root_domain }}
 inhibit_rules: []
