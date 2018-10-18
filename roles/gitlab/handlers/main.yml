@@ -3,11 +3,11 @@
   command: |
     docker exec -it gitlab bash -c '
     set -xe;
-    cat | gitlab-rails console production << EOF
+    echo "
       user = User.where(id: 1).first;
-      user.password = File.read("/run/secrets/admin_password.txt").strip;
-      user.password_confirmation = File.read("/run/secrets/admin_password.txt").strip;
-    EOF
+      user.password = File.read(\"/run/secrets/admin_password.txt\").strip;
+      user.password_confirmation = File.read(\"/run/secrets/admin_password.txt\").strip;
+    " | gitlab-rails console production
     '
 - name: reconfigure_gitlab
   command: >-
