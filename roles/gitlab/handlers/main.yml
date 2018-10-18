@@ -2,24 +2,24 @@
 handlers:
   - name: change_gitlab_root_password
     command: |
-docker exec -it gitlab bash -c '
-set -xe;
-cat | gitlab-rails console production << EOF
-  user = User.where(id: 1).first;
-  user.password = File.read("/run/secrets/admin_password.txt").strip;
-  user.password_confirmation = File.read("/run/secrets/admin_password.txt").strip;
-EOF
-'
+      docker exec -it gitlab bash -c '
+      set -xe;
+      cat | gitlab-rails console production << EOF
+        user = User.where(id: 1).first;
+        user.password = File.read("/run/secrets/admin_password.txt").strip;
+        user.password_confirmation = File.read("/run/secrets/admin_password.txt").strip;
+      EOF
+      '
   - name: reconfigure_gitlab
     command: >-
-docker exec -it gitlab bash -c '
-set -xe;
-gitlab-ctl reconfigure;
-'
+      docker exec -it gitlab bash -c '
+      set -xe;
+      gitlab-ctl reconfigure;
+      '
 
   - name: migrate_gitlab
     command: >-
-docker exec -it gitlab bash -c '
-set -xe;
-gitlab-rake db:migrate;
-'
+      docker exec -it gitlab bash -c '
+      set -xe;
+      gitlab-rake db:migrate;
+      '
