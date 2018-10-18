@@ -43,7 +43,7 @@
       - name: allspark
     labels:
       "heritage": "allspark"
-    notify:
-      - reconfigure_gitlab
-      - migrate_gitlab
-      - change_gitlab_root_password
+  notify:
+    - reconfigure_gitlab
+    - migrate_gitlab
+    - change_gitlab_root_password
