@@ -35,7 +35,7 @@
 - name: Load Gitlab root password hash
   command: "cat {{ allspark_root_directory }}/data/gitlab/root_password_hash.txt"
   changed_when: false
-  when: gitlab_root_password_file.stat.exists
+  when: allspark_gitlab.enabled and gitlab_root_password_file.stat.exists
   register: gitlab_root_password_hash
 
 - name: Gitlab root password hash
