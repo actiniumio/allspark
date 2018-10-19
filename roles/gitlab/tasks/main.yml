@@ -9,6 +9,43 @@
   notify:
     - reconfigure_gitlab
 
+- name: Gitlab data directory
+  file:
+    state: directory
+    path: "{{ allspark_root_directory }}/data/gitlab"
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    mode: 0740
+  become: yes
+
+- name: Test Gitlab root password hash
+  stat: path="{{ allspark_root_directory }}/data/gitlab/root_password_hash.txt"
+  register: gitlab_root_password_file
+  when: allspark_gitlab.enabled
+  changed_when: false
+
+- name: Test root password hash
+  stat:
+    path: "{{ allspark_root_directory }}/data/secrets/admin_password.txt"
+    checksum_algorithm: sha256
+  register: root_password_sha256
+  when: allspark_gitlab.enabled
+  changed_when: false
+
+- name: Load Gitlab root password hash
+  command: "cat {{ allspark_root_directory }}/data/gitlab/root_password_hash.txt"
+  changed_when: false
+  when: gitlab_root_password_file.stat.exists
+  register: gitlab_root_password_hash
+
+- name: Gitlab root password hash
+  shell: "echo {{ root_password_sha256.stat.checksum }} > {{ allspark_root_directory }}/data/gitlab/root_password_hash.txt"
+  when: allspark_gitlab.enabled and (not gitlab_root_password_file.stat.exists or root_password_sha256.stat.checksum != gitlab_root_password_hash.stdout)
+  changed_when: true
+  notify:
+    - restart_gitlab
+    - change_gitlab_root_password
+
 - name: Generate Gitlab config
   template:
     src: templates/gitlab.rb.j2
