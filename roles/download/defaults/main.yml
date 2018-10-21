@@ -14,7 +14,7 @@ openldap_image: osixia/openldap
 phpldapadmin_image: osixia/phpldapadmin
 gitlab_runner_image: gitlab/gitlab-runner
 jenkins_image: actiniumio/jenkins
-jenkins_slave_image: jenkins/jnlp-slave
+jenkins_slave_image: actiniumio/jnlp-slave
 centos_image: centos
 volumerize_image: blacklabelops/volumerize
 mattermost_image: mattermost/mattermost-prod-app

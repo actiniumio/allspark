@@ -32,6 +32,11 @@
     - jenkins_plugins
     - allspark_jenkins_slave
 
+- name: Register docker group UID
+  getent:
+    database: group
+    key: docker
+
 - name: Jenkins master
   docker_container:
     name: jenkins
@@ -42,12 +47,14 @@
       - name: allspark
     env:
       JAVA_OPTS: "-Djenkins.install.runSetupWizard=false"
-    volumes:
-      - allspark_jenkins_home:/var/jenkins_home
-      - "{{ allspark_root_directory }}/config/jenkins/master.groovy.d:/usr/share/jenkins/ref/init.groovy.d"
-      - "allspark_jenkins_plugins:/usr/share/jenkins/ref/plugins"
-      - "{{ allspark_root_directory}}/data/secrets/admin_password.txt:/run/secrets/jenkins-pass"
-      - "{{ allspark_root_directory}}/data/secrets/admin_user.txt:/run/secrets/jenkins-user"
+    volumes: >-
+      [
+        "allspark_jenkins_home:/var/jenkins_home",
+        "{{ allspark_root_directory }}/config/jenkins/master.groovy.d:/usr/share/jenkins/ref/init.groovy.d",
+        "allspark_jenkins_plugins:/usr/share/jenkins/ref/plugins",
+        "{{ allspark_root_directory}}/data/secrets/admin_password.txt:/run/secrets/jenkins-pass",
+        "{{ allspark_root_directory}}/data/secrets/admin_user.txt:/run/secrets/jenkins-user"
+      ]
     labels:
       "heritage": "allspark"
     restart_policy: always
@@ -57,6 +64,7 @@
     name: jenkins_slave
     image: "{{ downloads.jenkins_slave.image }}:{{ downloads.jenkins_slave.tag }}"
     state: "{{ allspark_jenkins.enabled and 'started' or 'absent'}}"
+    user: "jenkins:{{ getent_group.docker[1] }}"
     purge_networks: true
     networks:
       - name: allspark
@@ -67,9 +75,14 @@
       JENKINS_AGENT_WORKDIR: /home/jenkins/agent
       JENKINS_USER: "{{ allspark_jenkins_user.stdout }}"
       JENKINS_PASSWORD: "{{ allspark_jenkins_password.stdout }}"
-    volumes:
-      - allspark_jenkins_slave:/home/jenkins/agent
-      - "{{ allspark_root_directory }}/config/jenkins/slave_init.sh:/slave_init.sh"
+    volumes: >-
+      [
+        {% if jenkins_docker_socket_mount %}
+        "/var/run/docker.sock:/var/run/docker.sock",
+        {% endif %}
+        "allspark_jenkins_slave:/home/jenkins/agent",
+        "{{ allspark_root_directory }}/config/jenkins/slave_init.sh:/slave_init.sh"
+      ]
     command: /slave_init.sh
     entrypoint: /bin/sh
     labels:
