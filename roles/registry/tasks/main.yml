@@ -1,0 +1,22 @@
+- name: Create Prometheus volume
+  docker_volume:
+    name: "allspark_registry"
+  when: allspark_docker_registry.enabled
+
+- name: Docker registry
+  docker_container:
+    name: registry
+    image: "{{ downloads.registry.image }}:{{ downloads.registry.tag }}"
+    state: "{{ allspark_docker_registry.enabled and 'started' or 'absent'}}"
+    purge_networks: true
+    networks:
+      - name: allspark
+    env:
+      REGISTRY_HTTP_ADDR: "0.0.0.0:5000"
+    published_ports:
+      - 127.0.0.1:5000:5000
+    volumes:
+      - allspark_registry:/var/lib/registry
+    labels:
+      "heritage": "allspark"
+    restart_policy: always

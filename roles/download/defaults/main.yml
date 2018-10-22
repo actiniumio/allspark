@@ -20,6 +20,7 @@ volumerize_image: blacklabelops/volumerize
 mattermost_image: mattermost/mattermost-prod-app
 mattermost_postgresql_image: postgres
 prometheus_alertmanager_image: prom/alertmanager
+registry_image: library/registry
 
 # Tags
 gitlab_tag: latest
@@ -45,6 +46,7 @@ volumerize_tag: latest
 mattermost_tag: latest
 mattermost_postgresql_tag: latest
 prometheus_alertmanager_tag: latest
+registry_tag: latest
 
 # Downloads
 downloads:
@@ -132,6 +134,10 @@ downloads:
     enabled: "{{ allspark_monitoring.enabled }}"
     image: "{{ prometheus_alertmanager_image }}"
     tag: "{{ prometheus_alertmanager_tag }}"
+  registry:
+    enabled: "{{ allspark_docker_registry.enabled }}"
+    image: "{{ registry_image }}"
+    tag: "{{ registry_tag }}"
 
 # Misc
 
