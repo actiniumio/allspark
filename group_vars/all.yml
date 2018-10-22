@@ -62,6 +62,9 @@ allspark_mattermost:
 allspark_portainer:
   enabled: true
 
+allspark_docker_registry:
+  enabled: false
+
 ### Release configuration
 # Should not be here
 allspark_release_tmp_directory: /opt/allspark/release
