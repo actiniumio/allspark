@@ -1,4 +1,4 @@
-- name: Create Prometheus volume
+- name: Docker registry volume
   docker_volume:
     name: "allspark_registry"
   when: allspark_docker_registry.enabled
