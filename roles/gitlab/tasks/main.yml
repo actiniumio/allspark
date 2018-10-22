@@ -3,7 +3,7 @@
   register: gitlab_runner_registration_token_file
   when: allspark_gitlab.enabled
 
-- name: Generate runner token
+- name: Runner token
   shell: "echo $(< /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c26) > {{ allspark_root_directory}}/data/secrets/gitlab_runner_registration_token.txt"
   when: allspark_gitlab.enabled and not gitlab_runner_registration_token_file.stat.exists
   notify:
@@ -46,15 +46,21 @@
     - restart_gitlab
     - change_gitlab_root_password
 
-- name: Generate Gitlab config
+- name: Gitlab config directory
+  file:
+    state: directory
+    path: "{{ allspark_root_directory }}/config/gitlab"
+  when: allspark_gitlab.enabled
+
+- name: Gitlab config
   template:
     src: templates/gitlab.rb.j2
-    dest: "{{ allspark_root_directory }}/config/gitlab.rb"
+    dest: "{{ allspark_root_directory }}/config/gitlab/gitlab.rb"
   when: allspark_gitlab.enabled
   notify:
     - reconfigure_gitlab
 
-- name: Create Gitlab volumes
+- name: Gitlab volumes
   docker_volume:
     name: "allspark_{{ item }}"
   with_items:
@@ -62,7 +68,11 @@
     - gitlab_config
   when: allspark_gitlab.enabled
 
-- name: Setup Gitlab
+- name: Runner network
+  docker_network:
+    name: allspark_gitlab_runner
+
+- name: Gitlab
   docker_container:
     name: gitlab
     state: "{{ allspark_gitlab.enabled and 'started' or 'absent'}}"
@@ -78,8 +88,12 @@
     purge_networks: true
     networks:
       - name: allspark
+      - name: allspark_gitlab_runner
     labels:
       "heritage": "allspark"
   notify:
     - reconfigure_gitlab
     - migrate_gitlab
+
+- include_tasks: runner.yml
+  when: allspark_gitlab.enabled and allspark_gitlab.with_runner
