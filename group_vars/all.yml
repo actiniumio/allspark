@@ -6,6 +6,9 @@ allspark_root_directory: /opt/allspark
 allspark_backup_directory: /opt/allspark/backup
 allspark_admin_user: admin
 
+allspark_smtp_address: mail.mysmtp.com
+allspark_smtp_port: 25
+
 allspark_docker_version: "18.06.0"
 
 allspark_ldap:
