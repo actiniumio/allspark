@@ -81,7 +81,7 @@
     volumes:
       - "allspark_gitlab_data:/var/opt/gitlab"
       - "allspark_gitlab_config:/etc/gitlab"
-      - "{{ allspark_root_directory }}/config/gitlab.rb:/etc/gitlab/gitlab.rb"
+      - "{{ allspark_root_directory }}/config/gitlab/gitlab.rb:/etc/gitlab/gitlab.rb"
       - "{{ allspark_root_directory }}/data/secrets/gitlab_runner_registration_token.txt:/run/secrets/gitlab_runner_registration_token.txt"
       - "{{ allspark_root_directory }}/data/secrets/admin_password.txt:/run/secrets/admin_password.txt"
     restart_policy: always
