@@ -4,7 +4,7 @@
 
 - name: reconfigure_gitlab
   command: >-
-    docker exec -it gitlab bash -c '
+    docker exec gitlab bash -c '
     set -xe;
     gitlab-ctl reconfigure;
     '
@@ -15,7 +15,7 @@
 
 - name: migrate_gitlab
   command: >-
-    docker exec -it gitlab bash -c '
+    docker exec gitlab bash -c '
     set -xe;
     gitlab-rake db:migrate;
     '
@@ -26,7 +26,7 @@
 
 - name: change_gitlab_root_password
   command: |
-    docker exec -it gitlab bash -c '
+    docker exec gitlab bash -c '
     set -xe;
     echo "
       user = User.where(id: 1).first;
