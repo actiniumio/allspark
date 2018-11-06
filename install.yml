@@ -6,6 +6,7 @@
     - pip
     - { role: download, tags: [ "download", "prepare" ] }
     - network
+    - smtp
     - haproxy
     - registry
     - ldap
