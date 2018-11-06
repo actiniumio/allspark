@@ -23,7 +23,7 @@ allspark_smtp:
     enabled: false
     user: "your username"
     password: "your password"
-    region: eu-west-paris
+    region: eu-west-3
     port: 2587
   gmail:
     enabled: true
