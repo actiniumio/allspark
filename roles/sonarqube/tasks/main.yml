@@ -5,6 +5,21 @@
     name: "allspark_{{ item }}"
   with_items:
     - sonarqube_data
+    - sonarqube_conf
+  when: allspark_sonarqube.enabled
+
+- name: Configuration directory
+  file:
+    state: directory
+    path: "{{ allspark_root_directory }}/config/sonarqube"
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    mode: 0740
+
+- name: Generate Sonarqube configuration
+  template:
+    src: templates/sonar.properties.j2
+    dest: "{{ allspark_root_directory }}/config/sonarqube/sonar.properties"
   when: allspark_sonarqube.enabled
 
 - name: Starting Sonarqube master
@@ -16,7 +31,9 @@
     networks:
       - name: allspark
     volumes:
-      - allspark_sonarqube_data:/opt/sonarqube/data
+      - "allspark_sonarqube_data:/opt/sonarqube/data"
+      - "allspark_sonarqube_conf:/opt/sonarqube/conf"
+      - "{{ allspark_root_directory }}/config/sonarque/sonar.properties:/opt/sonarqube/conf/sonar.properties"
     labels:
       "heritage": "allspark"
     restart_policy: always
