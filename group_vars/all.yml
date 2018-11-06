@@ -6,14 +6,29 @@ allspark_root_directory: /opt/allspark
 allspark_backup_directory: /opt/allspark/backup
 allspark_admin_user: admin
 
-allspark_smtp_address: mail.mysmtp.com
-allspark_smtp_port: 25
-
 allspark_docker_version: "18.06.0"
 
 allspark_ldap:
   enabled: false
   organization: Allspark
+
+allspark_smtp:
+  enabled: true
+  generic:
+    enabled: false
+    address: "mail.mysmtp.com"
+    smarthost_port: 25
+    aliases: "*.mysmtp.com"
+  amazon_ses:
+    enabled: false
+    user: "your username"
+    password: "your password"
+    region: eu-west-paris
+    port: 2587
+  gmail:
+    enabled: true
+    user: "guiadco4geekhomeinside"
+    password: "M@&ly$05072011"
 
 allspark_monitoring:
   enabled: true

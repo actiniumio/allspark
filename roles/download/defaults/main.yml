@@ -21,6 +21,7 @@ mattermost_image: mattermost/mattermost-prod-app
 mattermost_postgresql_image: postgres
 prometheus_alertmanager_image: prom/alertmanager
 registry_image: library/registry
+smtp_image: namshi/smtp
 
 # Tags
 gitlab_tag: latest
@@ -47,6 +48,7 @@ mattermost_tag: latest
 mattermost_postgresql_tag: latest
 prometheus_alertmanager_tag: latest
 registry_tag: latest
+smtp_tag: latest
 
 # Downloads
 downloads:
@@ -138,6 +140,10 @@ downloads:
     enabled: "{{ allspark_docker_registry.enabled }}"
     image: "{{ registry_image }}"
     tag: "{{ registry_tag }}"
+  smtp:
+    enabled: "{{ allspark_smtp.enabled }}"
+    image: "{{ smtp_image }}"
+    tag: "{{ smtp_tag }}"
 
 # Misc
 
