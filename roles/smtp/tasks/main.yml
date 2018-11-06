@@ -4,6 +4,7 @@
   docker_container:
     name: smtp_relay
     image: "{{ downloads.smtp.image }}:{{ downloads.smtp.tag }}"
+    state: "{{ allspark_smtp.enabled and 'started' or 'absent'}}"
     purge_networks: true
     env: >-
       {
@@ -26,4 +27,3 @@
     labels:
       "heritage": "allspark"
     restart_policy: always
-  when: allspark_smtp.enabled
