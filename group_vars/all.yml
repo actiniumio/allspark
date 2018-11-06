@@ -27,8 +27,8 @@ allspark_smtp:
     port: 2587
   gmail:
     enabled: true
-    user: "guiadco4geekhomeinside"
-    password: "M@&ly$05072011"
+    user: "your username"
+    password: "your password"
 
 allspark_monitoring:
   enabled: true
