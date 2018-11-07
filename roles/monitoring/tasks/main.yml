@@ -133,7 +133,7 @@
     - grafana_conf
   when: allspark_monitoring.enabled
 
-- name: Create Grafa config folder
+- name: Create Grafana config folder
   file:
     state: directory
     path: "{{ allspark_root_directory }}/config/grafana"
@@ -144,12 +144,12 @@
 - name: Send grafana config
   copy:
     src: files/grafana
-    dest: "{{ allspark_root_directory }}/config/grafana/"
+    dest: "{{ allspark_root_directory }}/config/"
 
 - name: Generate Grafana Custom configuration
   template:
-    src: templates/custom.ini.j2
-    dest: "{{ allspark_root_directory }}/config/grafana/custom.ini"
+    src: templates/grafana.ini.j2
+    dest: "{{ allspark_root_directory }}/config/grafana/grafana.ini"
   when: allspark_monitoring.enabled
 
 - name: Ensuring grafana init script is executable
@@ -166,7 +166,7 @@
       - allspark_grafana_conf:/usr/share/grafana/conf
       - "{{ allspark_root_directory }}/config/grafana/provisioning/:/etc/grafana/provisioning/"
       - "{{ allspark_root_directory }}/data/secrets/admin_password.txt:/run/secrets/grafana_admin_password.txt"
-      - "{{ allspark_root_directory }}/config/grafana/custom.ini:/usr/share/grafana/conf/custom.ini"
+      - "{{ allspark_root_directory }}/config/grafana/grafana.ini:/etc/grafana/grafana.ini"
       - "{{ allspark_root_directory }}/config/grafana/init.sh:/etc/grafana/allspark_init.sh"
     env_file: "{{ allspark_root_directory }}/config/grafana/config.monitoring"
     entrypoint: /etc/grafana/allspark_init.sh
