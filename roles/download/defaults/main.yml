@@ -9,6 +9,7 @@ prometheus_image: prom/prometheus
 cadvisor_image: google/cadvisor
 node_exporter_image: prom/node-exporter
 sonarqube_image: sonarqube
+sonarqube_postgresql_image: postgres
 portainer_image: portainer/portainer
 openldap_image: osixia/openldap
 phpldapadmin_image: osixia/phpldapadmin
@@ -36,6 +37,7 @@ prometheus_tag: v2.1.0
 cadvisor_tag: latest
 node_exporter_tag: latest
 sonarqube_tag: latest
+sonarqube_postgresql_tag: latest
 portainer_tag: latest
 openldap_tag: 1.2.0
 phpldapadmin_tag: 0.7.1
@@ -112,6 +114,10 @@ downloads:
     enabled: "{{ allspark_sonarqube.enabled }}"
     image: "{{ sonarqube_image }}"
     tag: "{{ sonarqube_tag }}"
+  sonarqube_postgresql:
+    enabled: "{{ allspark_sonarqube.enabled }}"
+    image: "{{ sonarqube_postgresql_image }}"
+    tag: "{{ sonarqube_postgresql_tag }}"
   haproxy:
     enabled: true
     image: "{{ haproxy_image }}"

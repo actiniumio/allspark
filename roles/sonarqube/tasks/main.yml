@@ -1,11 +1,16 @@
 ---
 
+- name: MatterMost database network
+  docker_network:
+    name: allspark_sonarqube_database
+
 - name: Creating Sonarqube volume
   docker_volume:
     name: "allspark_{{ item }}"
   with_items:
     - sonarqube_data
     - sonarqube_conf
+    - sonarqube_postgres_data
   when: allspark_sonarqube.enabled
 
 - name: Configuration directory
@@ -15,6 +20,23 @@
     owner: "{{ ansible_user }}"
     group: "{{ ansible_user }}"
     mode: 0740
+
+- name: Test admin Sonarqube db password existence
+  stat: path="{{ allspark_root_directory}}/data/secrets/admin_password_sonarqubedb.txt"
+  register: admin_password_sonarqube_file
+
+- name: Generate random admin Sonarqube db password
+  shell: "echo -n $(< /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c26) > {{ allspark_root_directory}}/data/secrets/admin_password_sonarqubedb.txt"
+  when: not admin_password_sonarqube_file.stat.exists
+  tags:
+  - skip_ansible_lint
+
+- name: Register Sonarqube admin password
+  shell: "cat {{ allspark_root_directory}}/data/secrets/admin_password_mattermostdb.txt"
+  register: allspark_admin_password_sonarqubedb
+  changed_when: false
+  tags:
+  - skip_ansible_lint
 
 - name: Generate Sonarqube configuration
   template:
@@ -30,10 +52,35 @@
     purge_networks: true
     networks:
       - name: allspark
+      - name: allspark_sonarqube_database
+    env:
+      SONARQUBE_JDBC_USERNAME: "postgres"
+      SONARQUBE_JDBC_PASSWORD: "{{ allspark_admin_password_sonarqubedb.stdout }}"
+      SONARQUBE_JDBC_URL: "jdbc:postgresql://sonarqube_database/sonarqubedb"
     volumes:
       - "allspark_sonarqube_data:/opt/sonarqube/data"
       - "allspark_sonarqube_conf:/opt/sonarqube/conf"
-      - "{{ allspark_root_directory }}/config/sonarque/sonar.properties:/opt/sonarqube/conf/sonar.properties"
+      - "{{ allspark_root_directory }}/config/sonarqube/sonar.properties:/opt/sonarqube/conf/sonar.properties"
     labels:
       "heritage": "allspark"
     restart_policy: always
+
+- name: Setup PostgreSQL for Sonarqube
+  docker_container:
+    name: sonarqube_database
+    image: "{{ downloads.sonarqube_postgresql.image }}:{{ downloads.sonarqube_postgresql.tag }}"
+    state: "{{ allspark_sonarqube.enabled and 'started' or 'absent'}}"
+    env:
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "{{ allspark_admin_password_sonarqubedb.stdout }}"
+      POSTGRES_DB: "sonarqubedb"
+      POSTGRES_INITDB_ARGS: "--data-checksums"
+    purge_networks: true
+    user: postgres
+    networks:
+      - name: allspark_sonarqube_database
+    volumes:
+      - "allspark_sonarqube_postgres_data:/var/lib/postgresql/data"
+    restart_policy: always
+    labels:
+      "heritage": "allspark"
