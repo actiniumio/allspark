@@ -7,5 +7,6 @@ route:
 receivers:
   - name: default
     email_configs:
+      smarthost: 'smtp_relay:25'
       from: alerts@{{ allspark_root_domain }}
 inhibit_rules: []
