@@ -10,6 +10,12 @@
     src: files/
     dest: "{{ allspark_root_directory }}/config/jenkins/"
 
+- name: Generate Jenkins configuration
+  template:
+    src: templates/configure-email-notification.groovy.j2
+    dest: "{{ allspark_root_directory }}/config/jenkins/configure-email-notification.groovy"
+  when: allspark_jenkins.enabled
+
 - name: Register admin user
   shell: "cat {{ allspark_root_directory}}/data/secrets/admin_user.txt"
   register: allspark_jenkins_user
@@ -50,6 +56,7 @@
     volumes: >-
       [
         "allspark_jenkins_home:/var/jenkins_home",
+        "{{ allspark_root_directory }}/config/jenkins/configure-email-notification.groovy:/usr/share/jenkins/ref/init.groovy.d/configure-email-notification.groovy",
         "{{ allspark_root_directory }}/config/jenkins/master.groovy.d:/usr/share/jenkins/ref/init.groovy.d",
         "allspark_jenkins_plugins:/usr/share/jenkins/ref/plugins",
         "{{ allspark_root_directory}}/data/secrets/admin_password.txt:/run/secrets/jenkins-pass",
