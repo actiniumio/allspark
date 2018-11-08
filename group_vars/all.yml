@@ -53,14 +53,14 @@ allspark_jenkins:
 allspark_sonarqube:
   enabled: false
 
-allspark_backup:
-  image: blacklabelops/volumerize
-
 allspark_mattermost:
   enabled: true
 
 allspark_portainer:
   enabled: true
+
+allspark_docker_registry:
+  enabled: false
 
 ### Release configuration
 # Should not be here

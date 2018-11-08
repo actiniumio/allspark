@@ -1,0 +1,39 @@
+- name: Register runner token
+  shell: "cat {{ allspark_root_directory}}/data/secrets/gitlab_runner_registration_token.txt"
+  register: gitlab_runner_token
+  changed_when: false
+  tags:
+  - skip_ansible_lint
+  when: allspark_gitlab.with_runner
+
+- name: Gitlab runner volume
+  docker_volume:
+    name: allspark_gitlab_runner
+
+- name: Runner boot script
+  copy:
+    src: ./files/start_runner.sh
+    dest: "{{ allspark_root_directory }}/config/gitlab/start_runner.sh"
+
+- name: Setup Gitlab Runner
+  docker_container:
+    name: gitlab_runner
+    state: "{{ allspark_gitlab.enabled and allspark_gitlab.with_runner and 'started' or 'absent'}}"
+    image: "{{ downloads.gitlab_runner.image }}:{{ downloads.gitlab_runner.tag }}"
+    hostname: "gitlab_runner.{{ allspark_root_domain }}"
+    volumes:
+      - "allspark_gitlab_runner:/etc/gitlab-runner"
+      - "/var/run/docker.sock:/var/run/docker.sock"
+      - "{{ allspark_root_directory }}/data/secrets/gitlab_runner_registration_token.txt:/run/secrets/gitlab_runner_registration_token.txt"
+      - "{{ allspark_root_directory }}/config/gitlab/start_runner.sh:/start_runner.sh"
+    env:
+      REGISTRATION_TOKEN: "{{ gitlab_runner_token.stdout }}"
+      DEFAULT_RUNNER_IMAGE: "{{ centos_image }}:{{ centos_tag }}"
+    command: /start_runner.sh
+    entrypoint: /bin/sh
+    restart_policy: always
+    purge_networks: true
+    networks:
+      - name: allspark_gitlab_runner
+    labels:
+      "heritage": "allspark"

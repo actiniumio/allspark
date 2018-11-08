@@ -3,17 +3,64 @@
   register: gitlab_runner_registration_token_file
   when: allspark_gitlab.enabled
 
-- name: Generate runner token
+- name: Runner token
   shell: "echo $(< /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c26) > {{ allspark_root_directory}}/data/secrets/gitlab_runner_registration_token.txt"
   when: allspark_gitlab.enabled and not gitlab_runner_registration_token_file.stat.exists
+  notify:
+    - reconfigure_gitlab
 
-- name: Generate Gitlab config
-  template:
-    src: templates/gitlab.rb.j2
-    dest: "{{ allspark_root_directory }}/config/gitlab.rb"
+- name: Gitlab data directory
+  file:
+    state: directory
+    path: "{{ allspark_root_directory }}/data/gitlab"
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    mode: 0740
+  become: yes
+
+- name: Test Gitlab root password hash
+  stat: path="{{ allspark_root_directory }}/data/gitlab/root_password_hash.txt"
+  register: gitlab_root_password_file
+  when: allspark_gitlab.enabled
+  changed_when: false
+
+- name: Test root password hash
+  stat:
+    path: "{{ allspark_root_directory }}/data/secrets/admin_password.txt"
+    checksum_algorithm: sha256
+  register: root_password_sha256
+  when: allspark_gitlab.enabled
+  changed_when: false
+
+- name: Load Gitlab root password hash
+  command: "cat {{ allspark_root_directory }}/data/gitlab/root_password_hash.txt"
+  changed_when: false
+  when: allspark_gitlab.enabled and gitlab_root_password_file.stat.exists
+  register: gitlab_root_password_hash
+
+- name: Gitlab root password hash
+  shell: "echo {{ root_password_sha256.stat.checksum }} > {{ allspark_root_directory }}/data/gitlab/root_password_hash.txt"
+  when: allspark_gitlab.enabled and (not gitlab_root_password_file.stat.exists or root_password_sha256.stat.checksum != gitlab_root_password_hash.stdout)
+  changed_when: true
+  notify:
+    - restart_gitlab
+    - change_gitlab_root_password
+
+- name: Gitlab config directory
+  file:
+    state: directory
+    path: "{{ allspark_root_directory }}/config/gitlab"
   when: allspark_gitlab.enabled
 
-- name: Create Gitlab volumes
+- name: Gitlab config
+  template:
+    src: templates/gitlab.rb.j2
+    dest: "{{ allspark_root_directory }}/config/gitlab/gitlab.rb"
+  when: allspark_gitlab.enabled
+  notify:
+    - reconfigure_gitlab
+
+- name: Gitlab volumes
   docker_volume:
     name: "allspark_{{ item }}"
   with_items:
@@ -21,7 +68,11 @@
     - gitlab_config
   when: allspark_gitlab.enabled
 
-- name: Setup Gitlab
+- name: Runner network
+  docker_network:
+    name: allspark_gitlab_runner
+
+- name: Gitlab
   docker_container:
     name: gitlab
     state: "{{ allspark_gitlab.enabled and 'started' or 'absent'}}"
@@ -30,12 +81,19 @@
     volumes:
       - "allspark_gitlab_data:/var/opt/gitlab"
       - "allspark_gitlab_config:/etc/gitlab"
-      - "{{ allspark_root_directory }}/config/gitlab.rb:/etc/gitlab/gitlab.rb"
+      - "{{ allspark_root_directory }}/config/gitlab/gitlab.rb:/etc/gitlab/gitlab.rb"
       - "{{ allspark_root_directory }}/data/secrets/gitlab_runner_registration_token.txt:/run/secrets/gitlab_runner_registration_token.txt"
       - "{{ allspark_root_directory }}/data/secrets/admin_password.txt:/run/secrets/admin_password.txt"
     restart_policy: always
     purge_networks: true
     networks:
       - name: allspark
+      - name: allspark_gitlab_runner
     labels:
       "heritage": "allspark"
+  notify:
+    - reconfigure_gitlab
+    - migrate_gitlab
+
+- include_tasks: runner.yml
+  when: allspark_gitlab.enabled and allspark_gitlab.with_runner
