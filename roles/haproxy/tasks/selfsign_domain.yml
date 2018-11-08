@@ -50,7 +50,7 @@
   when: not remote_cert_file.stat.exists
 
 - name: "{{ item.name }} - Certificate"
-  shell: >-
+  command: >-
     openssl x509 -req \
       -in {{ allspark_root_directory }}/data/secrets/haproxy/csrs/{{ item.host }}.csr \
       -CA {{ allspark_root_directory }}/data/ssl/certificates/ca.crt \

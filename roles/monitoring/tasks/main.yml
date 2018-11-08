@@ -28,6 +28,7 @@
     image: "{{ downloads.haproxy_exporter.image }}:{{ downloads.haproxy_exporter.tag }}"
     state: "{{ allspark_monitoring.enabled and 'started' or 'absent' }}"
     purge_networks: true
+    user: "1000:1000"
     command: --haproxy.scrape-uri="http://haproxy:9000/metrics?stats;csv"
     networks:
       - name: allspark
@@ -60,6 +61,8 @@
   file:
     state: directory
     path: "{{ allspark_root_directory }}/config/prometheus"
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
   when: allspark_monitoring.enabled
 
 - name: Generate Prometheus configuration
@@ -86,6 +89,32 @@
       - '--storage.tsdb.path=/prometheus'
       - '--web.console.libraries=/usr/share/prometheus/console_libraries'
       - '--web.console.templates=/usr/share/prometheus/consoles'
+    purge_networks: true
+    networks:
+      - name: allspark
+    restart_policy: always
+    labels:
+      "heritage": "allspark"
+
+- name: Generate Alertmanager configuration
+  template:
+    src: templates/alertmanager.yml.j2
+    dest: "{{ allspark_root_directory }}/config/prometheus/alertmanager.yml"
+  when: allspark_monitoring.enabled
+
+- name: Create Alertmanager volume
+  docker_volume:
+    name: "allspark_alertmanager_data"
+  when: allspark_monitoring.enabled
+
+- name: Setup Prometheus metrics collector
+  docker_container:
+    name: prometheus_alertmanager
+    image: "{{ downloads.prometheus_alertmanager.image }}:{{ downloads.prometheus_alertmanager.tag }}"
+    state: "{{ allspark_monitoring.enabled and 'started' or 'absent' }}"
+    volumes:
+      - "{{ allspark_root_directory }}/config/prometheus/alertmanager.yml:/etc/alertmanager/alertmanager.yml"
+      - allspark_alertmanager_data:/alertmanager
     purge_networks: true
     networks:
       - name: allspark

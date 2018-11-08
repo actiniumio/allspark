@@ -2,6 +2,12 @@
   docker_volume:
     name: "allspark_portainer_data"
 
+- name: Generate portainer password
+  copy:
+    src: "{{ allspark_root_directory }}/data/secrets/admin_password.txt"
+    dest: "{{ allspark_root_directory }}/data/secrets/portainer_password.txt"
+    remote_src: yes
+
 - name: Setup Portainer as infra service
   docker_container:
     name: portainer
@@ -9,7 +15,7 @@
     state: "{{ allspark_portainer.enabled and 'started' or 'absent'}}"
     volumes:
       - "allspark_portainer_data:/data"
-      - "{{ allspark_root_directory }}/data/secrets/admin_password.txt:/data/secrets/portainer-pass"
+      - "{{ allspark_root_directory }}/data/secrets/portainer_password.txt:/data/secrets/portainer-pass"
       - "/var/run/docker.sock:/var/run/docker.sock"
     command: "--admin-password-file /data/secrets/portainer-pass --no-analytics --host unix:///var/run/docker.sock"
     purge_networks: true
@@ -132,6 +138,12 @@
   file:
     state: directory
     path: "{{ allspark_root_directory }}/config/mattermost"
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+
+- name: MatterMost database network
+  docker_network:
+    name: allspark_mattermost_database
 
 - name: Generate Mattermost config
   template:
@@ -175,8 +187,9 @@
       POSTGRES_DB: "mattermostdb"
       POSTGRES_INITDB_ARGS: "--data-checksums"
     purge_networks: true
+    user: postgres
     networks:
-      - name: allspark
+      - name: allspark_mattermost_database
     volumes:
       - "allspark_mattermost_postgres_data:/var/lib/postgresql/data"
     restart_policy: always
@@ -201,6 +214,7 @@
     purge_networks: true
     networks:
       - name: allspark
+      - name: allspark_mattermost_database
     labels:
       "heritage": "allspark"
     restart_policy: always
