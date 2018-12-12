@@ -1,6 +1,6 @@
 ---
 
-- name: MatterMost database network
+- name: Sonarqube database network
   docker_network:
     name: allspark_sonarqube_database
 
@@ -32,7 +32,7 @@
   - skip_ansible_lint
 
 - name: Register Sonarqube admin password
-  shell: "cat {{ allspark_root_directory}}/data/secrets/admin_password_mattermostdb.txt"
+  shell: "cat {{ allspark_root_directory}}/data/secrets/admin_password_sonarqubedb.txt"
   register: allspark_admin_password_sonarqubedb
   changed_when: false
   tags:
@@ -43,6 +43,26 @@
     src: templates/sonar.properties.j2
     dest: "{{ allspark_root_directory }}/config/sonarqube/sonar.properties"
   when: allspark_sonarqube.enabled
+
+- name: Setup PostgreSQL for Sonarqube
+  docker_container:
+    name: sonarqube_database
+    image: "{{ downloads.sonarqube_postgresql.image }}:{{ downloads.sonarqube_postgresql.tag }}"
+    state: "{{ allspark_sonarqube.enabled and 'started' or 'absent'}}"
+    env:
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "{{ allspark_admin_password_sonarqubedb.stdout }}"
+      POSTGRES_DB: "sonarqubedb"
+      POSTGRES_INITDB_ARGS: "--data-checksums"
+    purge_networks: true
+    user: postgres
+    networks:
+      - name: allspark_sonarqube_database
+    volumes:
+      - "allspark_sonarqube_postgres_data:/var/lib/postgresql/data"
+    restart_policy: always
+    labels:
+      "heritage": "allspark"
 
 - name: Starting Sonarqube master
   docker_container:
@@ -64,23 +84,3 @@
     labels:
       "heritage": "allspark"
     restart_policy: always
-
-- name: Setup PostgreSQL for Sonarqube
-  docker_container:
-    name: sonarqube_database
-    image: "{{ downloads.sonarqube_postgresql.image }}:{{ downloads.sonarqube_postgresql.tag }}"
-    state: "{{ allspark_sonarqube.enabled and 'started' or 'absent'}}"
-    env:
-      POSTGRES_USER: "postgres"
-      POSTGRES_PASSWORD: "{{ allspark_admin_password_sonarqubedb.stdout }}"
-      POSTGRES_DB: "sonarqubedb"
-      POSTGRES_INITDB_ARGS: "--data-checksums"
-    purge_networks: true
-    user: postgres
-    networks:
-      - name: allspark_sonarqube_database
-    volumes:
-      - "allspark_sonarqube_postgres_data:/var/lib/postgresql/data"
-    restart_policy: always
-    labels:
-      "heritage": "allspark"
