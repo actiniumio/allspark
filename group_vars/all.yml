@@ -5,7 +5,7 @@ allspark_root_domain: allspark.localhost
 allspark_root_directory: /opt/allspark
 allspark_backup_directory: /opt/allspark/backup
 allspark_admin_user: admin
-
+allspark_default_receiver: bot.actinium@gmail.com
 allspark_docker_version: "18.06.0"
 
 allspark_ldap:
